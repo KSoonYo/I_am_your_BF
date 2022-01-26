@@ -12,7 +12,8 @@ public interface UserService {
 	User getUserByUserId(String userId);
 	
 	/** start **/
-	boolean DuplicateUserId(String userId);
+	boolean chkDplByUserId(String userId);
+	boolean chkDplByUserEmail(String userEmail);
 	void updateUserInfo(String userId,UserInfoFetchReq userInfo);
 	void deleteUserInfo(String userId);
 	

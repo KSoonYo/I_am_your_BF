@@ -18,24 +18,13 @@ public class UserRes{
 	@ApiModelProperty(name="User ID")
 	String userId;
 	
-	/** 내 프로필 명세 start **/
-	@ApiModelProperty(name="User department")
-	String department;
-	@ApiModelProperty(name="User position")
-	String position;
-	@ApiModelProperty(name="User name")
-	String name;
-	/** end **/
+
 	
 	public static UserRes of(User user) {
 		UserRes res = new UserRes();
 		res.setUserId(user.getUserId());
 		
-		/** 내 프로필 명세 start **/
-		res.setDepartment(user.getDepartment());
-		res.setName(user.getName());
-		res.setPosition(user.getPosition());
-		/** end **/
+
 		
 		
 		return res;
