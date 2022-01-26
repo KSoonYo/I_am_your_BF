@@ -26,7 +26,10 @@ public class SsafyUserDetails implements UserDetails {
     		super();
     		this.user = user;
     }
-    
+
+	public void setUser(User user){
+		this.user = user;
+	}
     public User getUser() {
     		return this.user;
     }

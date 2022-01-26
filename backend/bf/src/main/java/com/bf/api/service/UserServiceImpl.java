@@ -52,7 +52,7 @@ public class UserServiceImpl implements UserService {
 	
 	/** start **/ 
 	@Override
-	public boolean DupliecateUserId(String userId) {
+	public boolean DuplicateUserId(String userId) {
 		// 디비에 유저 정보 조회 (userId 를 통한 조회).
 		if(userRepositorySupport.findUserByUserId(userId).isPresent()) // 유저 정보가 존재하면
 			return true;

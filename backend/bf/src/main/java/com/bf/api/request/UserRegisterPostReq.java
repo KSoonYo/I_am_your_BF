@@ -7,6 +7,10 @@ import lombok.Setter;
 
 /**
  * 유저 회원가입 API ([POST] /api/v1/users) 요청에 필요한 리퀘스트 바디 정의.
+ *
+ * @Author : mo_ah
+ *  :
+ *
  */
 @Getter
 @Setter
@@ -18,13 +22,6 @@ public class UserRegisterPostReq {
 	String password;
 	
 	
-	/** 바꾼부분 start **/
-	@ApiModelProperty(name="유저 department", example="department")
-	String department;
-	@ApiModelProperty(name="유저 position", example="position")
-	String position;
-	@ApiModelProperty(name="유저 name", example="name")
-	String name;
-	/** 바꾼부분 **/
+
 	
 }

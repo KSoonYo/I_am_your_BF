@@ -12,7 +12,7 @@ public interface UserService {
 	User getUserByUserId(String userId);
 	
 	/** start **/
-	boolean DupliecateUserId(String userId);
+	boolean DuplicateUserId(String userId);
 	void updateUserInfo(String userId,UserInfoFetchReq userInfo);
 	void deleteUserInfo(String userId);
 	

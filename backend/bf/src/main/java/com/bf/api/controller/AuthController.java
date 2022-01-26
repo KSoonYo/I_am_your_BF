@@ -24,27 +24,43 @@ import io.swagger.annotations.ApiResponse;
 
 /**
  * 인증 관련 API 요청 처리를 위한 컨트롤러 정의.
+ *
+ * @author mo_ah
+ * 	: update url(l : 34)
+ * 	: autowired filed injection -> constructor injection(l : 43)
  */
+
 @Api(value = "인증 API", tags = {"Auth."})
 @RestController
-@RequestMapping("/api/v1/auth")
+@RequestMapping("/api/auth")
 public class AuthController {
-	@Autowired
-	UserService userService;
+//	@Autowired
+//	UserService userService;
 	
+//	@Autowired
+//	PasswordEncoder passwordEncoder;
+
+	private final UserService userService;
+	private final PasswordEncoder passwordEncoder;
+
 	@Autowired
-	PasswordEncoder passwordEncoder;
+	public AuthController(UserService userService,PasswordEncoder passwordEncoder) {
+		this.userService = userService;
+		this.passwordEncoder = passwordEncoder;
+	}
+
+
 	
 	@PostMapping("/login")
 	@ApiOperation(value = "로그인", notes = "<strong>아이디와 패스워드</strong>를 통해 로그인 한다.")
     @ApiResponses({
         @ApiResponse(code = 200, message = "성공", response = UserLoginPostRes.class),
-        @ApiResponse(code = 401, message = "인증 실패", response = BaseResponseBody.class),
+        @ApiResponse(code = 401, message = "유효하지 않은 아이디/패스워드", response = BaseResponseBody.class),
         @ApiResponse(code = 404, message = "사용자 없음", response = BaseResponseBody.class),
         @ApiResponse(code = 500, message = "서버 오류", response = BaseResponseBody.class)
     })
 	public ResponseEntity<UserLoginPostRes> login(@RequestBody @ApiParam(value="로그인 정보", required = true) UserLoginPostReq loginInfo) {
-		String userId = loginInfo.getId();
+		String userId = loginInfo.getUserId();
 		String password = loginInfo.getPassword();
 
 		User user = userService.getUserByUserId(userId);
@@ -56,4 +72,8 @@ public class AuthController {
 		// 유효하지 않는 패스워드인 경우, 로그인 실패로 응답.
 		return ResponseEntity.status(401).body(UserLoginPostRes.of(401, "Invalid Password", null));
 	}
+
+
+	//로그아웃은 jwt+redis 필요하므로 나중에
+
 }
