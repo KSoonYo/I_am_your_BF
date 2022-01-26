@@ -15,7 +15,8 @@ public class FileHandler {
     ) throws Exception{
 
         // 반환을 할 파일 리스트
-        String fileurl = "111";
+        String fileurl = "";
+        String imageurl="";
 
         // 파일이 빈 것이 들어오면 빈 것을 반환
         if(multipartFile.isEmpty()){
@@ -30,7 +31,7 @@ public class FileHandler {
         String absolutePath = new File("").getAbsolutePath() + "\\";
 
         // 경로를 지정하고 그곳에다가 저장할 심산이다
-        String path = "images\\" + current_date;
+        String path = "images";
         File file = new File(path);
         // 저장할 위치의 디렉토리가 존지하지 않을 경우
         if(!file.exists()){
@@ -65,12 +66,12 @@ public class FileHandler {
                     }
                 }
                 
+                
                 // 각 이름은 겹치면 안되므로 나노 초까지 동원하여 지정
                 if(originalFileExtension!=null) {
-                	String new_file_name = Long.toString(System.nanoTime()) + originalFileExtension;
-                	System.out.println(new_file_name);
+                	String new_file_name = current_date+Long.toString(System.nanoTime()) + originalFileExtension;
                     fileurl=absolutePath + path + "\\" + new_file_name;
-                    System.out.println(fileurl);
+                    imageurl=new_file_name;
                  // 저장된 파일로 변경하여 이를 보여주기 위함+ 경로가 뭔가 잘못 되었다. 
                     file = new File(fileurl);
                     try {
@@ -81,6 +82,6 @@ public class FileHandler {
                    
                 }  
             }
-        return fileurl;
+        return imageurl;
     }
 }

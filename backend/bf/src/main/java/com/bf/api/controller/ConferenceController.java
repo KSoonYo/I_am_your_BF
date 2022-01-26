@@ -1,7 +1,11 @@
 package com.bf.api.controller;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.bf.api.request.ConferenceRegisterPostReq;
 import com.bf.api.request.UserRegisterPostReq;
+import com.bf.api.response.ConferenceRes;
 import com.bf.api.response.UserRes;
 import com.bf.api.service.ConferenceService;
 import com.bf.db.entity.Conference;
@@ -82,14 +88,36 @@ public class ConferenceController {
 	@ApiOperation(value = "방송중인 전체 회의 조회", notes = "현재 방송중인 상태의 모든 회의 리스트를 return 한다.") 
     @ApiResponses({
         @ApiResponse(code = 200, message = "성공"),
-        @ApiResponse(code = 401, message = "인증 실패"),
-        @ApiResponse(code = 404, message = "사용자 없음"),
         @ApiResponse(code = 500, message = "서버 오류")
     })
-	public ResponseEntity<Optional<List<Conference>>> getConferenceList() {
+	public ResponseEntity<List<ConferenceRes>> getConferenceList() {
 		
-		Optional<List<Conference>> confrences=conferenceService.getAllConference();
+		List<ConferenceRes> confrences= new ArrayList<ConferenceRes>();
+		
+		try {
+			confrences = conferenceService.getAllConference();
+			System.out.println(confrences.size());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}catch (NoSuchElementException e) {
+			ResponseEntity.status(401).body(confrences);
+		}
+		
 		return ResponseEntity.status(200).body(confrences);
+	}
+	
+	@GetMapping("/{id}")
+	@ApiOperation(value = "회의 상세 조회", notes = "해당하는 id의 회의의 상세정보를 가져온다") 
+    @ApiResponses({
+        @ApiResponse(code = 200, message = "성공"),
+        @ApiResponse(code = 500, message = "서버 오류")
+    })
+	public ResponseEntity<Optional<Conference>> getConferenceDetail(@PathVariable Long id) {
+		
+		Optional<Conference> confrence=conferenceService.getConferenceDetail(id);
+		
+		return ResponseEntity.status(200).body(confrence);
 	}
 	
 	

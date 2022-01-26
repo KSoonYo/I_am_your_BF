@@ -2,6 +2,8 @@ package com.bf.db.entity;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.AttributeOverride;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,6 +19,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
+@AttributeOverride(name = "id", column = @Column(name = "conferenceSerial"))
 public class Conference extends BaseEntity{
 	String title;
 	String description;
