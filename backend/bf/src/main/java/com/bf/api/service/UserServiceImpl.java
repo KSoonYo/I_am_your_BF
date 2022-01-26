@@ -85,7 +85,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void updateUserInfo(String userId,UserInfoFetchReq userInfo) {
+	public void updateUser(String userId,UserInfoFetchReq userInfo) {
 		User updateUser = userRepositorySupport.findUserByUserId(userId).get();
 
 		// if(updateUser == null) throw시겨주기 ! 공부필요
@@ -94,22 +94,19 @@ public class UserServiceImpl implements UserService {
 //		updateUser.setPosition(userInfo.getPosition());
 //		updateUser.setName(userInfo.getName());
 
+		updateUser.setUserName(userInfo.getUserName());
+		updateUser.setUserEmail(userInfo.getUserEmail());
+		updateUser.setDescription(userInfo.getUserDescription());
+		
 		userRepository.save(updateUser);
 
 	}
 
-	/**
-	 * user정보를 삭제한다
-	 * @param userId
-	 */
 	@Override
-	public void deleteUserInfo(String userId) {
-		// TODO Auto-generated method stub
+	public void deleteUser(String userId) {
 		User deleteUser = userRepositorySupport.findUserByUserId(userId).get();
-
 		userRepository.deleteById(deleteUser.getId());
 	}
-
 
 
 }

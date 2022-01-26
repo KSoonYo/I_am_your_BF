@@ -14,13 +14,11 @@ import lombok.Setter;
 public class UserInfoFetchReq {
 	
 	
-	/** 바꾼부분 start **/
-	@ApiModelProperty(name="유저 department", example="department")
-	String department;
-	@ApiModelProperty(name="유저 position", example="position")
-	String position;
-	@ApiModelProperty(name="유저 name", example="name")
-	String name;
-	/** 바꾼부분 **/
+
+	String userName;
+	String userEmail;
+	String userPhoto;
+	String userDescription;
+
 	
 }
