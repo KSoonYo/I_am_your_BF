@@ -41,6 +41,7 @@ public class UserServiceImpl implements UserService {
 		user.setCreateDate(currentDateTime);
 		user.setAssign("mo_ah");
 
+
 		return userRepository.save(user);
 	}
 
@@ -73,6 +74,14 @@ public class UserServiceImpl implements UserService {
 		else return false;
 
 
+	}
+
+	@Override
+	public void updatePassword(String userId,String password){
+		User updateUser = userRepositorySupport.findUserByUserId(userId).get();
+//		updateUser.setPassword(passwordEncoder.encode(password));
+		updateUser.setPassword(password);
+		userRepository.save(updateUser);
 	}
 
 	@Override

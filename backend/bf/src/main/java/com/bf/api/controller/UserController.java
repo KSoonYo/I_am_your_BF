@@ -1,9 +1,12 @@
 package com.bf.api.controller;
 
-import org.jboss.logging.Logger;
+
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,6 +32,8 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import springfox.documentation.annotations.ApiIgnore;
 
+import java.util.Random;
+import java.util.UUID;
 import java.util.regex.Pattern;
 
 /**
@@ -44,10 +49,16 @@ public class UserController {
 
     // autowired filed injection -> constructor injection
     private final UserService userService;
+
     @Autowired
     public UserController(UserService userService) {
         this.userService = userService;
     }
+
+    // 비밀번호 변경을 위한 javamailsender
+    @Autowired
+    private JavaMailSender sender;
+
 
     @PostMapping()
     @ApiOperation(value = "회원 가입", notes = "<strong>아이디와 패스워드</strong>를 통해 회원가입 한다.")
@@ -73,7 +84,7 @@ public class UserController {
             @ApiResponse(code = 401, message = "이미 존재하는 유저"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public ResponseEntity<? extends BaseResponseBody> chkDplIdAndEmail(@PathVariable String userId){
+    public ResponseEntity<? extends BaseResponseBody> chkDplIdAndEmail(@PathVariable String userId) {
 
         //Regular Expression
         String regx = "^(.+)@(.+)$";
@@ -81,11 +92,11 @@ public class UserController {
         Pattern pattern = Pattern.compile(regx);
         System.out.println(pattern.matcher(userId).matches());
 
-        if(pattern.matcher(userId).matches()) { // condition : email
+        if (pattern.matcher(userId).matches()) { // condition : email
             LOGGER.info("email");
             if (!userService.chkDplByUserEmail(userId)) //유저 정보가 존재하지 않으면
                 return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
-        }else{// condition : id
+        } else {// condition : id
             LOGGER.info("email");
             if (!userService.chkDplByUserId(userId)) //유저 정보가 존재하지 않으면\
                 return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
@@ -101,7 +112,7 @@ public class UserController {
             @ApiResponse(code = 404, message = "사용자 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public ResponseEntity<UserRes> getUserInfo( Authentication authentication) {
+    public ResponseEntity<UserRes> getUserInfo(Authentication authentication) {
         /**
          * 요청 헤더 액세스 토큰이 포함된 경우에만 실행되는 인증 처리이후, 리턴되는 인증 정보 객체(authentication) 통해서 요청한 유저 식별.
          * 액세스 토큰이 없이 요청하는 경우, 403 에러({"error": "Forbidden", "message": "Access Denied"}) 발생.
@@ -114,6 +125,48 @@ public class UserController {
         return ResponseEntity.status(200).body(UserRes.of(user));
     }
 
+
+    @GetMapping("/password")
+    @ApiOperation(value = "비밀번호 찾기", notes = "로그인한 회원의 비밀번호를 찾습니다")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "임시 비밀번호 발급 성공"),
+            @ApiResponse(code = 401, message = "임시 비밀번호 발급 실패"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<? extends BaseResponseBody> findPassword(Authentication authentication) {
+        SsafyUserDetails userDetails = (SsafyUserDetails) authentication.getDetails();
+        User user = userDetails.getUser();
+
+//        Random r = new Random();
+//        int num = r.nextInt(999999); // 랜덤난수설정
+        String uuid = UUID.randomUUID().toString();
+        String setfrom = "hello__world__@naver.com"; // naver
+        String tomail = user.getUserEmail();// 받는사람
+        String title = "[BF] 임시 비밀번호 이메일 입니다";
+        String content =
+                System.getProperty("line.separator") + "안녕하세요 회원님"
+                        + System.getProperty("line.separator") + "임시 비밀번호는 " + uuid + " 입니다."
+                        + System.getProperty("line.separator") + "로그인을 하시고 꼭 비밀번호를 바꿔주세요 :)";
+
+        try {
+            SimpleMailMessage simpleMessage = new SimpleMailMessage();
+            simpleMessage.setFrom(setfrom); // NAVER, DAUM, NATE일 경우 넣어줘야 함
+            simpleMessage.setTo(tomail);
+            simpleMessage.setSubject(title);
+            simpleMessage.setText(content);
+            sender.send(simpleMessage);
+
+            userService.updatePassword(user.getUserId(),uuid);
+            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+
+        }
+
+
+        return ResponseEntity.status(401).body(BaseResponseBody.of(401, "Failed to Find the Password"));
+    }
 
 //    /**
 //     * start

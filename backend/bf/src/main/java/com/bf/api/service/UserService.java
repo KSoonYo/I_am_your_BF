@@ -14,6 +14,7 @@ public interface UserService {
 	/** start **/
 	boolean chkDplByUserId(String userId);
 	boolean chkDplByUserEmail(String userEmail);
+	void updatePassword(String userId, String password);
 	void updateUserInfo(String userId,UserInfoFetchReq userInfo);
 	void deleteUserInfo(String userId);
 	

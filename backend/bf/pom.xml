@@ -164,6 +164,13 @@
 			<optional>true</optional>
 		</dependency>
 
+		<!-- 이메일 전송을 지원하는 스프링 모듈 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-mail</artifactId>
+		</dependency>
+
+
 
 
 	</dependencies>
