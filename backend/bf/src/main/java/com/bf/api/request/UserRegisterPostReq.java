@@ -24,8 +24,5 @@ public class UserRegisterPostReq {
 	String userName;
 	@ApiModelProperty(name="유저 Email", example="yourEmail@naver.com")
 	String userEmail;
-	
-	
 
-	
 }

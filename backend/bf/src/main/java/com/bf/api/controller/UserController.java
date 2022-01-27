@@ -1,6 +1,9 @@
 package com.bf.api.controller;
 
 
+import com.bf.api.request.UserUpdatePasswordPostReq;
+import com.bf.api.response.UserLoginPostRes;
+import com.bf.common.util.JwtTokenUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -49,10 +53,13 @@ public class UserController {
 
     // autowired filed injection -> constructor injection
     private final UserService userService;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService,PasswordEncoder passwordEncoder) {
+
         this.userService = userService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     // 비밀번호 변경을 위한 javamailsender
@@ -189,11 +196,37 @@ public class UserController {
 //        else return ResponseEntity.status(200).body(BaseResponseBody.of(200, "NotAlreadyExist"));
 //    }
 
+    @PostMapping("/password")
+    @ApiOperation(value = "회원 비밀번호 변경", notes = "임시비밀번호 입력을 통해 비밀번호 변경을 한다")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "회원가입 성공"),
+            @ApiResponse(code = 401, message = "회원가입 실패"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<? extends BaseResponseBody> updatePassword( Authentication authentication,
+            @RequestBody @ApiParam(value = "비밀번호 정보", required = true) UserUpdatePasswordPostReq passwordInfo) {
+
+        SsafyUserDetails userDetails = (SsafyUserDetails) authentication.getDetails();
+        User user =userDetails.getUser();
+
+
+
+        // 비밀번호 변경 요청한 유저로부터 입력된 패스워드 와 디비에 저장된 유저의 암호화된 패스워드가 같은지 확인.(유효한 패스워드인지 여부 확인)
+        if(passwordEncoder.matches(passwordInfo.getCurrentPassword(), user.getPassword())) {
+            // 유효한 패스워드가 맞는 경우
+            userService.updatePassword(user.getUserId(), passwordInfo.getNewPassword());
+            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
+        }
+        return ResponseEntity.status(401).body(BaseResponseBody.of(401, "Fail"));
+
+    }
+
+
     @PatchMapping("/{userId}")
     @ApiOperation(value = "유저 정보 수정", notes = "유저 정보를 수정 후 응답한다")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
-            @ApiResponse(code = 404, message = "실패"),
+            @ApiResponse(code = 401, message = "실패"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
     public ResponseEntity<? extends BaseResponseBody> updateUser(
@@ -220,5 +253,20 @@ public class UserController {
         userService.deleteUser(userId);
         return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
 
+    }
+
+
+
+    @PostMapping("/report/")
+    @ApiOperation(value = "회원 신고", notes = "userId에 따라 회원을 신고한다")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "존재하는 유저 아님"),
+            @ApiResponse(code = 409, message = "이미 존재하는 유저"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<? extends BaseResponseBody> report(
+            ) {
+
+        return null;
     }
 }
