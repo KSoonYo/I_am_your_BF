@@ -19,10 +19,11 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.bf.api.request.ConferenceFetchReq;
 import com.bf.api.request.ConferenceRegisterPostReq;
 import com.bf.api.response.ConferenceRes;
 import com.bf.common.auth.SsafyUserDetails;
-import com.bf.common.util.FileHandler;
+//import com.bf.common.util.FileHandler;
 import com.bf.db.entity.Conference;
 import com.bf.db.repository.ConferenceRepository;
 import com.bf.db.repository.ConferenceRepositorySupport;
@@ -36,15 +37,18 @@ public class ConferenceServiceImpl implements ConferenceService{
 	@Autowired
 	ConferenceRepositorySupport conferenceRepositorySupport;
 	
-	private FileHandler fileHandler= new FileHandler();
+//	private FileHandler fileHandler= new FileHandler();
 	
 
 	@Override
-	public Conference createConference(Conference conference,MultipartFile thumbnail) throws URISyntaxException,Exception {
+	public Conference createConference(ConferenceRegisterPostReq conferenceRegisterPostReq) {
 		// TODO Auto-generated method stub
-		
-		conference.setThumbnail(fileHandler.parseFileInfo(thumbnail));
-		
+		Conference conference=new Conference();
+		conference.setTitle(conferenceRegisterPostReq.getTitle());
+		conference.setDescription(conferenceRegisterPostReq.getDescription());
+		conference.setPassword(conferenceRegisterPostReq.getPassword());
+		conference.setUserId(conferenceRegisterPostReq.getUserId());
+		conference.setThumbnail(conferenceRegisterPostReq.getThumbnail());
 		conference.setIsActive(true);
 		conference.setStartTime(LocalDateTime.now());
 
@@ -53,7 +57,7 @@ public class ConferenceServiceImpl implements ConferenceService{
 
 
 	@Override
-	public List<ConferenceRes> getAllConference() throws IOException {
+	public List<ConferenceRes> getAllConference() {
 		// TODO Auto-generated method stub
 		List<ConferenceRes> conferencereses=new ArrayList<ConferenceRes>();
 		List<Conference> result=conferenceRepository.findByIsActive(true).get();
@@ -80,7 +84,7 @@ public class ConferenceServiceImpl implements ConferenceService{
 	}
 	
 	@Override
-	public List<ConferenceRes> getAllEndConference() throws IOException {
+	public List<ConferenceRes> getAllEndConference() {
 		// TODO Auto-generated method stub
 		List<ConferenceRes> conferencereses=new ArrayList<ConferenceRes>();
 		List<Conference> result=conferenceRepository.findByIsActive(false).get();
@@ -109,16 +113,16 @@ public class ConferenceServiceImpl implements ConferenceService{
 
 
 	@Override
-	public Conference updateConference(Conference conference, MultipartFile thumbnail)
-			throws URISyntaxException, Exception {
+	public Conference updateConference(ConferenceFetchReq conferenceFetchReq)
+			{
 		
-		Conference conference2= conferenceRepository.findById(conference.getId()).get();
-		conference2.setThumbnail(fileHandler.parseFileInfo(thumbnail));
-		
-		conference2.setDescription(conference.getDescription());
-		conference2.setTitle(conference.getTitle());
+		Conference conference= conferenceRepository.findById(conferenceFetchReq.getId()).get();
+		conference.setTitle(conferenceFetchReq.getTitle());
+		conference.setDescription(conferenceFetchReq.getDescription());
+		conference.setPassword(conferenceFetchReq.getPassword());
+		conference.setThumbnail(conferenceFetchReq.getThumbnail());
 		// TODO Auto-generated method stub
-		return conferenceRepository.save(conference2);
+		return conferenceRepository.save(conference);
 	}
 
 
