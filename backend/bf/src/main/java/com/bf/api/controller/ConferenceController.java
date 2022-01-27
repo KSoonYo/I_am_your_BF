@@ -13,8 +13,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.bf.api.request.ConferenceRegisterPostReq;
+import com.bf.api.request.UserInfoFetchReq;
 import com.bf.api.request.UserRegisterPostReq;
 import com.bf.api.response.ConferenceRes;
 import com.bf.api.response.UserRes;
@@ -79,7 +82,6 @@ public class ConferenceController {
 			e.printStackTrace();
 		}
 		
-		
 		return ResponseEntity.status(201).body(BaseResponseBody.of(201, "Success"));
 	}
 	
@@ -120,6 +122,72 @@ public class ConferenceController {
 		return ResponseEntity.status(200).body(confrence);
 	}
 	
+	
+	@GetMapping("/end")
+	@ApiOperation(value = "방송이 종료된 전체 회의 조회", notes = "방송이 끝난 상태의 모든 회의 리스트를 return 한다.") 
+    @ApiResponses({
+        @ApiResponse(code = 200, message = "성공"),
+        @ApiResponse(code = 500, message = "서버 오류")
+    })
+	public ResponseEntity<List<ConferenceRes>> getEndConferenceList() {
+		
+		List<ConferenceRes> confrences= new ArrayList<ConferenceRes>();
+		
+		try {
+			confrences = conferenceService.getAllEndConference();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}catch (NoSuchElementException e) {
+			
+		}
+		return ResponseEntity.status(200).body(confrences);
+	}
+	
+	@PutMapping()
+	@ApiOperation(value = "회의 수정", notes = "회의실의 정보를 수정한다.") 
+    @ApiResponses({
+        @ApiResponse(code = 200, message = "성공"),
+        @ApiResponse(code = 500, message = "서버 오류")
+     })
+	public ResponseEntity<? extends BaseResponseBody> updateConference(//로그인 권한 필요+ multi part일때 requestbody 쓰면 에러난다함
+			@RequestParam("id") @ApiParam(value="id", required = true)Long id,
+			@RequestParam("title") @ApiParam(value="title", required = true)String title,
+			@RequestParam("description") @ApiParam(value="title", required = true)String description,
+			@RequestPart("thumbnail") @ApiParam(value="title")MultipartFile thumbnail) throws URISyntaxException {
+		Conference conference= new Conference();
+		conference.setTitle(title);
+		conference.setDescription(description);
+		conference.setId(id);
+	
+		try {
+			conferenceService.updateConference(conference,thumbnail);
+		} catch (URISyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return ResponseEntity.status(201).body(BaseResponseBody.of(201, "Success"));
+	}
+	
+	@PutMapping("/end/{id}")
+	@ApiOperation(value = "회의 종료", notes = "회의실의 정보를 수정한다.") 
+    @ApiResponses({
+        @ApiResponse(code = 200, message = "성공"),
+        @ApiResponse(code = 500, message = "서버 오류")
+     })
+	public ResponseEntity<? extends BaseResponseBody> endConference(@PathVariable Long id){
+		conferenceService.endConference(id);
+	
+		return ResponseEntity.status(201).body(BaseResponseBody.of(201, "Success"));
+	}
+	
+       
+       
 	
 
 }

@@ -17,6 +17,9 @@ import com.bf.db.entity.Conference;
 public interface ConferenceService {
 	Conference createConference(Conference conference,MultipartFile thumbnail)throws URISyntaxException,Exception;
 	List<ConferenceRes> getAllConference() throws IOException;
+	List<ConferenceRes> getAllEndConference() throws IOException;
 	Optional<Conference> getConferenceDetail(Long id) ;
+	Conference updateConference(Conference conference,MultipartFile thumbnail)throws URISyntaxException,Exception;
+	Conference endConference(Long id);
 	
 }

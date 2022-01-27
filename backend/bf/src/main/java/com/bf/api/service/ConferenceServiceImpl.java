@@ -78,6 +78,26 @@ public class ConferenceServiceImpl implements ConferenceService{
 		
 		return conferencereses;
 	}
+	
+	@Override
+	public List<ConferenceRes> getAllEndConference() throws IOException {
+		// TODO Auto-generated method stub
+		List<ConferenceRes> conferencereses=new ArrayList<ConferenceRes>();
+		List<Conference> result=conferenceRepository.findByIsActive(false).get();
+
+		for (int i = 0; i < result.size(); i++) {
+			ConferenceRes conferenceres=new ConferenceRes();
+			conferenceres.setId(result.get(i).getId());
+			conferenceres.setTitle(result.get(i).getTitle());
+			conferenceres.setUserId(result.get(i).getUserId());
+			conferenceres.setDescription(result.get(i).getDescription());
+			conferenceres.setThumbnail(result.get(i).getThumbnail());
+
+			conferencereses.add(conferenceres);
+		}
+		
+		return conferencereses;
+	}
 
 
 	@Override
@@ -85,6 +105,30 @@ public class ConferenceServiceImpl implements ConferenceService{
 		// TODO Auto-generated method stub
 		Optional<Conference> conference=conferenceRepository.findById(id);
 		return conference;
+	}
+
+
+	@Override
+	public Conference updateConference(Conference conference, MultipartFile thumbnail)
+			throws URISyntaxException, Exception {
+		
+		Conference conference2= conferenceRepository.findById(conference.getId()).get();
+		conference2.setThumbnail(fileHandler.parseFileInfo(thumbnail));
+		
+		conference2.setDescription(conference.getDescription());
+		conference2.setTitle(conference.getTitle());
+		// TODO Auto-generated method stub
+		return conferenceRepository.save(conference2);
+	}
+
+
+	@Override
+	public Conference endConference(Long id) {
+		// TODO Auto-generated method stub
+		Conference conference= conferenceRepository.findById(id).get();
+		conference.setEndTime(LocalDateTime.now());
+		conference.setIsActive(false);
+		return conferenceRepository.save(conference);
 	}
 
 }
