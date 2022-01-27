@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.bf.api.request.ConferenceFetchReq;
 import com.bf.api.request.ConferenceRegisterPostReq;
 import com.bf.api.request.UserInfoFetchReq;
 import com.bf.api.request.UserRegisterPostReq;
@@ -61,26 +62,11 @@ public class ConferenceController {
         @ApiResponse(code = 401, message = "생성 실패"),//처리 추가해야됨
         @ApiResponse(code = 500, message = "서버 오류")
     })
-	public ResponseEntity<? extends BaseResponseBody> register(//로그인 권한 필요+ multi part일때 requestbody 쓰면 에러난다함
-			@RequestParam("title") @ApiParam(value="title", required = true)String title,
-			@RequestParam("description") @ApiParam(value="title", required = true)String description,
-			@RequestParam("userId") @ApiParam(value="title", required = true)String userId,
-			@RequestParam("password") @ApiParam(value="title", required = true)String password,
-			@RequestPart("thumbnail") @ApiParam(value="title")MultipartFile thumbnail) throws URISyntaxException {
-		Conference conference= new Conference();
-		conference.setTitle(title);
-		conference.setDescription(description);
-		conference.setUserId(userId);
-		conference.setPassword(password);
-		try {
-			conferenceService.createConference(conference,thumbnail);
-		} catch (URISyntaxException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public ResponseEntity<? extends BaseResponseBody> register(
+			@RequestBody @ApiParam(value = "회의실 생성 정보", required = true)ConferenceRegisterPostReq conferenceRegisterPostReq) throws Exception {
+		
+		conferenceService.createConference(conferenceRegisterPostReq);
+		
 		
 		return ResponseEntity.status(201).body(BaseResponseBody.of(201, "Success"));
 	}
@@ -90,21 +76,15 @@ public class ConferenceController {
 	@ApiOperation(value = "방송중인 전체 회의 조회", notes = "현재 방송중인 상태의 모든 회의 리스트를 return 한다.") 
     @ApiResponses({
         @ApiResponse(code = 200, message = "성공"),
+        @ApiResponse(code = 401, message = "생성 실패"),//처리 추가해야됨
         @ApiResponse(code = 500, message = "서버 오류")
     })
 	public ResponseEntity<List<ConferenceRes>> getConferenceList() {
 		
 		List<ConferenceRes> confrences= new ArrayList<ConferenceRes>();
 		
-		try {
-			confrences = conferenceService.getAllConference();
-			System.out.println(confrences.size());
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}catch (NoSuchElementException e) {
-			ResponseEntity.status(401).body(confrences);
-		}
+		confrences = conferenceService.getAllConference();
+		
 		
 		return ResponseEntity.status(200).body(confrences);
 	}
@@ -113,6 +93,7 @@ public class ConferenceController {
 	@ApiOperation(value = "회의 상세 조회", notes = "해당하는 id의 회의의 상세정보를 가져온다") 
     @ApiResponses({
         @ApiResponse(code = 200, message = "성공"),
+        @ApiResponse(code = 401, message = "생성 실패"),//처리 추가해야됨
         @ApiResponse(code = 500, message = "서버 오류")
     })
 	public ResponseEntity<Optional<Conference>> getConferenceDetail(@PathVariable Long id) {
@@ -127,20 +108,15 @@ public class ConferenceController {
 	@ApiOperation(value = "방송이 종료된 전체 회의 조회", notes = "방송이 끝난 상태의 모든 회의 리스트를 return 한다.") 
     @ApiResponses({
         @ApiResponse(code = 200, message = "성공"),
+        @ApiResponse(code = 401, message = "생성 실패"),//처리 추가해야됨
         @ApiResponse(code = 500, message = "서버 오류")
     })
 	public ResponseEntity<List<ConferenceRes>> getEndConferenceList() {
 		
 		List<ConferenceRes> confrences= new ArrayList<ConferenceRes>();
 		
-		try {
-			confrences = conferenceService.getAllEndConference();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}catch (NoSuchElementException e) {
-			
-		}
+		confrences = conferenceService.getAllEndConference();
+		
 		return ResponseEntity.status(200).body(confrences);
 	}
 	
@@ -148,28 +124,13 @@ public class ConferenceController {
 	@ApiOperation(value = "회의 수정", notes = "회의실의 정보를 수정한다.") 
     @ApiResponses({
         @ApiResponse(code = 200, message = "성공"),
+        @ApiResponse(code = 401, message = "생성 실패"),//처리 추가해야됨
         @ApiResponse(code = 500, message = "서버 오류")
      })
-	public ResponseEntity<? extends BaseResponseBody> updateConference(//로그인 권한 필요+ multi part일때 requestbody 쓰면 에러난다함
-			@RequestParam("id") @ApiParam(value="id", required = true)Long id,
-			@RequestParam("title") @ApiParam(value="title", required = true)String title,
-			@RequestParam("description") @ApiParam(value="title", required = true)String description,
-			@RequestPart("thumbnail") @ApiParam(value="title")MultipartFile thumbnail) throws URISyntaxException {
-		Conference conference= new Conference();
-		conference.setTitle(title);
-		conference.setDescription(description);
-		conference.setId(id);
-	
-		try {
-			conferenceService.updateConference(conference,thumbnail);
-		} catch (URISyntaxException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public ResponseEntity<? extends BaseResponseBody> updateConference(
+			@RequestBody @ApiParam(value = "회의실 수정 정보", required = true)ConferenceFetchReq conferenceFetchReq) throws Exception {
 		
+		conferenceService.updateConference(conferenceFetchReq);
 		
 		return ResponseEntity.status(201).body(BaseResponseBody.of(201, "Success"));
 	}
@@ -178,6 +139,7 @@ public class ConferenceController {
 	@ApiOperation(value = "회의 종료", notes = "회의실의 정보를 수정한다.") 
     @ApiResponses({
         @ApiResponse(code = 200, message = "성공"),
+        @ApiResponse(code = 401, message = "생성 실패"),//처리 추가해야됨
         @ApiResponse(code = 500, message = "서버 오류")
      })
 	public ResponseEntity<? extends BaseResponseBody> endConference(@PathVariable Long id){
