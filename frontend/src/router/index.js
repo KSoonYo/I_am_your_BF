@@ -3,14 +3,14 @@ import Home from '../views/home/home.vue'
 import Test from '../views/account/test.vue'
 import login from './login'
 import signup from './signup'
-
-import ConferenceList from './conference-list'
-import CreateConference from './create-conference'
 // import findId from './find-id'
 // import findPw from './find-pw'
 
 // conferenceRoom
 import conferenceRoom from './conference-room'
+
+import ConferenceList from './conference-list'
+import CreateConference from './create-conference'
 
 const routes = [
   {
@@ -25,7 +25,6 @@ const routes = [
   },
   ...login,
   ...signup,
-
   ...ConferenceList,
   ...CreateConference,
   // ...findId,
