@@ -9,6 +9,9 @@ import signup from './signup'
 // conferenceRoom
 import conferenceRoom from './conference-room'
 
+import ConferenceList from './conference-list'
+import CreateConference from './create-conference'
+
 const routes = [
   {
     path: '/',
@@ -24,7 +27,10 @@ const routes = [
   ...signup,
   // ...findId,
   // ...findPw,
-  ...conferenceRoom
+  ...conferenceRoom,
+
+  ...ConferenceList,
+  ...CreateConference,
 ]
 
 const router = createRouter({
