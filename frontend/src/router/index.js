@@ -5,6 +5,8 @@ import login from './login'
 import signup from './signup'
 import findId from './find-id'
 import findPw from './find-pw'
+import ConferenceList from './conference-list'
+import CreateConference from './create-conference'
 
 const routes = [
   {
@@ -20,7 +22,9 @@ const routes = [
   ...login,
   ...signup,
   ...findId,
-  ...findPw
+  ...findPw,
+  ...ConferenceList,
+  ...CreateConference,
 ]
 
 const router = createRouter({
