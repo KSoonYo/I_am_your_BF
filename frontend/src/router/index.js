@@ -3,10 +3,14 @@ import Home from '../views/home/home.vue'
 import Test from '../views/account/test.vue'
 import login from './login'
 import signup from './signup'
-import findId from './find-id'
-import findPw from './find-pw'
+
 import ConferenceList from './conference-list'
 import CreateConference from './create-conference'
+// import findId from './find-id'
+// import findPw from './find-pw'
+
+// conferenceRoom
+import conferenceRoom from './conference-room'
 
 const routes = [
   {
@@ -21,10 +25,12 @@ const routes = [
   },
   ...login,
   ...signup,
-  ...findId,
-  ...findPw,
+
   ...ConferenceList,
   ...CreateConference,
+  // ...findId,
+  // ...findPw,
+  ...conferenceRoom
 ]
 
 const router = createRouter({
