@@ -34,6 +34,8 @@ public class QUser extends EntityPathBase<User> {
 
     public final NumberPath<Integer> report = createNumber("report", Integer.class);
 
+    public final StringPath thumbnail = createString("thumbnail");
+
     public final DateTimePath<java.time.LocalDateTime> updateDate = createDateTime("updateDate", java.time.LocalDateTime.class);
 
     public final StringPath userEmail = createString("userEmail");
