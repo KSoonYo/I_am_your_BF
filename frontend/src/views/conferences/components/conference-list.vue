@@ -1,47 +1,36 @@
 <template>
-
   <div>
     <div class='row justify-center'>
-      <!-- 검색창 -->
-      <q-input 
+        <!-- 검색창 -->
+        <q-input 
         v-model='state.searchValue' 
         :dense='dense'
         maxlength='20'
         placeholder='회의실 제목, 호스트를 검색'
         class='input'
-      >
+        >
         <template v-slot:append>
-            <q-icon v-if='state.searchValue !== ""' name='close' @click='state.searchValue = ""' class='cursor-pointer'></q-icon>
+          <q-icon v-if='state.searchValue !== ""' name='close' @click='state.searchValue = ""' class='cursor-pointer'></q-icon>
         </template>
+
         <template v-slot:after>
           <q-btn :loading='state.loading' round dense flat icon='send' @click='searchConference' />
         </template>
-      </q-input>
-    </div>
+        </q-input>
+    </div> 
     <br>
-    <div class='container row contents justify-center flex'>
-      <!-- 목차 (수업 목록, 지난 수업 기록) -->
-      <div class='column items-center col-auto content'>
-        <div style='padding-top: 20px'>
-          <router-link :to='{ name: "ConferenceList"}' class='link'>수업 목록</router-link>
-        </div>
-        <q-separator color='orange' inset />
-        <div style='padding-top: 20px'>
-          <router-link :to='{ name: "ConferenceList"}' class='link'>
-            지난 수업 기록
-          </router-link>
-        </div>
-      </div>
-    
 
+    <div>
+        <q-btn @click='titlerule' flat style='color: #ddb193'>제목순</q-btn>
+        <q-btn @click='namerule' flat style='color: #ddb193'>이름순</q-btn>
+    </div>
+
+    
       <div class='col-8' style='margin-left: 20px; border: solid 1px; border-radius: 10px'>
         <div class='container create'>
           <!-- 회의실 생성 방법1 -->
           <div class='flex justify-between'>
-            <div>
-            <q-btn @click='titlerule' flat style='color: #ddb193'>제목순</q-btn>
-            <q-btn @click='namerule' flat style='color: #ddb193'>이름순</q-btn>
-          </div>
+            
             <div v-if='state.isLogin'> 
               <router-link :to='{ name: "CreateConference"}' style='text-decoration: none;'><q-btn flat style='color: #ddb193'>회의실 생성</q-btn></router-link> 
             </div>
@@ -50,7 +39,7 @@
             </div>
           </div>
           <br>
-          <!-- 회의실 목록 카드들 -->  
+          <!-- 회의실 목록 카드들   -->
           <div v-if='state.conferenceList'>
             <ul class='infinite-list'>
               <li v-for='conference in state.conferenceList' :key='conference.datetime' class='infinite-list-item'>
@@ -63,25 +52,25 @@
           </div>
         </div>
       </div>
-    </div>
   </div>
 </template>
 
 <script>
 // 제목 검색시 쿼리 동적 전달방식 이용
-import conference from './components/conference'
+// import conference from './components/conference'
 
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import axios from 'axios'
 
+
 export default {
   name: 'conferenceList',
   
-  components: {
-    conference,
+  // components: {
+  //   conference,
     
-  },
+  // },
 
   setup () {
     
@@ -89,6 +78,9 @@ export default {
     const router = useRouter();
     // 반응형 버튼
     const dense = ref(false);
+
+    // drawer(사이드바)
+    const drawer = ref(true)
 
     
     // 데이터 값 설정
@@ -165,7 +157,8 @@ export default {
       router,
       dense,
       state,
-      token
+      token,
+      drawer
     }
     
   }
@@ -209,4 +202,6 @@ export default {
     border: solid 1px;
     border-radius: 20px;
   }
+
+
 </style>
