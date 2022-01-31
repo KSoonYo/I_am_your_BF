@@ -9,7 +9,7 @@ import signup from './signup'
 // conferenceRoom
 import conferenceRoom from './conference-room'
 
-import ConferenceList from './conference-list'
+import lobby from './lobby'
 import CreateConference from './create-conference'
 
 const routes = [
@@ -25,7 +25,7 @@ const routes = [
   },
   ...login,
   ...signup,
-  ...ConferenceList,
+  ...lobby,
   ...CreateConference,
   // ...findId,
   // ...findPw,
