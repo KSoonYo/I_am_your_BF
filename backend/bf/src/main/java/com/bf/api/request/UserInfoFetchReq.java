@@ -12,15 +12,18 @@ import lombok.Setter;
 @Setter
 @ApiModel("UserInfoFetchReq")
 public class UserInfoFetchReq {
-	
-	
-	/** 바꾼부분 start **/
-	@ApiModelProperty(name="유저 department", example="department")
-	String department;
-	@ApiModelProperty(name="유저 position", example="position")
-	String position;
-	@ApiModelProperty(name="유저 name", example="name")
-	String name;
-	/** 바꾼부분 **/
+
+
+
+	@ApiModelProperty(name="유저 Name", example="your_name")
+	String userName;
+	@ApiModelProperty(name="유저 Email", example="yourEmail@naver.com")
+	String userEmail;
+	@ApiModelProperty(name="유저 thumbnail", example="202201279661680879100young-people-giving-high-five-illustrations-set_23-2148373642.jpg")
+	String thumbnail;
+	@ApiModelProperty(name="유저 description", example="나는야 코딩왕")
+	String userDescription;
+
+
 	
 }

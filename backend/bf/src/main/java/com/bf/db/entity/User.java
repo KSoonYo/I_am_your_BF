@@ -35,6 +35,7 @@ public class User extends BaseEntity{
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     String password;
 
+    String thumbnail;
     String description;
     int report;
 
