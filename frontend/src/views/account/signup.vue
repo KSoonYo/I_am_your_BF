@@ -57,6 +57,8 @@
 <script>
 import { ref } from 'vue'
 import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
+
 
 export default {
     name: 'signup',
@@ -70,6 +72,7 @@ export default {
         const userEmailCheck = ref(false)
 
         const store = useStore()
+        const router = useRouter()
 
          // 아이디 형식 체크 정규 표현식
         const idChecker = /[{}[\]/?.,;:|)*~`!^\-_+<>@#$%&\\=('"]/g
@@ -159,6 +162,12 @@ export default {
                         userName : state.value.form.userName,
                         userEmail : state.value.form.userEmail,
                         password : state.value.form.password,
+                    })
+                    .then(()=>{
+                        router.push({name: 'login'})
+                    })  
+                    .catch(()=>{
+                        alert('회원가입 실패')
                     })
                 } else {
                     console.log('실패')

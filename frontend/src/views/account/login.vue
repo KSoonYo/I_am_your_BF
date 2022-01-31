@@ -39,6 +39,7 @@
 import { ref } from 'vue'
 import { useStore } from 'vuex'
 
+
 export default {
     name: 'login',
 
@@ -71,8 +72,8 @@ export default {
             loginForm.value.validate().then(success => {
                 if (success){
                     // 유효성 통과
-                    store.dispatch('signIn', {...state.value.form})
-                 
+                    store.dispatch('getToken', {...state.value.form})
+                    
                 } else {
                     // 유효성 실패
                     alert('로그인에 실패하였습니다.')
