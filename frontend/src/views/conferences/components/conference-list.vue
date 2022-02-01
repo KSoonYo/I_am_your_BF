@@ -1,20 +1,21 @@
 <template>
   <div>
-    <div class='row justify-center'>
+    <div class='row justify-center flex'>
         <!-- 검색창 -->
         <q-input 
         v-model='state.searchValue' 
         :dense='dense'
         maxlength='20'
         placeholder='회의실 제목, 호스트를 검색'
-        class='input'
+        style="width:100%; background: rgba(0,255,255,0.2); border-radius:60px; max-width: 1024px"
+        class="q-pa-md shadow-3 q-mt-md"
         >
         <template v-slot:append>
           <q-icon v-if='state.searchValue !== ""' name='close' @click='state.searchValue = ""' class='cursor-pointer'></q-icon>
         </template>
 
         <template v-slot:after>
-          <q-btn :loading='state.loading' round dense flat icon='send' @click='searchConference' />
+          <q-btn :loading='state.loading' round flat @click='searchConference'><i class="fas fa-search"></i></q-btn>
         </template>
         </q-input>
     </div> 
@@ -26,7 +27,7 @@
     </div>
 
     
-      <div class='col-8' style='margin-left: 20px; border: solid 1px; border-radius: 10px'>
+      <div class='col-8 shadow-3' style='margin-left: 20px; border: solid 1px; border-radius: 10px'>
         <div class='container create'>
           <!-- 회의실 생성 방법1 -->
           <div class='flex justify-between'>
@@ -165,12 +166,7 @@ export default {
 }
 </script>
 
-<style>
-  .input {
-    width: 50%;
-    
-  }
-  
+<style>  
   .infinite-list .infinite-list-item {
   min-width: 335px;
   max-width: 25%;

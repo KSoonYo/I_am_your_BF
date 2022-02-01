@@ -1,57 +1,101 @@
 <template>
-       <div class='column items-center sign-up'>
-        <img src='@/assets/logo.png' alt='로고' class='logo'>
-        <h3> 회원가입 </h3>
-        <q-form ref='signUpForm' class='column sign-up-form'>
-            <q-input v-model="state.form.userName" class='q-mb-sm' type='text' label='이름(별명)'
-            :rules='state.rules.userName'
-            />
+    <div class='column items-center bg-grey-3 flex justify-center' style='min-height:100vh'>
+		<div class='container'>
+			<div class='row justify-center backimg'>
+				<div class='col-12 flex items-center justify-center'>
+					<div class='bg-white shadow-3' style='max-width: 500px; width: 100%; padding: 3rem; border: 0; border-radius: 0.5rem'>
+						<div>
+							<!-- 메인 상단 글씨 -->
+							<div class='text-center q-mb-4'>
+								<h3 style='margin-bottom: 0px'> 회원가입 </h3>
+								<br>
+								<p style='font-size: 1rem; font-weight: 400; line-height: 1.6; margin-top: 0; margin-bottom: 1rem;'>베프에 오신 걸 환영합니다.</p>
+							</div>
 
-            <q-input 
-            v-model='state.form.userId'
-            :rules='state.rules.userId'
-            ref='idInput' 
-            class='q-mb-sm' 
-            type='text' 
-            label='아이디'>  <button @click="clickIdCheck" class='btn-check'> check </button></q-input>
+							<div class='flex justify-center'>
+								<q-form ref='signUpForm' class='column sign-up-form'>
+									
+									<!-- 이름(별명) -->
+									<label for='Name'>이름(별명)</label>
+									<q-input outlined v-model="state.form.userName" label='이름(별명)'
+									:rules='state.rules.userName'
+									>
+										<template v-slot:prepend>
+											<i class='fas fa-portrait'></i>
+										</template>
+									</q-input>
 
-            <q-input 
-            v-model='state.form.userEmail' 
-            :rules='state.rules.userEmail'
-            ref='emailInput'
-            class='id q-mb-sm' 
-            type='email' 
-            label='이메일'
-            > <button class='btn-check' @click="clickEmailCheck" > check </button>  </q-input>
-    
-            <q-input 
-            v-model="state.form.password" 
-            :rules='state.rules.password'
-            class='q-mb-sm' 
-            :type="isPwd ? 'password' : 'text'"
-            label='비밀번호'>
-                <template v-slot:append>
-                    <q-icon
-                        :name="isPwd ? 'visibility_off' : 'visibility'"
-                        class="cursor-pointer"
-                        @click="isPwd = !isPwd"
-                    />
-                </template>
- 
-            </q-input>
+									<!-- 아이디 -->
+									<label for='Id'>아이디</label>
+									<q-input outlined v-model="state.form.userId" label='아이디'
+									:rules='state.rules.userId'
+									ref='idInput' 
+									>
+										<template v-slot:prepend>
+											<i class='fas fa-user-circle'></i>
+										</template>
+										<q-btn color='grey-6' rounded @click="clickIdCheck" label='중복검사' style='margin-top: 10px; margin-bottom: 10px; margin-right: 5px; width: 50%'></q-btn>
+									</q-input>
 
-            <q-input 
-            v-model="state.form.passwordChk" 
-            :rules='state.rules.passwordChk'
-            class='q-mb-sm' 
-            type='password' 
-            label='비밀번호 확인'
-            />
-  
-        <button class='btn-signup' type='submit' @click="clickSignUp"> 회원 가입 </button>
-        </q-form>
-    </div>
+									<!-- 이메일 -->
+									<label for='Email'>이메일</label>
+									<q-input outlined v-model="state.form.userEmail" label='이메일'
+									ref='emailInput'
+									:rules='state.rules.userEmail'
+									>
+										<template v-slot:prepend>
+											<i class='far fa-envelope'></i>
+										</template>
+										<q-btn color='grey-6' rounded @click="clickEmailCheck" label='중복검사' style='margin-top: 10px; margin-bottom: 10px; margin-right: 5px; width: 50%'></q-btn>
+									</q-input>
 
+									<!-- 비밀번호 -->
+									<label for='Password'>비밀번호</label>
+									<q-input outlined v-model="state.form.password" label='비밀번호'
+									:rules='state.rules.password'
+									:type="isPwd ? 'password' : 'text'"
+									>
+										<template v-slot:prepend>
+											<i class='fas fa-unlock-alt'></i>
+										</template>
+										<template v-slot:append>
+											<q-icon
+												:name="isPwd ? 'visibility_off' : 'visibility'"
+												class='cursor-pointer'
+												@click="isPwd = !isPwd"
+											/>
+										</template>
+									</q-input>
+
+									<!-- 비밀번호 확인 -->
+									<label for='PasswordChk'>비밀번호 확인</label>
+									<q-input outlined v-model="state.form.passwordChk" label='비밀번호 확인'
+									:rules='state.rules.password'
+									type='password'
+									>
+										<template v-slot:prepend>
+											<i class='fas fa-unlock-alt'></i>
+										</template>
+									</q-input>
+
+									<!-- 아이디, 비밀번호 찾기 버튼 -->
+									<div class='row justify-end'>
+										<div style='margin-bottom: 1.5rem;'>
+											<router-link :to='{name: "findId"}' style='text-decoration: none; font-size: 1em;'>아이디 찾기 /</router-link>
+											<router-link :to='{name: "findPw"}' style='text-decoration: none; font-size: 1em;'> 비밀번호 찾기 </router-link>
+										</div> 
+									</div>
+
+									<!-- 회원가입 버튼 -->
+									<q-btn @click='clickSignUp' color='black' label='회원 가입' type='submit' style='border-radius:10px' />
+								</q-form>
+							</div>
+						</div> 
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </template>
 
 <script>
@@ -70,7 +114,6 @@ export default {
 
         const userIdCheck = ref(false)
         const userEmailCheck = ref(false)
-
         const store = useStore()
         const router = useRouter()
 
@@ -183,10 +226,7 @@ export default {
 </script>
 
 <style>
-.btn-signup{
-    color: #FFFFFF;
-    background-color: #477B72;
-}
+
 
 
 /* .sign-up{
@@ -200,14 +240,51 @@ export default {
 }
 
 .sign-up-form{
-    width: 20rem;
+    width: 30rem;
 }
 
-.btn-check{
-    margin: auto 0;
-    height: 50%;
-    color: white;
-    background-color: #6C757D;
+.input-group {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    width: 100%;
+}
+.input-group-text {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 0.625rem;
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #6B7280;
+    text-align: center;
+    white-space: nowrap;
+    background-color: #ffffff;
+    border: 0.0625rem solid #D1D5DB;
+    border-radius: 0.5rem;
 }
 
+.form-control {
+    display: block;
+    width: 100%;
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #6B7280;
+    background-color: #ffffff;
+    background-clip: padding-box;
+    border: 0.0625rem solid #D1D5DB;
+    -webkit-appearance: none;
+    appearance: none;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 7%);
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+label {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+		display: inline-block;
+}
 </style>
