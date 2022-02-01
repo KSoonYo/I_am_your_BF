@@ -1,38 +1,72 @@
 <template>
-       <div class='column items-center'>
-        <img src='@/assets/logo.png' alt='로고' class='logo'>
-        <h3> 로그인 </h3>
-        <q-form ref='loginForm' class='column login-form'>
-            <q-input 
-            v-model='state.form.userId' 
-            class='id q-mb-sm' 
-            type='text' 
-            label='아이디'
-            :rules='state.rules.userId'
-            />
-            <q-input 
-            v-model="state.form.password" 
-            class='password q-mb-sm' 
-            type='password' 
-            label='비밀번호'
-            :rules='state.rules.password'
-            />
-        
-            <!-- <input class="id q-mb-sm" type="text" placeholder="아이디">
-            <input class="password q-mb-sm" type="password" placeholder="비밀번호"> -->
+	<div class='column items-center bg-grey-3 flex justify-center' style='min-height:100vh'>
+		<div class='container'>
+			<div class='row justify-center backimg'>
+				<div class='col-12 flex items-center justify-center'>
+					<div class='bg-white shadow-3' style='max-width: 500px; width: 100%; padding: 3rem; border: 0; border-radius: 0.5rem'>
+						<div>
+							<!-- 메인 상단 글씨 -->
+							<div class='text-center q-mb-4'>
+								<h3 style='margin-bottom: 0px'> 로그인 </h3>
+								<br>
+								<p style='font-size: 1rem; font-weight: 400; line-height: 1.6; margin-top: 0; margin-bottom: 1rem;'>베프의 일원이 되어 보세요</p>
+							</div>
+							<div class='flex justify-center'>
+								<q-form ref='loginForm' class='column login-form'>
+									<!-- 아이디 -->
+									<label for='Id'>아이디</label>
+									<q-input outlined v-model="state.form.userId" label='아이디'
+									:rules='state.rules.userId'
+									>
+										<template v-slot:prepend>
+											<i class='fas fa-user-circle'></i>
+										</template>
+									</q-input>
 
-        <div class='row justify-between'>
-            <div>
-                <router-link :to='{name: "findId"}' >아이디 찾기 /</router-link>
-                <router-link :to='{name: "findPw"}' > 비밀번호 찾기 </router-link>
-            </div>
-            <router-link :to='{name: "signup"}'> 회원가입 </router-link>
-        </div>
+									<!-- 비밀번호 -->
+									<label for='Password'>비밀번호</label>
+									<q-input outlined v-model="state.form.password" label='비밀번호'
+									:rules='state.rules.password'
+									:type="isPwd ? 'password' : 'text'"
+									>
+										<template v-slot:prepend>
+											<i class='fas fa-unlock-alt'></i>
+										</template>
+										<template v-slot:append>
+											<q-icon
+												:name="isPwd ? 'visibility_off' : 'visibility'"
+												class='cursor-pointer'
+												@click="isPwd = !isPwd"
+											/>
+										</template>
+									</q-input>
 
-        <button @click='clickSignIn' class='btn-login' type='submit'> 로그인 </button>
-        </q-form>
-    </div>
+									<!-- 아이디, 비밀번호 찾기 버튼 -->
+									<div class='row justify-end'>
+										<div style='margin-bottom: 1.5rem;'>
+											<router-link :to='{name: "findId"}' style='text-decoration: none; font-size: 1em;'>아이디 찾기 /</router-link>
+											<router-link :to='{name: "findPw"}' style='text-decoration: none; font-size: 1em;'> 비밀번호 찾기 </router-link>
+										</div> 
+									</div>
 
+									<!-- 로그인 버튼 -->
+									<q-btn @click='clickSignIn' color='black' label='로그인' type='submit' style='border-radius:10px' />
+
+									<!-- 회원가입 이동 버튼 -->
+									<div style='margin-top: 1.5rem' class='text-center'>
+										<span>회원이 아니신가요?  </span>
+										<router-link :to='{name: "signup"}' style='text-decoration: none; font-size: 1em;'> 회원가입 </router-link>
+									</div>
+
+								</q-form>
+							</div>
+						</div> 
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
 </template>
 
 <script>
@@ -46,7 +80,7 @@ export default {
     setup(){
         const loginForm = ref(null)
         const store = useStore()
-
+        const isPwd = ref(true)
         // 특수문자 체크 정규 표현식
         const idChecker = /[{}[\]/?.,;:|)*~`!^\-_+<>@#$%&\\=('"]/g
 
@@ -55,7 +89,7 @@ export default {
                 userId: '',
                 password: ''
             },
-
+						
             rules: {
                 userId: [
                     val => val.length >= 3 && val.length <= 5 || '3자 이상 5자 이하로 입력해주세요.',
@@ -82,28 +116,69 @@ export default {
         }
 
 
-        return {loginForm, state, clickSignIn}
+        return {loginForm, state, clickSignIn, isPwd}
     }
 }
 </script>
 
 <style>
-
-
-.btn-login{
-    margin: 100px;
-    color: #FFFFFF;
-    background-color: #477B72;
-}
-
-
 .login-form{
     width: 20rem;
+    
 }
 
 .logo{
     width: 120px;
     height: 100px;
+}
+
+.backimg {
+	background-image: url("../../assets/signin.svg");
+	
+}
+.input-group {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    width: 100%;
+}
+.input-group-text {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 0.625rem;
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #6B7280;
+    text-align: center;
+    white-space: nowrap;
+    background-color: #ffffff;
+    border: 0.0625rem solid #D1D5DB;
+    border-radius: 0.5rem;
+}
+
+.form-control {
+    display: block;
+    width: 100%;
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #6B7280;
+    background-color: #ffffff;
+    background-clip: padding-box;
+    border: 0.0625rem solid #D1D5DB;
+    -webkit-appearance: none;
+    appearance: none;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 7%);
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+label {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+		display: inline-block;
 }
 
 </style>
