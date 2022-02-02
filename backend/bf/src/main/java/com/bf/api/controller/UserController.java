@@ -78,6 +78,13 @@ public class UserController {
     public ResponseEntity<? extends BaseResponseBody> createUser(
             @RequestBody @ApiParam(value = "회원가입 정보", required = true) UserRegisterPostReq registerInfo) {
 
+        String userId = registerInfo.getUserId();
+        if(userService.chkDplByUserId(userId)) { //유저 정보가 존재하면
+            //System.out.println(userService.chkDplByUserEmail(userId));
+            return ResponseEntity.status(200).body(BaseResponseBody.of(401, "Duplicate userID"));
+
+
+        }
         //임의로 리턴된 User 인스턴스. 현재 코드는 회원 가입 성공 여부만 판단하기 때문에 굳이 Insert 된 유저 정보를 응답하지 않음.
         User user = userService.createUser(registerInfo);
         return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));

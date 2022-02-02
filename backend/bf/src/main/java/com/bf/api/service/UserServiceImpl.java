@@ -65,6 +65,7 @@ public class UserServiceImpl implements UserService {
 	 */
 	@Override
 	public boolean chkDplByUserId(String userId) {
+		System.out.println("!!!!"+ userRepositorySupport.findUserByUserId(userId).isPresent());
 		if(userRepositorySupport.findUserByUserId(userId).isPresent()) // 유저 정보가 존재하면
 			return true;
 		else return false;

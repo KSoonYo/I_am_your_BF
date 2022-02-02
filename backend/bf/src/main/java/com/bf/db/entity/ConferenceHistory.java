@@ -17,13 +17,16 @@ import java.time.LocalDateTime;
 @AttributeOverride(name = "id", column = @Column(name = "histroySerial"))
 public class ConferenceHistory extends BaseEntity{
 
+//	Long userSerial;
+//	Long conferenceSerial;
+	
 	@ManyToOne
 	@JoinColumn(name = "userSerial")
-	User userSerial;
+	User user;
 
 	@ManyToOne
 	@JoinColumn(name = "conferenceSerial")
-	Conference conferenceSerial;
+	Conference conference;
 
 	LocalDateTime enterTime;
 	LocalDateTime exitTime;

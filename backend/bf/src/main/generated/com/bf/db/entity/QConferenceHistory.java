@@ -24,7 +24,7 @@ public class QConferenceHistory extends EntityPathBase<ConferenceHistory> {
 
     public final QBaseEntity _super = new QBaseEntity(this);
 
-    public final QConference conferenceSerial;
+    public final QConference conference;
 
     public final DateTimePath<java.time.LocalDateTime> enterTime = createDateTime("enterTime", java.time.LocalDateTime.class);
 
@@ -33,7 +33,7 @@ public class QConferenceHistory extends EntityPathBase<ConferenceHistory> {
     //inherited
     public final NumberPath<Long> id = _super.id;
 
-    public final QUser userSerial;
+    public final QUser user;
 
     public QConferenceHistory(String variable) {
         this(ConferenceHistory.class, forVariable(variable), INITS);
@@ -53,8 +53,8 @@ public class QConferenceHistory extends EntityPathBase<ConferenceHistory> {
 
     public QConferenceHistory(Class<? extends ConferenceHistory> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.conferenceSerial = inits.isInitialized("conferenceSerial") ? new QConference(forProperty("conferenceSerial")) : null;
-        this.userSerial = inits.isInitialized("userSerial") ? new QUser(forProperty("userSerial")) : null;
+        this.conference = inits.isInitialized("conference") ? new QConference(forProperty("conference")) : null;
+        this.user = inits.isInitialized("user") ? new QUser(forProperty("user")) : null;
     }
 
 }
