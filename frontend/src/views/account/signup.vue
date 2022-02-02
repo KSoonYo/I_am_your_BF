@@ -102,6 +102,7 @@
 import { ref } from 'vue'
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
+import { useQuasar } from 'quasar'
 
 
 export default {
@@ -112,10 +113,11 @@ export default {
         const idInput = ref(null)
         const emailInput = ref(null)
 
-        const userIdCheck = ref(false)
-        const userEmailCheck = ref(false)
+
         const store = useStore()
         const router = useRouter()
+        const $q = useQuasar()
+
 
          // 아이디 형식 체크 정규 표현식
         const idChecker = /[{}[\]/?.,;:|)*~`!^\-_+<>@#$%&\\=('"]/g
@@ -144,11 +146,10 @@ export default {
                 userId: [
                     val => val.length >= 3 && val.length <= 5 || '3자 이상 5자 이하로 입력해주세요.',
                     val => !idChecker.test(val) || '특수문자는 입력이 불가능합니다.',
-                    val => val === userIdCheck.value || '아이디 중복 검사 미완료'                    
+
                 ],
                 userEmail : [
                     val => emailChecker.test(val) || '이메일 형식을 지켜주세요.',
-                    val => val === userEmailCheck.value || '이메일 중복 검사 미완료'                    
                 ],
                 password : [
                     val => val.trim() !== '' || '비밀번호를 입력해주세요.' ,
@@ -162,44 +163,93 @@ export default {
             }
         })
 
+
         // 아이디 중복 검사
+        const checkedId = ref('')
+
         const clickIdCheck = function(event){
             event.preventDefault()
             idInput.value.validate()
-            state.value.userIdCheck = true
 
-            if(idInput.value.hasError){
-                // 유효성 미통과
-
-            } else {
-                store.dispatch('requestGetUser', state.value.form.userId)
+            if(!idInput.value.hasError){
+                // 유효성 통과
+                 store.dispatch('requestGetUser', state.value.form.userId)
                     .then(()=>{
-                        // state.value.userIdCheck = true
+                        checkedId.value = state.value.form.userId
+                        console.log('아이디 확인')
+                        $q.notify({
+                            type: 'positive',
+                            message: '가능한 아이디 입니다.'
+                        })
+
                     })
-            }
+                    .catch((err)=>{
+                        checkedId.value = ''
+                        if(err.statusCode === 500){
+                            alert('서버 오류')
+                            return
+                        }
+
+                        $q.notify({
+                            type: 'negative',
+                            message: '이미 존재하는 회원입니다.'
+                        })
+
+                    })
+
+            } 
         }
 
         // 이메일 중복 검사
+
+        const checkedEmail = ref('')
+
+
         const clickEmailCheck = function(event){
             event.preventDefault()
             emailInput.value.validate()
-            
-            if(emailInput.value.hasError){
-                // 유효성 미통과
 
-            } else {
+
+            if(!emailInput.value.hasError){
                 store.dispatch('requestGetUser', state.value.form.userEmail)
-                    .then(()=>{
-                        // state.value.userEmailCheck = true
+                .then(()=>{
+                    console.log('이메일 확인')
+                    checkedEmail.value = state.value.form.userEmail
+                    $q.notify({
+                        type: 'positive',
+                        message: '가능한 이메일 입니다.'
                     })
+                })
+                .catch(()=>{
+                    checkedEmail.value = ''
+                    $q.notify({
+                        type: 'negative',
+                        message: '이미 가입된 이메일 입니다.'
+                    })
+                })        
             }
         }
 
         const clickSignUp = function(event){
             event.preventDefault()
             
+            
             signUpForm.value.validate().then(success => {
                 if ( success ){
+                    if(state.value.form.userId !== checkedId.value){
+                        $q.notify({
+                            type: 'info',
+                            message: '아이디 중복 검사가 필요합니다.'
+                        })
+                        return 
+                    } else if(state.value.form.userEmail !== checkedEmail.value){
+                        $q.notify({
+                            type: 'info',
+                            message: '이메일 중복 검사가 필요합니다.'
+                        })
+                        return
+                    }
+
                     store.dispatch('signUp', {
                         userId : state.value.form.userId,
                         userName : state.value.form.userName,
@@ -212,9 +262,7 @@ export default {
                     .catch(()=>{
                         alert('회원가입 실패')
                     })
-                } else {
-                    console.log('실패')
-                }
+                } 
             })
         }    
 

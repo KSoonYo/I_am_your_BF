@@ -72,7 +72,7 @@
 <script>
 import { ref } from 'vue'
 import { useStore } from 'vuex'
-
+import { useRouter } from 'vue-router'
 
 export default {
     name: 'login',
@@ -80,6 +80,8 @@ export default {
     setup(){
         const loginForm = ref(null)
         const store = useStore()
+        const router = useRouter()
+
         const isPwd = ref(true)
         // 특수문자 체크 정규 표현식
         const idChecker = /[{}[\]/?.,;:|)*~`!^\-_+<>@#$%&\\=('"]/g
@@ -107,11 +109,19 @@ export default {
                 if (success){
                     // 유효성 통과
                     store.dispatch('getToken', {...state.value.form})
+                    .then((response)=>{
+                        localStorage.setItem('accessToken', response.accessToken)
+                        store.state.accessToken = response.data.accessToken
+                        console.log(store.state.accessToken)
+                    })
+                    .then(()=>{
+                        router.push({name: 'lobby'})
+                    })
+                    .catch(()=>{
+                        alert('아이디 또는 비밀번호를 잘못 입력하였습니다.')
+                    })  
                     
-                } else {
-                    // 유효성 실패
-                    alert('로그인에 실패하였습니다.')
-                }
+                } 
             })
         }
 
