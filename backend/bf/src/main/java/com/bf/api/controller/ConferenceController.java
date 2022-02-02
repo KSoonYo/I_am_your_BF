@@ -61,17 +61,17 @@ public class ConferenceController {
         @ApiResponse(code = 401, message = "생성 실패"),//처리 추가해야됨
         @ApiResponse(code = 500, message = "서버 오류")
     })
-	public ResponseEntity<? extends BaseResponseBody> register(
+	public ResponseEntity<Conference> register(
 			@RequestBody @ApiParam(value = "회의실 생성 정보", required = true)ConferenceRegisterPostReq conferenceRegisterPostReq) throws Exception {
 		
 		Conference conference=conferenceService.createConference(conferenceRegisterPostReq);
 		if(conference==null) {
-			return ResponseEntity.status(401).body(BaseResponseBody.of(401, "fail create"));
+			return ResponseEntity.status(401).body(conference);
 		}
 //		System.out.println(conference.getId());
 		
 		
-		return ResponseEntity.status(201).body(BaseResponseBody.of(201, "Success"));
+		return ResponseEntity.status(201).body(conference);
 	}
 	
 	
