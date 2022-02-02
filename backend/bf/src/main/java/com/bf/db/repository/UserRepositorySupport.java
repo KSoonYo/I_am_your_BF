@@ -24,10 +24,20 @@ public class UserRepositorySupport {
         if(user == null) return Optional.empty();
         return Optional.ofNullable(user);
     }
+
     public Optional<User> findUserByUserEmail(String userEmail) {
         User user = jpaQueryFactory.select(qUser).from(qUser)
                 .where(qUser.userEmail.eq(userEmail)).fetchOne();
         if(user == null) return Optional.empty();
         return Optional.ofNullable(user);
     }
+
+    public Optional<User> findUserByUserNameAndUserEmail(String userName, String userEmail) {
+        User user = jpaQueryFactory.select(qUser).from(qUser)
+                .where(qUser.userEmail.eq(userEmail)).fetchOne();
+        if(user == null) return Optional.empty();
+        return Optional.ofNullable(user);
+    }
+
+
 }

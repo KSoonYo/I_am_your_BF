@@ -10,8 +10,7 @@ import com.bf.db.entity.User;
 public interface UserService {
 	User createUser(UserRegisterPostReq userRegisterInfo);
 	User getUserByUserId(String userId);
-	
-	/** start **/
+	User getUserByUserNameAndEmail(String userName, String userEmail);
 	boolean chkDplByUserId(String userId);
 	boolean chkDplByUserEmail(String userEmail);
 	void updatePassword(String userId, String password);
