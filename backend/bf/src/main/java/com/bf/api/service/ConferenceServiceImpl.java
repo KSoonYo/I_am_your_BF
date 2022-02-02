@@ -27,6 +27,7 @@ import com.bf.api.response.ConferenceRes;
 import com.bf.common.auth.SsafyUserDetails;
 //import com.bf.common.util.FileHandler;
 import com.bf.db.entity.Conference;
+import com.bf.db.entity.ConferenceHistory;
 import com.bf.db.entity.User;
 import com.bf.db.repository.ConferenceRepository;
 import com.bf.db.repository.ConferenceRepositorySupport;
@@ -149,5 +150,8 @@ public class ConferenceServiceImpl implements ConferenceService{
 		conference.setIsActive(false);
 		return conferenceRepository.save(conference);
 	}
+
+
+
 
 }

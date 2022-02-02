@@ -15,6 +15,7 @@ import com.bf.api.request.ConferenceRegisterPostReq;
 import com.bf.api.response.ConferenceDetailRes;
 import com.bf.api.response.ConferenceRes;
 import com.bf.db.entity.Conference;
+import com.bf.db.entity.ConferenceHistory;
 
 
 public interface ConferenceService {
@@ -24,5 +25,5 @@ public interface ConferenceService {
 	ConferenceDetailRes getConferenceDetail(Long id) throws NoSuchElementException;
 	Conference updateConference(ConferenceFetchReq conferenceFetchReq) throws NoSuchElementException;
 	Conference endConference(Long id);
-	
+
 }
