@@ -9,6 +9,7 @@ import com.bf.db.entity.User;
 import com.bf.db.repository.UserRepository;
 import com.bf.db.repository.UserRepositorySupport;
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 /**
  *	유저 관련 비즈니스 로직 처리를 위한 서비스 구현 정의.
@@ -59,12 +60,27 @@ public class UserServiceImpl implements UserService {
 	}
 
 	/**
+	 * 유저 아이디 찾기
+	 * @param userName
+	 * @param userEmail
+	 * @return
+	 */
+	@Override
+	public User getUserByUserNameAndEmail(String userName, String userEmail) {
+		System.out.println(userName + " " + userEmail);
+		User user = userRepositorySupport.findUserByUserNameAndUserEmail(userName, userEmail).get();
+		//User user = userRepositorySupport.findUserByUserEmail(userEmail).get();
+		return user;
+	}
+
+	/**
 	 * userID 중복 체크
 	 * @param userId
 	 * @return
 	 */
 	@Override
 	public boolean chkDplByUserId(String userId) {
+//		System.out.println("!!!!"+ userRepositorySupport.findUserByUserId(userId).isPresent());
 		if(userRepositorySupport.findUserByUserId(userId).isPresent()) // 유저 정보가 존재하면
 			return true;
 		else return false;

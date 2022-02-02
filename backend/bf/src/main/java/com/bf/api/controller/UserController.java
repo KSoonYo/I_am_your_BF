@@ -2,9 +2,12 @@ package com.bf.api.controller;
 
 
 
+import com.bf.api.request.UserFindIdPostReq;
 import com.bf.api.request.UserUpdatePasswordPostReq;
+import com.bf.api.response.UserFindIdPostRes;
 import com.bf.api.response.UserLoginPostRes;
 import com.bf.common.util.JwtTokenUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,6 +81,10 @@ public class UserController {
     public ResponseEntity<? extends BaseResponseBody> createUser(
             @RequestBody @ApiParam(value = "회원가입 정보", required = true) UserRegisterPostReq registerInfo) {
 
+        String userId = registerInfo.getUserId();
+        if(userService.chkDplByUserId(userId)) { //유저 정보가 존재하면
+            return ResponseEntity.status(200).body(BaseResponseBody.of(401, "Duplicate userID"));
+        }
         //임의로 리턴된 User 인스턴스. 현재 코드는 회원 가입 성공 여부만 판단하기 때문에 굳이 Insert 된 유저 정보를 응답하지 않음.
         User user = userService.createUser(registerInfo);
         return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
@@ -133,8 +140,31 @@ public class UserController {
         return ResponseEntity.status(200).body(UserRes.of(user));
     }
 
+    @PostMapping("/find/userId")
+    @ApiOperation(value = "아이디 찾기", notes = "로그인한 회원의 아이디를 찾습니다")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "아이디 찾기 성공"),
+            @ApiResponse(code = 401, message = "아이디 찾기 실패"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<? extends BaseResponseBody> findUserId(
+            @RequestBody @ApiParam(value = "아이디 찾기 정보", required = true) UserFindIdPostReq userFindIdPostReq) {
 
-    @GetMapping("/password")
+        User user = userService.getUserByUserNameAndEmail(userFindIdPostReq.getUserName(), userFindIdPostReq.getUserEmail());
+        if(user == null)
+            return ResponseEntity.status(401).body(UserFindIdPostRes.of(401, "Invalid Name And Password", null));
+        else {
+
+            String hiddenId = user.getUserId();
+            hiddenId =hiddenId.replaceAll("(?<=.{3})." , "*");
+
+            return ResponseEntity.ok(UserFindIdPostRes.of(200, "Success", hiddenId));
+        }
+
+    }
+
+
+    @GetMapping("/find/password")
     @ApiOperation(value = "비밀번호 찾기", notes = "로그인한 회원의 비밀번호를 찾습니다")
     @ApiResponses({
             @ApiResponse(code = 200, message = "임시 비밀번호 발급 성공"),
@@ -235,6 +265,8 @@ public class UserController {
             @RequestBody @ApiParam(value = "유저 정보", required = true) UserInfoFetchReq userInfo) {
 
         userService.updateUser(userId, userInfo);
+        // 유저 이메일 중복 체크 필요 -> 후순위
+
 
         return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
 
