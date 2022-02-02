@@ -1,7 +1,8 @@
 package com.bf.api.response;
 
-import com.bf.db.entity.Conference;
-import com.bf.db.entity.User;
+import java.time.LocalDateTime;
+
+import com.bf.model.response.BaseResponseBody;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -11,7 +12,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @ApiModel("ConferenceResponse")
-public class ConferenceRes {
+public class ConferenceDetailRes{
+	
 	@ApiModelProperty(name="id")
 	Long id;
 	@ApiModelProperty(name="title")
@@ -20,14 +22,16 @@ public class ConferenceRes {
 	String description;
 	@ApiModelProperty(name="thumbnail")
 	String thumbnail;
+	@ApiModelProperty(name="User id")
+	String userId;
 	@ApiModelProperty(name="User Name")
 	String userName;
+	@ApiModelProperty(name="password")
+	String password;
+	@ApiModelProperty(name="startTime")
+	LocalDateTime startTime;
+	@ApiModelProperty(name="endTime")
+	LocalDateTime endTime;
 	
-	
-	public static ConferenceRes of(Conference conference) {
-		ConferenceRes res = new ConferenceRes();
-		res.setId(conference.getId());
-		
-		return res;
-	}
+
 }
