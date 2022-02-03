@@ -8,7 +8,7 @@ Django==3.2.12
 idna==3.3
 imageio==2.14.1
 imageio-ffmpeg==0.2.0
-moviepy==1.0.3
+moviepy==1.0.2
 numpy==1.21.5
 Pillow==9.0.0
 proglog==0.1.9

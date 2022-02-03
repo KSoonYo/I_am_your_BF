@@ -9,30 +9,36 @@ from moviepy.video.io.ffmpeg_tools import *
 from moviepy.video.fx.crop import *
 from moviepy.editor import *
 import os
+from moviepy.video.io.VideoFileClip import VideoFileClip
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "testproject.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "SignLanguage.settings")
 
 import django
 django.setup()
 
-#from aws.models import *
+
 from app.models import *
 
 # 한국수어사전 홈페이지에서 단어명, 품사, 뜻, 수어영상을 Crawling하는 함수
 
 
 def spider(max_indexes):
-    f = open("basic.txt", 'w')
-    f2 = open("nunmber.txt", "w")
+    f = open("basic.txt", 'w', encoding='utf8')
+    f2 = open("nunmber.txt", "w", encoding='utf8')
     count1 = 31687
     count2 = 181
 
-    index = 11055
+    index = 11823
     while index < max_indexes:
 
-        url = 'https://sldict.korean.go.kr/front/sign/signList.do?origin_no=' + str(index) #+ '&category=SPE003'
+        #url = 'https://sldict.korean.go.kr/front/sign/signContentsView.do?current_pos_index=0&origin_no=10127&searchWay=&top_category=CTE&category=&detailCategory=&searchKeyword=&pageIndex=1&pageJumpIndex='
+        url = 'https://sldict.korean.go.kr/front/sign/signContentsView.do?origin_no=' + str(index) #+ '&category=SPE003'
+
+        session = requests.Session()
+        session.verify = False
         # URL에서 비디오 가져오기
-        source_code = requests.get(url)
+        source_code = session.get(url)
+        #source_code = requests.get(url)
         plain_text = source_code.text
         soup = BeautifulSoup(plain_text, 'lxml')
 
@@ -54,7 +60,9 @@ def spider(max_indexes):
                 part = change_part(part)
             except:
                 part = ''
+                mean = ''
 
+            print(mean)
             # if search_part(part) == '수사':
             #     file.write(word + "\n" + search_part(part) + "\n" + search_mean(part) + "\n")
             # print("단어 : " + word + "\n" + "품사 : " + search_part(part) + "\n")
@@ -63,20 +71,24 @@ def spider(max_indexes):
 
             for link in soup.select('input#preview'):
                 href = link.get('value').replace('105X105.jpg', '700X466.mp4')
+                print("href : " + href)
                 frame = cut_video(href)
 
                 if part == '수사':
-                    location = save_signlanguage_video(href, frame, count2, 'number')
-                    data.append([word, part, mean, ref_word, location])
+                    print(mean)
+                    #location = save_signlanguage_video(href, frame, count2, 'number')
+                    # data.append([word, part, mean, ref_word, location])
                     for w, p, m, r, l in data:
                         f.write(word + " " + part + " " + mean + "\n")
                         Number(word=w, part=p, mean=m, ref_word=r, location=l).save()
                     count2 +=1
 
                 else:
+
                     location = save_signlanguage_video(href, frame, count1, 'basic')
                     data.append([word, part, mean, ref_word, location])
                     for w, p, m, r, l in data:
+                        print(w, p, m, r, l)
                         f.write(word + " " + part + " " + mean + "\n")
                         Basic(word=w, part=p, mean=m, ref_word=r, location=l).save()
                     count1 += 1
@@ -137,20 +149,25 @@ def cut_video(url):
     return frame
 
 def save_signlanguage_video(href, frame, count, type):
-    input_location = 'aws/media/signLanguage/' + type + '/' + str(count) + '.mp4'
-    output_location = 'aws/media/signLanguages/' + type + '/' + str(count) + '.mp4'
-    output_location2 = 'aws/media/sign/' + type + '/' + str(count) + '.mp4'
+    input_location = 'app/media/' + type + '/' + str(count) + '.mp4'
+    output_location = 'app/media/' + type + '/' + str(count) + '.mp4'
+    output_location2 = 'app/media/' + type + '/' + str(count) + '.mp4'
 
     #if txt is not None:
     #    txt.encode('utf8')
 
     end_time = int(frame)/30
-    ffmpeg_extract_subclip(href, 0, end_time, targetname = str(input_location))
-    ffmpeg_resize(input_location, output_location, (560, 360))
-    clip = VideoFileClip(output_location)
-    new_clip = crop(clip, x1=70, y1=0, x2=490, y2=270)
-    new_clip.write_videofile(output_location2)
+    print("end_time : " + str(end_time))
+
+
+
+    ffmpeg_extract_subclip(href, 0, end_time, input_location) # 파일경로, start, end, 저장될 파일 경로
+    # ffmpeg_resize(input_location, output_location, (560, 360))
+    # clip = VideoFileClip(output_location)
+    #new_clip = crop(clip, x1=70, y1=0, x2= 490, y2=270)
+    #new_clip.write_videofile(output_location2)
 
     return output_location2
 
-spider(24051)
+# spider(10128)
+spider(11824)
