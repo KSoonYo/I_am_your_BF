@@ -2329,3 +2329,112 @@ Caused by: java.lang.Error: Unresolved compilation problems:
 2022-02-03 01:22:49.168  INFO 5380 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
 2022-02-03 01:22:49.169  INFO 5380 --- [SpringContextShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
 2022-02-03 01:22:49.173  INFO 5380 --- [SpringContextShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2022-02-03 01:22:53.983  INFO 10716 --- [restartedMain] com.bf.BfApplication                     : Starting BfApplication using Java 1.8.0_192 on DESKTOP-KVCQHCD with PID 10716 (C:\Users\multicampus\Desktop\bf_sub_git\S06P12B107\backend\bf\target\classes started by SSAFY in C:\Users\multicampus\Desktop\bf_sub_git\S06P12B107\backend\bf)
+2022-02-03 01:22:53.986  INFO 10716 --- [restartedMain] com.bf.BfApplication                     : No active profile set, falling back to default profiles: default
+2022-02-03 01:22:54.023  INFO 10716 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2022-02-03 01:22:54.024  INFO 10716 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2022-02-03 01:22:54.896  INFO 10716 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFERRED mode.
+2022-02-03 01:22:54.949  INFO 10716 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 47 ms. Found 2 JPA repository interfaces.
+2022-02-03 01:22:55.183  INFO 10716 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@26904cf' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-02-03 01:22:55.186  INFO 10716 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-02-03 01:22:55.366  INFO 10716 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (https)
+2022-02-03 01:22:55.372  INFO 10716 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2022-02-03 01:22:55.372  INFO 10716 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.39]
+2022-02-03 01:22:55.453  INFO 10716 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2022-02-03 01:22:55.454  INFO 10716 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1430 ms
+2022-02-03 01:22:55.566 DEBUG 10716 --- [restartedMain] o.s.w.f.CommonsRequestLoggingFilter      : Filter 'commonsRequestLoggingFilter' configured for use
+2022-02-03 01:22:55.644  INFO 10716 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2022-02-03 01:22:55.676  INFO 10716 --- [task-1] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-02-03 01:22:55.777  INFO 10716 --- [task-1] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.23.Final
+2022-02-03 01:22:55.843  WARN 10716 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-02-03 01:22:55.864  INFO 10716 --- [task-1] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2022-02-03 01:22:55.936  INFO 10716 --- [task-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2022-02-03 01:22:56.070  INFO 10716 --- [task-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2022-02-03 01:22:56.080  INFO 10716 --- [task-1] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL57Dialect
+2022-02-03 01:22:56.205 DEBUG 10716 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : 28 mappings in 'requestMappingHandlerMapping'
+2022-02-03 01:22:56.291  INFO 10716 --- [restartedMain] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 2 endpoint(s) beneath base path '/actuator'
+2022-02-03 01:22:56.479  INFO 10716 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@6aa40bc7, org.springframework.security.web.context.SecurityContextPersistenceFilter@18b000ba, org.springframework.security.web.header.HeaderWriterFilter@5fa7c519, org.springframework.web.filter.CorsFilter@1eee42b8, org.springframework.security.web.authentication.logout.LogoutFilter@2152e432, com.bf.common.auth.JwtAuthenticationFilter@211c2cbb, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@66f7e204, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@10dbc441, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@bb50afd, org.springframework.security.web.session.SessionManagementFilter@e08918c, org.springframework.security.web.access.ExceptionTranslationFilter@6bb8b70b, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@22002a92]
+2022-02-03 01:22:56.566  INFO 10716 --- [task-1] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-02-03 01:22:56.572  INFO 10716 --- [task-1] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-02-03 01:22:56.803  INFO 10716 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2022-02-03 01:22:56.809 DEBUG 10716 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2022-02-03 01:22:56.825  INFO 10716 --- [restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [dist/index.html]
+2022-02-03 01:22:56.832 DEBUG 10716 --- [restartedMain] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/swagger-ui/] in 'viewControllerHandlerMapping'
+2022-02-03 01:22:56.842 DEBUG 10716 --- [restartedMain] o.s.w.s.c.annotation.WebMvcConfigurer    : Default resource handling disabled
+2022-02-03 01:22:56.847 DEBUG 10716 --- [restartedMain] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/resources/**, /swagger-ui.html, /webjars/**, /css/**, /fonts/**, /icons/**, /img/**, /js/**, /swagger-ui/**] in 'resourceHandlerMapping'
+2022-02-03 01:22:56.853 DEBUG 10716 --- [restartedMain] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2022-02-03 01:22:57.040  INFO 10716 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (https) with context path ''
+2022-02-03 01:22:57.280  INFO 10716 --- [restartedMain] DeferredRepositoryInitializationListener : Triggering deferred initialization of Spring Data repositories…
+2022-02-03 01:22:57.363  INFO 10716 --- [restartedMain] DeferredRepositoryInitializationListener : Spring Data repositories initialized!
+2022-02-03 01:22:57.373  INFO 10716 --- [restartedMain] com.bf.BfApplication                     : Started BfApplication in 3.699 seconds (JVM running for 4.878)
+2022-02-03 01:22:58.615  INFO 10716 --- [RMI TCP Connection(3)-172.18.64.1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-02-03 01:22:58.615  INFO 10716 --- [RMI TCP Connection(3)-172.18.64.1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2022-02-03 01:22:58.615 DEBUG 10716 --- [RMI TCP Connection(3)-172.18.64.1] o.s.web.servlet.DispatcherServlet        : Detected StandardServletMultipartResolver
+2022-02-03 01:22:58.615 DEBUG 10716 --- [RMI TCP Connection(3)-172.18.64.1] o.s.web.servlet.DispatcherServlet        : Detected AcceptHeaderLocaleResolver
+2022-02-03 01:22:58.616 DEBUG 10716 --- [RMI TCP Connection(3)-172.18.64.1] o.s.web.servlet.DispatcherServlet        : Detected FixedThemeResolver
+2022-02-03 01:22:58.618 DEBUG 10716 --- [RMI TCP Connection(3)-172.18.64.1] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@51fe7c14
+2022-02-03 01:22:58.619 DEBUG 10716 --- [RMI TCP Connection(3)-172.18.64.1] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.support.SessionFlashMapManager@4c810a02
+2022-02-03 01:22:58.619 DEBUG 10716 --- [RMI TCP Connection(3)-172.18.64.1] o.s.web.servlet.DispatcherServlet        : enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2022-02-03 01:22:58.619  INFO 10716 --- [RMI TCP Connection(3)-172.18.64.1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 4 ms
+2022-02-03 01:23:02.414 DEBUG 10716 --- [https-jsse-nio-127.0.0.1-8080-exec-10] o.s.web.servlet.DispatcherServlet        : GET "/swagger-ui/", parameters={}
+2022-02-03 01:23:02.418 DEBUG 10716 --- [https-jsse-nio-127.0.0.1-8080-exec-10] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ParameterizableViewController [view="forward:/swagger-ui/index.html"]
+2022-02-03 01:23:02.425 DEBUG 10716 --- [https-jsse-nio-127.0.0.1-8080-exec-10] o.s.w.s.v.ContentNegotiatingViewResolver : Selected 'text/html' given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, application/signed-exchange;v=b3;q=0.9, */*;q=0.8]
+2022-02-03 01:23:02.425 DEBUG 10716 --- [https-jsse-nio-127.0.0.1-8080-exec-10] o.s.w.servlet.view.InternalResourceView  : View name 'forward:', model {}
+2022-02-03 01:23:02.426 DEBUG 10716 --- [https-jsse-nio-127.0.0.1-8080-exec-10] o.s.w.servlet.view.InternalResourceView  : Forwarding to [/swagger-ui/index.html]
+2022-02-03 01:23:02.428 DEBUG 10716 --- [https-jsse-nio-127.0.0.1-8080-exec-10] o.s.web.servlet.DispatcherServlet        : "FORWARD" dispatch for GET "/swagger-ui/index.html", parameters={}
+2022-02-03 01:23:02.429 DEBUG 10716 --- [https-jsse-nio-127.0.0.1-8080-exec-10] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler ["classpath:/META-INF/resources/webjars/springfox-swagger-ui/"]
+2022-02-03 01:23:02.441 DEBUG 10716 --- [https-jsse-nio-127.0.0.1-8080-exec-10] o.s.web.servlet.DispatcherServlet        : Exiting from "FORWARD" dispatch, status 200
+2022-02-03 01:23:02.444 DEBUG 10716 --- [https-jsse-nio-127.0.0.1-8080-exec-10] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2022-02-03 01:23:02.476 DEBUG 10716 --- [https-jsse-nio-127.0.0.1-8080-exec-1] o.s.web.servlet.DispatcherServlet        : GET "/swagger-ui/springfox.css?v=3.0.0", parameters={masked}
+2022-02-03 01:23:02.477 DEBUG 10716 --- [https-jsse-nio-127.0.0.1-8080-exec-1] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler ["classpath:/META-INF/resources/webjars/springfox-swagger-ui/"]
+2022-02-03 01:23:02.480 DEBUG 10716 --- [https-jsse-nio-127.0.0.1-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2022-02-03 01:23:02.482 DEBUG 10716 --- [https-jsse-nio-127.0.0.1-8080-exec-2] o.s.web.servlet.DispatcherServlet        : GET "/swagger-ui/swagger-ui.css?v=3.0.0", parameters={masked}
+2022-02-03 01:23:02.482 DEBUG 10716 --- [https-jsse-nio-127.0.0.1-8080-exec-2] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler ["classpath:/META-INF/resources/webjars/springfox-swagger-ui/"]
+2022-02-03 01:23:02.491 DEBUG 10716 --- [https-jsse-nio-127.0.0.1-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2022-02-03 01:23:02.493 DEBUG 10716 --- [https-jsse-nio-127.0.0.1-8080-exec-3] o.s.web.servlet.DispatcherServlet        : GET "/swagger-ui/swagger-ui-bundle.js?v=3.0.0", parameters={masked}
+2022-02-03 01:23:02.493 DEBUG 10716 --- [https-jsse-nio-127.0.0.1-8080-exec-3] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler ["classpath:/META-INF/resources/webjars/springfox-swagger-ui/"]
+2022-02-03 01:23:02.547 DEBUG 10716 --- [https-jsse-nio-127.0.0.1-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2022-02-03 01:23:02.549 DEBUG 10716 --- [https-jsse-nio-127.0.0.1-8080-exec-4] o.s.web.servlet.DispatcherServlet        : GET "/swagger-ui/swagger-ui-standalone-preset.js?v=3.0.0", parameters={masked}
+2022-02-03 01:23:02.550 DEBUG 10716 --- [https-jsse-nio-127.0.0.1-8080-exec-4] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler ["classpath:/META-INF/resources/webjars/springfox-swagger-ui/"]
+2022-02-03 01:23:02.567 DEBUG 10716 --- [https-jsse-nio-127.0.0.1-8080-exec-4] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2022-02-03 01:23:02.569 DEBUG 10716 --- [https-jsse-nio-127.0.0.1-8080-exec-5] o.s.web.servlet.DispatcherServlet        : GET "/swagger-ui/springfox.js?v=3.0.0", parameters={masked}
+2022-02-03 01:23:02.570 DEBUG 10716 --- [https-jsse-nio-127.0.0.1-8080-exec-5] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler ["classpath:/META-INF/resources/webjars/springfox-swagger-ui/"]
+2022-02-03 01:23:02.576 DEBUG 10716 --- [https-jsse-nio-127.0.0.1-8080-exec-5] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2022-02-03 01:23:02.649 DEBUG 10716 --- [https-jsse-nio-127.0.0.1-8080-exec-10] o.s.web.servlet.DispatcherServlet        : GET "/swagger-resources/configuration/ui", parameters={}
+2022-02-03 01:23:02.651 DEBUG 10716 --- [https-jsse-nio-127.0.0.1-8080-exec-10] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to springfox.documentation.swagger.web.ApiResourceController#uiConfiguration()
+2022-02-03 01:23:02.653 DEBUG 10716 --- [https-jsse-nio-127.0.0.1-8080-exec-1] o.s.web.servlet.DispatcherServlet        : GET "/swagger-ui/favicon-32x32.png?v=3.0.0", parameters={masked}
+2022-02-03 01:23:02.653 DEBUG 10716 --- [https-jsse-nio-127.0.0.1-8080-exec-1] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler ["classpath:/META-INF/resources/webjars/springfox-swagger-ui/"]
+2022-02-03 01:23:02.656 DEBUG 10716 --- [https-jsse-nio-127.0.0.1-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2022-02-03 01:23:02.662 DEBUG 10716 --- [https-jsse-nio-127.0.0.1-8080-exec-10] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [application/json] and supported [application/json]
+2022-02-03 01:23:02.666 DEBUG 10716 --- [https-jsse-nio-127.0.0.1-8080-exec-10] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [springfox.documentation.swagger.web.UiConfiguration@27a37611]
+2022-02-03 01:23:02.673 DEBUG 10716 --- [https-jsse-nio-127.0.0.1-8080-exec-10] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2022-02-03 01:23:02.676 DEBUG 10716 --- [https-jsse-nio-127.0.0.1-8080-exec-2] o.s.web.servlet.DispatcherServlet        : GET "/swagger-resources/configuration/security", parameters={}
+2022-02-03 01:23:02.676 DEBUG 10716 --- [https-jsse-nio-127.0.0.1-8080-exec-2] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to springfox.documentation.swagger.web.ApiResourceController#securityConfiguration()
+2022-02-03 01:23:02.677 DEBUG 10716 --- [https-jsse-nio-127.0.0.1-8080-exec-2] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [application/json] and supported [application/json]
+2022-02-03 01:23:02.678 DEBUG 10716 --- [https-jsse-nio-127.0.0.1-8080-exec-2] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [springfox.documentation.swagger.web.SecurityConfiguration@5b92877a]
+2022-02-03 01:23:02.679 DEBUG 10716 --- [https-jsse-nio-127.0.0.1-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2022-02-03 01:23:02.682 DEBUG 10716 --- [https-jsse-nio-127.0.0.1-8080-exec-3] o.s.web.servlet.DispatcherServlet        : GET "/swagger-resources", parameters={}
+2022-02-03 01:23:02.682 DEBUG 10716 --- [https-jsse-nio-127.0.0.1-8080-exec-3] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to springfox.documentation.swagger.web.ApiResourceController#swaggerResources()
+2022-02-03 01:23:02.683 DEBUG 10716 --- [https-jsse-nio-127.0.0.1-8080-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [application/json] and supported [application/json]
+2022-02-03 01:23:02.683 DEBUG 10716 --- [https-jsse-nio-127.0.0.1-8080-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [[springfox.documentation.swagger.web.SwaggerResource@7f005454]]
+2022-02-03 01:23:02.685 DEBUG 10716 --- [https-jsse-nio-127.0.0.1-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2022-02-03 01:23:02.713 DEBUG 10716 --- [https-jsse-nio-127.0.0.1-8080-exec-4] o.s.web.servlet.DispatcherServlet        : GET "/v2/api-docs", parameters={}
+2022-02-03 01:23:02.713 DEBUG 10716 --- [https-jsse-nio-127.0.0.1-8080-exec-4] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to springfox.documentation.swagger2.web.Swagger2ControllerWebMvc#getDocumentation(String, HttpServletRequest)
+2022-02-03 01:23:02.789 DEBUG 10716 --- [https-jsse-nio-127.0.0.1-8080-exec-4] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [application/json, */*] and supported [application/json, application/hal+json]
+2022-02-03 01:23:02.791 DEBUG 10716 --- [https-jsse-nio-127.0.0.1-8080-exec-4] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [springfox.documentation.spring.web.json.Json@ac119bd]
+2022-02-03 01:23:02.792 DEBUG 10716 --- [https-jsse-nio-127.0.0.1-8080-exec-4] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2022-02-03 01:23:08.387 DEBUG 10716 --- [https-jsse-nio-127.0.0.1-8080-exec-6] o.s.w.f.CommonsRequestLoggingFilter      : Before request [POST /api/users/find/userId, client=127.0.0.1, headers=[host:"localhost:8080", connection:"keep-alive", content-length:"67", sec-ch-ua:""Whale";v="3", " Not;A Brand";v="99", "Chromium";v="96"", accept:"*/*", sec-ch-ua-mobile:"?0", user-agent:"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Whale/3.12.129.46 Safari/537.36", sec-ch-ua-platform:""Windows"", origin:"https://localhost:8080", sec-fetch-site:"same-origin", sec-fetch-mode:"cors", sec-fetch-dest:"empty", referer:"https://localhost:8080/swagger-ui/", accept-encoding:"gzip, deflate, br", accept-language:"ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7", Content-Type:"application/json;charset=UTF-8"]]
+2022-02-03 01:23:08.388 DEBUG 10716 --- [https-jsse-nio-127.0.0.1-8080-exec-6] o.s.web.servlet.DispatcherServlet        : POST "/api/users/find/userId", parameters={}
+2022-02-03 01:23:08.388 DEBUG 10716 --- [https-jsse-nio-127.0.0.1-8080-exec-6] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.bf.api.controller.UserController#findUserId(UserFindIdPostReq)
+2022-02-03 01:23:08.403 DEBUG 10716 --- [https-jsse-nio-127.0.0.1-8080-exec-6] m.m.a.RequestResponseBodyMethodProcessor : Read "application/json;charset=UTF-8" to [com.bf.api.request.UserFindIdPostReq@5e0ce46d]
+2022-02-03 01:23:08.518 DEBUG 10716 --- [https-jsse-nio-127.0.0.1-8080-exec-6] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json, application/json, application/*+json]
+2022-02-03 01:23:08.518 DEBUG 10716 --- [https-jsse-nio-127.0.0.1-8080-exec-6] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [com.bf.api.response.UserFindIdPostRes@58d5cae2]
+2022-02-03 01:23:08.519 DEBUG 10716 --- [https-jsse-nio-127.0.0.1-8080-exec-6] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2022-02-03 01:23:08.520 DEBUG 10716 --- [https-jsse-nio-127.0.0.1-8080-exec-6] o.s.w.f.CommonsRequestLoggingFilter      : After request [POST /api/users/find/userId, client=127.0.0.1, headers=[host:"localhost:8080", connection:"keep-alive", content-length:"67", sec-ch-ua:""Whale";v="3", " Not;A Brand";v="99", "Chromium";v="96"", accept:"*/*", sec-ch-ua-mobile:"?0", user-agent:"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Whale/3.12.129.46 Safari/537.36", sec-ch-ua-platform:""Windows"", origin:"https://localhost:8080", sec-fetch-site:"same-origin", sec-fetch-mode:"cors", sec-fetch-dest:"empty", referer:"https://localhost:8080/swagger-ui/", accept-encoding:"gzip, deflate, br", accept-language:"ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7", Content-Type:"application/json;charset=UTF-8"], payload={
+  "userEmail": "yourEmail@naver.com",
+  "userName": "your_name"
+}]
+2022-02-03 02:30:51.550  INFO 10716 --- [SpringContextShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2022-02-03 02:30:51.570  INFO 10716 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2022-02-03 02:30:51.575  INFO 10716 --- [SpringContextShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2022-02-03 02:30:51.588  INFO 10716 --- [SpringContextShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.

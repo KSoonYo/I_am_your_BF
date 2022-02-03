@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
+import com.bf.common.auth.SsafyUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -61,9 +62,11 @@ public class ConferenceController {
         @ApiResponse(code = 401, message = "생성 실패"),//처리 추가해야됨
         @ApiResponse(code = 500, message = "서버 오류")
     })
-	public ResponseEntity<Conference> register(
+	public ResponseEntity<Conference> register(Authentication authentication,
 			@RequestBody @ApiParam(value = "회의실 생성 정보", required = true)ConferenceRegisterPostReq conferenceRegisterPostReq) throws Exception {
-		
+		SsafyUserDetails userDetails = (SsafyUserDetails) authentication.getDetails();
+		User user = userDetails.getUser();
+
 		Conference conference=conferenceService.createConference(conferenceRegisterPostReq);
 		if(conference==null) {
 			return ResponseEntity.status(401).body(conference);
