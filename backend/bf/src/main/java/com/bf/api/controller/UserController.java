@@ -150,7 +150,7 @@ public class UserController {
     public ResponseEntity<? extends BaseResponseBody> findUserId(
             @RequestBody @ApiParam(value = "아이디 찾기 정보", required = true) UserFindIdPostReq userFindIdPostReq) {
 
-        User user = userService.getUserByUserNam며eAndEmail(userFindIdPostReq.getUserName(), userFindIdPostReq.getUserEmail());
+        User user = userService.getUserByUserNameAndEmail(userFindIdPostReq.getUserName(), userFindIdPostReq.getUserEmail());
         if(user == null)
             return ResponseEntity.status(401).body(UserFindIdPostRes.of(401, "Invalid Name And Password", null));
         else {
