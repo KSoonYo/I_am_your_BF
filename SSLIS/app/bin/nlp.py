@@ -1,13 +1,13 @@
 #-*- coding: utf-8 -*-
 from PyKomoran import *
-from .stopword import StopWord
+from stopword import StopWord
 
 
 # 자막파일을 입력받아 수어에 사용되는 형태소를 재배치하는 함수를 가진 객체
 class NLP:
     def __init__(self):
-        self.komoran = Komoran(DEFAULT_MODEL['FULL'])
-        #self.komoran.set_user_dic(r"C:\Users\DongHo\Desktop\EEE_project\testproject\aws\bin\txt\dic.user")
+        self.komoran = Komoran("EXP")
+        self.komoran.set_user_dic(r"C:\\Users\\한승훈\\Desktop\\2학기 프로젝트\\포크파일\\S06P12B107\\SSLIS\\app\\bin\\dic.user")
         self.pr = StopWord()
         pass
 
@@ -43,3 +43,5 @@ class NLP:
         result.append(morph_list)
 
         return result
+
+print(NLP.relocateMorpheme('안녕하세요. 윤동주입니다. 저는 시인이자 독립운동가입니다.'))

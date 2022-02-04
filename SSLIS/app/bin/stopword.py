@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from .constant import Morph
+from constant import Morph
 
 
 class StopWord:
