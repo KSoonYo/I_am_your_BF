@@ -1,58 +1,47 @@
 <template>
-  <q-page class="main" center>
-    <img class="main-image" alt="사람 둘이 손을 잡고 있는 그림" src="../../assets/bg-image-people.svg" style="width: 50%; height: 50%">
+<!-- 반응형 처리 해주기 -->
+<div class='main-container row'>
+  <q-page class="main-page row" center> 
+    <img class="main-image" alt="사람 둘이 손을 잡고 있는 그림" src="../../assets/bg-image-people.svg" style="width: 100% height: 100%">
       <div class="intro">
-    <h3>
-      I’m Your  Best Friend
-      <br>
-      (Barrier Free)
-    </h3>
-  </div>
+        <h3>I’m Your Best Friend
+          <br>
+          (Barrier Free)
+        </h3>
+      </div>    
+  <!-- jwt token 유무에 따라 다른 버튼 -->
   <div class="conference-button">
   <div class="q-pa-md row items-start q-gutter-md">
+    <!-- <router-link :to='{name:"강의실 참여하기"}'>
+    <q-btn push style="background: #E6A377; color: #FFFFFF" label="수업 참여하기"/>
+    </router-link> -->
     <q-btn push style="background: #E6A377; color: #FFFFFF" label="수업 참여하기"/>
     <!-- <q-btn flat style="color: #000000" label="수업 생성하기"/> -->
   </div>
   </div>
   </q-page>
-  <div class="q-pa-md row items-start q-gutter-md justify-center">
-    <q-card class="my-card-1 col-3 relative">
-    <img src="https://cdn.quasar.dev/img/mountains.jpg" class="image-1">
-    <div class="overlay"></div>
-    <div class="text">Hello World</div> 
-    <q-card-section>
-    <div class="text-h6">서비스 요약</div>
-    <div class="text-subtitle2">서비스 설명</div>
-    </q-card-section> 
-    <q-card-section class="q-pt-none">
-    {{ lorem }}
-    </q-card-section>
-    </q-card>
-    <q-card class="my-card-2 col-3">
-    <img src="https://cdn.quasar.dev/img/mountains.jpg" >
-    <div class="overlay"></div>
-    <div class="text">Hello World</div> 
-    <q-card-section>
-    <div class="text-h6">서비스 요약</div>
-    <div class="text-subtitle2">서비스 설명</div>
-    </q-card-section> 
-    <q-card-section class="q-pt-none">
-    {{ lorem }}
-    </q-card-section>
-    </q-card>
-    <q-card class="my-card-3 col-3">
-    <img src="https://cdn.quasar.dev/img/mountains.jpg">
-    <div class="overlay"></div>
-      <div class="text">Hello World</div> 
-    <q-card-section>
-    <div class="text-h6">서비스 요약</div>
-    <div class="text-subtitle2">서비스 설명</div>
-    </q-card-section> 
-    <q-card-section class="q-pt-none">
-    {{ lorem }}
-    </q-card-section>
-    </q-card>
+  <div class="q-pa-md row items-start q-gutter-md justify-evenly">
+  <div class="container col-xs-12 col-sm-6 col-md-3">
+    <img src="https://cdn.quasar.dev/img/mountains.jpg" alt="Avatar" class="image">
+    <div class="overlay">
+      <div class="text">저희 서비스의 핵심 가치들을 소개합니다 첫번째로 워라벨입니다.</div>
+    </div>
   </div>
+  <div class="container col-xs-12 col-sm-6 col-md-3">
+    <img src="https://cdn.quasar.dev/img/mountains.jpg" alt="Avatar" class="image">
+    <div class="overlay">
+      <div class="text">두번째 핵심 가치는 건강과 행복입니다.</div>
+    </div>
+  </div>
+  <div class="container col-xs-12 col-sm-6 col-md-3">
+    <img src="https://cdn.quasar.dev/img/mountains.jpg" alt="Avatar" class="image">
+    <div class="overlay">
+      <div class="text">세번째 핵심 가치는 돈과 명예,지위 그리고 학습 입니다.</div>
+    </div>
+  </div>
+  </div>
+  
+</div>
 </template>
 
 
@@ -62,12 +51,13 @@ export default {
 }
 </script>
 <style scoped>
-.main {
+.main-page {
   margin-left: 100px;
   display: flex;
 }
 .main-image {
-  margin-top: -100px;
+  margin-top: -200px;
+  display: flex;
 }
 .intro {
   margin-top: 200px;
@@ -77,16 +67,17 @@ export default {
   margin-left: -400px;
 }
 
-.my-card-1:hover .overlay {
-  opacity: 0.5;
-}
-.my-card-2:hover .overlay {
-  opacity: 0.5;
-}
-.my-card-3:hover .overlay {
-  opacity: 0.5;
+/*  */
+.container {
+  position: relative;
+  width: 50%;
 }
 
+.image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
 
 .overlay {
   position: absolute;
@@ -98,11 +89,16 @@ export default {
   width: 100%;
   opacity: 0;
   transition: .5s ease;
-  background-color: #484d4e;
+  background-color: white;
+  /* background-color: #484d4e; */
+}
+
+.container:hover .overlay {
+  opacity: 0.8;
 }
 
 .text {
-  color: white;
+  color: black;
   font-size: 20px;
   position: absolute;
   top: 50%;
