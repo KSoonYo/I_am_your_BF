@@ -6,6 +6,11 @@
 		<button v-if='onSpeech' @click='toggleOnSpeech'> 말하기 중지 </button>
 		<div class='words'>
 		</div>
+		<div>
+			<video width="640" height="360" id="player1" preload="none">
+    		<source type="video/youtube" :src="this." />
+			</video>
+		</div>
     </div>
 </template>
 
@@ -62,6 +67,9 @@ export default {
 						url: this.baseUrl + 'sslis/',
 						method: 'post',
 						data: JSON.stringify(this.runtimeTranscription_)
+					})
+					.then((res) => {
+						console.log(res.data.sign)
 					})
 					
 					if( this.onSpeech === true){
