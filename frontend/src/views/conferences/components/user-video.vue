@@ -10,7 +10,8 @@
 </template>
 
 <script>
-import OvVideo from './ov-video';
+import OvVideo from './ov-video'
+import axios from 'axios'
 
 export default {
 	name: 'userVideo',
@@ -25,7 +26,8 @@ export default {
 			runtimeTranscription_: "",
 			transcription_: [],
 			lang_: "ko-KR",
-			onSpeech : false
+			onSpeech : false,
+			baseUrl : 'http://127.0.0.1:8000/'
 		}
 	},
 	methods: {
@@ -55,7 +57,13 @@ export default {
 				})
 	
 				// end of transcription
-				recognition.addEventListener("end", () => {	
+				recognition.addEventListener("end", () => {											
+					axios({
+						url: this.baseUrl + 'sslis/',
+						method: 'post',
+						data: JSON.stringify(this.runtimeTranscription_)
+					})
+					
 					if( this.onSpeech === true){
 						recognition.start()
 					} else{
@@ -67,6 +75,22 @@ export default {
 				})
 			}
 		},
+
+		// getCookie(name){
+		// 	let cookieValue = null;
+		// 		if (document.cookie && document.cookie !== '') {
+		// 				const cookies = document.cookie.split(';');
+		// 				for (let i = 0; i < cookies.length; i++) {
+		// 						const cookie = cookies[i].trim();
+		// 						// Does this cookie string begin with the name we want?
+		// 						if (cookie.substring(0, name.length + 1) === (name + '=')) {
+		// 								cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+		// 								break;
+		// 						}
+		// 				}
+		// 		}
+		// 		return cookieValue
+		// },
 
 		toggleOnSpeech(){
 			this.onSpeech = !this.onSpeech
