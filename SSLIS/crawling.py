@@ -9,17 +9,43 @@ from moviepy.video.io.ffmpeg_tools import *
 from moviepy.video.fx.crop import *
 from moviepy.editor import *
 import os
+import urllib3
+import json
 from moviepy.video.io.VideoFileClip import VideoFileClip
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "SignLanguage.settings")
 
 import django
-django.setup()
 
+django.setup()
 
 from app.models import *
 
 # 한국수어사전 홈페이지에서 단어명, 품사, 뜻, 수어영상을 Crawling하는 함수
+
+
+def findWord(word):
+    openApiURL = "http://api.kcisa.kr/API_CNV_054/request"
+    accessKey = "d15d1b57-ecc5-43e3-b0e6-e9200ce7e92c"
+
+
+    # requestJson = {
+    #     "serviceKey": self.accessKey,
+    #     "argument": {
+    #         'first_word': firstWord,
+    #         'second_word': secondWord
+    #     }
+    # }
+
+    http = urllib3.PoolManager()
+    response = http.request(
+        "GET",
+    url = 'http://api.kcisa.kr/API_CNV_054/request'
+        # headers={"Content-Type": "application/json; charset=UTF-8"},
+        # body=json.dumps(requestJson)
+    )
+
+    return response
 
 
 def spider(max_indexes):
@@ -28,17 +54,18 @@ def spider(max_indexes):
     count1 = 31687
     count2 = 181
 
-    index = 11823
-    while index < max_indexes:
+    index = max_indexes
+    while index <= max_indexes:
 
-        #url = 'https://sldict.korean.go.kr/front/sign/signContentsView.do?current_pos_index=0&origin_no=10127&searchWay=&top_category=CTE&category=&detailCategory=&searchKeyword=&pageIndex=1&pageJumpIndex='
-        url = 'https://sldict.korean.go.kr/front/sign/signContentsView.do?origin_no=' + str(index) #+ '&category=SPE003'
+        # url = 'https://sldict.korean.go.kr/front/sign/signContentsView.do?current_pos_index=0&origin_no=10127&searchWay=&top_category=CTE&category=&detailCategory=&searchKeyword=&pageIndex=1&pageJumpIndex='
+        url = 'https://sldict.korean.go.kr/front/sign/signContentsView.do?origin_no=' + str(
+            index)  # + '&category=SPE003'
 
         session = requests.Session()
         session.verify = False
         # URL에서 비디오 가져오기
         source_code = session.get(url)
-        #source_code = requests.get(url)
+        # source_code = requests.get(url)
         plain_text = source_code.text
         soup = BeautifulSoup(plain_text, 'lxml')
 
@@ -48,15 +75,19 @@ def spider(max_indexes):
         # word : 단어, part : 품사
         else:
             word = clean_text(soup.find("meta", property="og:title").get('content'))
+            print(word)
             word = clean_word(word)
+            print("word : " + word)
             temp1 = soup.find("form", {"name": "signViewForm"})
             temp2 = temp1.find("dt", {"class": ""})
             temp3 = temp2.find_next_sibling("dd")
-
+            #print(temp3)
+            #temp4 = clean_text_2(temp3)
+            #print(temp4)
             try:
                 part = clean_text(temp3.find_next_sibling("dd").text)
                 mean = search_mean(part)
-                part = search_part(part)                                                                                                                                                                                                                             
+                part = search_part(part)
                 part = change_part(part)
             except:
                 part = ''
@@ -76,16 +107,18 @@ def spider(max_indexes):
 
                 if part == '수사':
                     print(mean)
-                    #location = save_signlanguage_video(href, frame, count2, 'number')
-                    # data.append([word, part, mean, ref_word, location])
+
+                    location = save_signlanguage_video(href, frame, count2, 'number')
+                    data.append([word, part, mean, ref_word, location])
                     for w, p, m, r, l in data:
                         f.write(word + " " + part + " " + mean + "\n")
                         Number(word=w, part=p, mean=m, ref_word=r, location=l).save()
-                    count2 +=1
+                    count2 += 1
 
                 else:
 
-                    location = save_signlanguage_video(href, frame, count1, 'basic')
+                    # part = '명사'
+                    location = save_signlanguage_video(href, frame, index, 'basic')
                     data.append([word, part, mean, ref_word, location])
                     for w, p, m, r, l in data:
                         print(w, p, m, r, l)
@@ -98,8 +131,18 @@ def spider(max_indexes):
     f.close()
 
 
+#
+def clean_text_2(text):
+    print(str(text))
+    cleaned_text = text.replace(' ', '')
+    # text = re.sub('</dd>', '', cleaned_text)
+    # cleaned_text = re.sub(' ', '', text)
+    return cleaned_text
+
+
 # 필요없는 text 부분 제거
 def clean_text(text):
+    print("clean_text :" + text)
     cleaned_text = re.sub('한국수어사전_', '', text)
     text = re.sub('-', '', cleaned_text)
     text2 = re.sub('\s\s', '', text)
@@ -118,6 +161,7 @@ def search_part(text):
     else:
         return '없음'
 
+
 def change_part(part):
     if part == '관·명' or part == '대명사' or part == '의존 명사' or part == '대·부':
         part = '명사'
@@ -130,10 +174,11 @@ def change_part(part):
 
     return part
 
+
 # 뜻 정보 가져오기
 def search_mean(text):
     if ']' in text:
-        return text[text.index(']')+1:]
+        return text[text.index(']') + 1:]
     else:
         return '없음'
 
@@ -144,30 +189,32 @@ def cut_video(url):
     #  vcap의 프레임 수 get
     frame_cnt = vcap.get(cv2.CAP_PROP_FRAME_COUNT)
     # 프레임 수 1/3로 나누기
-    frame_cnt = int(frame_cnt/3)
+    # frame_cnt = int(frame_cnt/3)
     frame = str(frame_cnt)
     return frame
+
 
 def save_signlanguage_video(href, frame, count, type):
     input_location = 'app/media/' + type + '/' + str(count) + '.mp4'
     output_location = 'app/media/' + type + '/' + str(count) + '.mp4'
     output_location2 = 'app/media/' + type + '/' + str(count) + '.mp4'
 
-    #if txt is not None:
+    # if txt is not None:
     #    txt.encode('utf8')
 
-    end_time = int(frame)/30
+    # end_time = int(frame)/30
+
+    end_time = int(float(frame))
     print("end_time : " + str(end_time))
 
-
-
-    ffmpeg_extract_subclip(href, 0, end_time, input_location) # 파일경로, start, end, 저장될 파일 경로
+    ffmpeg_extract_subclip(href, 0, end_time, input_location)  # 파일경로, start, end, 저장될 파일 경로
     # ffmpeg_resize(input_location, output_location, (560, 360))
     # clip = VideoFileClip(output_location)
-    #new_clip = crop(clip, x1=70, y1=0, x2= 490, y2=270)
-    #new_clip.write_videofile(output_location2)
+    # new_clip = crop(clip, x1=70, y1=0, x2= 490, y2=270)
+    # new_clip.write_videofile(output_location2)
 
     return output_location2
 
+
 # spider(10128)
-spider(11824)
+spider(9380)

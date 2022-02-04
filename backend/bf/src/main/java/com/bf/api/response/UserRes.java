@@ -11,7 +11,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * 회원 본인 정보 조회 API ([GET] /api/v1/users/me) 요청에 대한 응답값 정의.
+ * 회원 본인 정보 조회 API ([GET] /api/users/me) 요청에 대한 응답값 정의.
  */
 @Getter
 @Setter
@@ -19,10 +19,14 @@ import lombok.Setter;
 public class UserRes{
 	@ApiModelProperty(name="ssafy_web")
 	String userId;
-	@ApiModelProperty(name="your_password")
+	@ApiModelProperty(name="userName")
 	String userName;
+	@ApiModelProperty(name="userEmail")
 	String userEmail;
+	@ApiModelProperty(name="description")
 	String description;
+	@ApiModelProperty(name="thumbnail")
+	String thumbnail;
 
 	
 
@@ -33,6 +37,7 @@ public class UserRes{
 		res.setUserEmail(user.getUserEmail());
 		res.setUserName(user.getUserName());
 		res.setDescription(user.getDescription());
+		res.setThumbnail(user.getThumbnail());
 		return res;
 	}
 }
