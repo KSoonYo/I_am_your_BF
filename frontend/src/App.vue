@@ -1,20 +1,22 @@
 <template>
-  <q-layout view="hHr lpr fFr">
-    <q-header reveal class="bg-orange-2 text-black">
+  <q-layout :style="{'background-image':'url('+ require('./assets/bg-image2.svg')+ ')'}" view="hHr lpr fFr"> :
+    <!-- <q-header reveal class="bg-yellow-1 text-black"> -->
+    <q-header reveal class='nav-bar'>
       <q-toolbar class="row justify-between">
         <q-btn flat round style="color: white">
           <router-link to="/">
-            <q-avatar size="80px">
+            <q-avatar size="85px">
               <img alt="배프 로고" src="./assets/bf-logo.svg">
             </q-avatar>
           </router-link>
          </q-btn>
+         <!-- toekn 유무에 다른 버튼 -->
       <div class="account">
-        <router-link to="signup">
+        <router-link :to='{name:"signup"}'>
         <q-btn flat style="color: #000000" label="회원 가입">
         </q-btn>
         </router-link>
-        <router-link to="login">
+        <router-link :to='{name:"login"}'>
         <q-btn flat style="color: #000000" label="로그인">
         </q-btn>
         </router-link>
@@ -62,9 +64,18 @@ export default {
 </script>
 <style>
 
-.account {
-  text-decoration: none;
+/* .account {
+  text-decoration: none; 
+} */
+.background-image {
+  height: 1000px;
+  width: 1000px;
 }
+.nav-bar {
+  background-color: #fcfbf9 !important;
+  color: black;
+}
+
 
 .image {
     height: 150px;
