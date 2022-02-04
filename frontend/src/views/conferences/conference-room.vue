@@ -22,6 +22,16 @@
         </div>
       </div>
 
+			<!-- 참가자 명단 -->
+			<div class="container">
+				<div v-for="subscriber in subscribers" :key="subscriber.stream.connection.connectionId">
+					<p>{{ subscriber }}</p>
+				</div>
+			</div>
+
+			<!-- 화면공유 -->
+			<button @click="openScreen">화면공유</button>
+
       <!-- tool bar -->
       <div id="tool-bar">
         <button> 버튼 </button>
@@ -70,6 +80,7 @@ export default {
 			this.session.on('streamCreated', ({ stream }) => {
 				const subscriber = this.session.subscribe(stream);
 				this.subscribers.push(subscriber);
+				console.log('사용자 목록 : ',this.subscribers)
 			});
 			// On every Stream destroyed...
 			this.session.on('streamDestroyed', ({ stream }) => {
@@ -110,6 +121,33 @@ export default {
 			});
 			window.addEventListener('beforeunload', this.leaveSession)
 		},
+		
+		openScreen () {
+			var OV = new OpenVidu();
+			var sessionScreen = OV.initSession();
+			this.getToken().then((token) => {
+					sessionScreen.connect(token).then(() => {
+							var publisher = OV.initPublisher("html-element-id", { videoSource: "screen" });
+
+							publisher.once('accessAllowed', () => {
+									publisher.stream.getMediaStream().getVideoTracks()[0].addEventListener('ended', () => {
+											console.log('User pressed the "Stop sharing" button');
+									});
+									sessionScreen.publish(publisher);
+
+							});
+
+							publisher.once('accessDenied', () => {
+									console.warn('ScreenShare: Access Denied');
+							});
+
+					}).catch((error => {
+							console.warn('There was an error connecting to the session:', error.code, error.message);
+
+					}));
+			});
+		},
+
 		leaveSession () {
 			// --- Leave the session by calling 'disconnect' method over the Session object ---
 			if (this.session) this.session.disconnect();
