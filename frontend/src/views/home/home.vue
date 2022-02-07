@@ -2,23 +2,25 @@
 <!-- 반응형 처리 해주기 -->
 <div class='main-container row'>
   <q-page class="main-page row" center> 
-    <img class="main-image" alt="사람 둘이 손을 잡고 있는 그림" src="../../assets/bg-image-people.svg" style="width: 100% height: 100%">
-      <div class="intro">
-        <h3>I’m Your Best Friend
+    <img class="main-image col-xs-12 col-sm-7 col-md-8" alt="사람 둘이 손을 잡고 있는 그림" src="../../assets/bg-image-people.svg">
+      <div class="intro col-xs-12 col-sm-5 col-md-4">
+        <h4 class="catchphrase">I’m Your Best Friend
           <br>
           (Barrier Free)
-        </h3>
+        </h4>
+          <!-- jwt token 유무에 따라 다른 버튼 -->
+          <!-- v-if="!this.$store.state.jwtIsValid" -->
+          <div>
+            <div class="q-pa-md row items-start q-gutter-md">
+              <router-link class="conference-button" :to='{name:"conferenceRoom"}'>
+                <q-btn push style="background: #E6A377; color: #FFFFFF" label="수업 참여하기">
+                </q-btn>
+              </router-link>
+              <!-- <q-btn push style="background: #E6A377; color: #FFFFFF" label="수업 참여하기"/> -->
+              <!-- <q-btn flat style="color: #000000" label="수업 생성하기"/> -->
+            </div>
+          </div>
       </div>    
-  <!-- jwt token 유무에 따라 다른 버튼 -->
-  <div class="conference-button">
-  <div class="q-pa-md row items-start q-gutter-md">
-    <!-- <router-link :to='{name:"강의실 참여하기"}'>
-    <q-btn push style="background: #E6A377; color: #FFFFFF" label="수업 참여하기"/>
-    </router-link> -->
-    <q-btn push style="background: #E6A377; color: #FFFFFF" label="수업 참여하기"/>
-    <!-- <q-btn flat style="color: #000000" label="수업 생성하기"/> -->
-  </div>
-  </div>
   </q-page>
   <div class="q-pa-md row items-start q-gutter-md justify-evenly">
   <div class="container col-xs-12 col-sm-6 col-md-3">
@@ -51,23 +53,41 @@ export default {
 }
 </script>
 <style scoped>
-.main-page {
-  margin-left: 100px;
+
+.main-container {
   display: flex;
-}
-.main-image {
-  margin-top: -200px;
-  display: flex;
-}
-.intro {
-  margin-top: 200px;
-}
-.conference-button {
-  margin-top: 400px;
-  margin-left: -400px;
+  flex-direction: row;
+  justify-content: center;
 }
 
-/*  */
+.main-page {
+  display: flex;
+  bottom: 5rem;
+}
+
+.main-image {
+  height: auto;
+  width: auto;
+  display: flex;
+
+}
+
+.intro {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.catchphrase {
+  justify-content: center;
+}
+
+.conference-button {
+  position: relative;
+  text-decoration: none;
+}
+
 .container {
   position: relative;
   width: 50%;

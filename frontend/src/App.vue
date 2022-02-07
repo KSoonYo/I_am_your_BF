@@ -1,5 +1,5 @@
 <template>
-  <q-layout :style="{'background-image':'url('+ require('./assets/bg-image2.svg')+ ')'}" view="hHr lpr fFr"> :
+  <q-layout :style="{'background-image':'url('+ require('./assets/bg-image2.svg')+ ')'}" view="hHr lpr fFr">
     <!-- <q-header reveal class="bg-yellow-1 text-black"> -->
     <q-header reveal class='nav-bar'>
       <q-toolbar class="row justify-between">
@@ -10,13 +10,14 @@
             </q-avatar>
           </router-link>
          </q-btn>
-         <!-- toekn 유무에 다른 버튼 -->
-      <div class="account">
-        <router-link :to='{name:"signup"}'>
+        <!-- toekn 유무에 다른 버튼 -->
+        <!-- v-if="!this.$sotre.state.jwtIsValid" -->
+      <div class="navbar">
+        <router-link class="account" :to='{name:"signup"}'>
         <q-btn flat style="color: #000000" label="회원 가입">
         </q-btn>
         </router-link>
-        <router-link :to='{name:"login"}'>
+        <router-link class="account" :to='{name:"login"}'>
         <q-btn flat style="color: #000000" label="로그인">
         </q-btn>
         </router-link>
@@ -57,20 +58,17 @@ export default {
   },
   data() {
     return {
-      image: {backgroundImage: "./assets/bf-logo.svg"}
+      image: {logoImage: "./assets/bf-logo.svg"}
     }
   }
 }
 </script>
-<style>
+<style scoped>
 
-/* .account {
-  text-decoration: none; 
-} */
-.background-image {
-  height: 1000px;
-  width: 1000px;
-}
+.account {
+  text-decoration: none;
+} 
+
 .nav-bar {
   background-color: #fcfbf9 !important;
   color: black;
