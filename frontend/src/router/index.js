@@ -9,8 +9,11 @@ import findPw from './find-pw'
 // conferenceRoom
 import conferenceRoom from './conference-room'
 
-import lobby from './lobby'
 import CreateConference from './create-conference'
+import conferenceList from './conference-list'
+
+// profile
+import profile from './profile'
 
 const routes = [
   {
@@ -25,7 +28,8 @@ const routes = [
   },
   ...login,
   ...signup,
-  ...lobby,
+  ...profile,
+  ...conferenceList,
   ...CreateConference,
   ...findId,
   ...findPw,

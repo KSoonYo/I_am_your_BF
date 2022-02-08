@@ -2,17 +2,29 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="845a77b3-dca7-49ef-8d51-efa7cbf7eb93" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/bin/dic.user" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/src/router/conference-list.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/src/router/profile.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SignLanguage/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/SignLanguage/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/crawling.py" beforeDir="false" afterPath="$PROJECT_DIR$/crawling.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backend/bf/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/bf/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backend/bf/src/main/java/com/bf/config/WebMvcConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/bf/src/main/java/com/bf/config/WebMvcConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backend/bf/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/bf/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backend/bf/ssafy-web.log" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/bf/ssafy-web.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SignLanguage/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/SignLanguage/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/bin/constant.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/bin/nlp.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/nlp.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/bin/similarityVoca.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/bin/stopword.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/stopword.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/similarityVoca.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/similarityVoca.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/App.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/assets/bg-image2.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/assets/bg-image2.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/router/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/router/lobby.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/views/account/login.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/views/account/login.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/views/conferences/components/conference-list.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/views/conferences/conference-list.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/views/conferences/components/profile-update.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/views/profile/profile-update.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/src/views/conferences/components/user-video.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/views/conferences/components/user-video.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/views/conferences/create-conference.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/views/conferences/create-conference.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/views/conferences/lobby.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/views/profile/profile.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/views/home/home.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/views/home/home.vue" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -34,16 +46,16 @@
         <counts>
           <entry key="activate" value="1" />
           <entry key="gitignore" value="1" />
-          <entry key="md" value="1" />
-          <entry key="py" value="63" />
+          <entry key="md" value="2" />
+          <entry key="py" value="66" />
           <entry key="txt" value="11" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="Markdown" value="1" />
+          <entry key="Markdown" value="2" />
           <entry key="PLAIN_TEXT" value="13" />
-          <entry key="Python" value="63" />
+          <entry key="Python" value="66" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
@@ -77,20 +89,56 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SignLanguage/settings.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="266">
-              <caret line="30" lean-forward="true" selection-start-line="30" selection-end-line="30" />
+              <caret line="29" selection-start-line="29" selection-end-line="29" selection-end-column="37" />
+              <folding>
+                <element signature="e#313#322#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://C:/ProgramData/Anaconda3/envs/bf_venv/Lib/json/decoder.py">
+        <entry file="file://$PROJECT_DIR$/manage.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="6688">
-              <caret line="354" selection-start-line="354" selection-end-line="354" />
+            <state relative-caret-position="304">
+              <caret line="17" column="24" selection-start-line="17" selection-start-column="24" selection-end-line="17" selection-end-column="24" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/README.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="SPLIT">
+              <first_editor relative-caret-position="494">
+                <caret line="26" lean-forward="true" selection-start-line="26" selection-end-line="26" />
+              </first_editor>
+              <second_editor />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/similarityVoca.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-114">
+              <caret line="9" column="40" lean-forward="true" selection-start-line="9" selection-start-column="40" selection-end-line="9" selection-end-column="40" />
+              <folding>
+                <element signature="e#23#37#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/models.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="410">
+              <caret line="78" column="6" selection-start-line="78" selection-start-column="6" selection-end-line="78" selection-end-column="6" />
             </state>
           </provider>
         </entry>
@@ -100,45 +148,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="228">
               <caret line="12" column="5" selection-start-line="12" selection-start-column="5" selection-end-line="12" selection-end-column="5" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/bin/nlp.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="171">
-              <caret line="10" column="22" selection-start-line="10" selection-start-column="22" selection-end-line="10" selection-end-column="22" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/bin/stopword.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="646">
-              <caret line="34" column="34" selection-start-line="34" selection-start-column="34" selection-end-line="34" selection-end-column="34" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/bin/constant.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="380">
-              <caret line="20" column="20" selection-start-line="20" selection-start-column="20" selection-end-line="20" selection-end-column="20" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/bin/similarityVoca.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="741">
-              <caret line="41" column="62" selection-start-line="41" selection-start-column="23" selection-end-line="41" selection-end-column="62" />
-              <folding>
-                <element signature="e#23#37#0" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -156,7 +165,7 @@
         <entry file="file://$PROJECT_DIR$/app/views.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="3439">
-              <caret line="188" column="28" selection-start-line="188" selection-start-column="28" selection-end-line="188" selection-end-column="28" />
+              <caret line="229" column="28" selection-start-line="229" selection-start-column="28" selection-end-line="229" selection-end-column="28" />
             </state>
           </provider>
         </entry>
@@ -196,10 +205,11 @@
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/crawling.py" />
         <option value="$PROJECT_DIR$/SignLanguage/settings.py" />
+        <option value="$PROJECT_DIR$/app/similarityVoca.py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="589" />
     <option name="y" value="52" />
     <option name="width" value="1219" />
@@ -278,7 +288,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.crawling">
+  <component name="RunManager" selected="Python.manage">
     <configuration name="crawling" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="SSLIS" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -313,6 +323,27 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="manage" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="SSLIS" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/manage.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -368,9 +399,11 @@
       <item itemvalue="Python.similarityVoca" />
       <item itemvalue="Python.views" />
       <item itemvalue="Python.crawling" />
+      <item itemvalue="Python.manage" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.manage" />
         <item itemvalue="Python.crawling" />
         <item itemvalue="Python.views" />
         <item itemvalue="Python.similarityVoca" />
@@ -391,21 +424,21 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-74" y="135" width="1219" height="1089" extended-state="0" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.15580016" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.09694415" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.36277175" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.3626493" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Terminal" order="8" weight="0.17613636" />
+      <window_info anchor="bottom" id="Terminal" order="8" visible="true" weight="0.17589577" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" weight="0.32954547" />
       <window_info anchor="bottom" id="Python Console" order="10" weight="0.09943182" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -418,16 +451,6 @@
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/venv/Scripts/activate" />
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="171">
-            <caret line="21" column="33" selection-start-line="21" selection-start-column="2" selection-end-line="21" selection-end-column="33" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/migrations/__init__.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -528,22 +551,8 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/manage.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
-          <caret line="17" column="24" selection-start-line="17" selection-start-column="24" selection-end-line="17" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/nunmber.txt">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-15">
-          <caret line="78" column="6" selection-start-line="78" selection-start-column="6" selection-end-line="78" selection-end-column="6" />
-        </state>
-      </provider>
     </entry>
     <entry file="file://C:/ProgramData/Anaconda3/envs/bf_venv/Lib/site-packages/moviepy/video/io/VideoFileClip.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -687,7 +696,7 @@
     <entry file="file://$PROJECT_DIR$/app/views.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3439">
-          <caret line="188" column="28" selection-start-line="188" selection-start-column="28" selection-end-line="188" selection-end-column="28" />
+          <caret line="229" column="28" selection-start-line="229" selection-start-column="28" selection-end-line="229" selection-end-column="28" />
         </state>
       </provider>
     </entry>
@@ -701,10 +710,47 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="410">
+          <caret line="78" column="6" selection-start-line="78" selection-start-column="6" selection-end-line="78" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/SignLanguage/settings.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="266">
-          <caret line="30" lean-forward="true" selection-start-line="30" selection-end-line="30" />
+          <caret line="29" selection-start-line="29" selection-end-line="29" selection-end-column="37" />
+          <folding>
+            <element signature="e#313#322#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/manage.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="304">
+          <caret line="17" column="24" selection-start-line="17" selection-start-column="24" selection-end-line="17" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="494">
+            <caret line="26" lean-forward="true" selection-start-line="26" selection-end-line="26" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/similarityVoca.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-114">
+          <caret line="9" column="40" lean-forward="true" selection-start-line="9" selection-start-column="40" selection-end-line="9" selection-end-column="40" />
+          <folding>
+            <element signature="e#23#37#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

@@ -100,11 +100,13 @@ import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import axios from 'axios'
 import { useQuasar } from 'quasar'
+// import { useStore } from 'vuex'
 
 export default {
     name: 'CreateConference',
     
     setup() {
+      // const store = useStore()
       const router = useRouter();
       const dense = ref(false);
       const token = localStorage.getItem('jwt')
@@ -149,14 +151,29 @@ export default {
             }
             axios({
               method: 'post',
-              url: 'http://localhost:8080/conferences/create',
+              url: 'http://localhost:8080/api/image/upload',
               params: {
-                conferenceRoomTitle: state.value.title,
-                conferenceRoomPassword: state.value.password,
-                conferenceRoomDescription: state.value.content,
-                conferenceRoomThumbnail: state.value.thumbnail,
-                // 아이디를 넘겨줘야하지 않나?
+                thumbnail: state.value.thumbnail,
+                
               }
+              .then((thumbnail) => {
+                axios({
+                  method: 'post',
+                  url: 'http://localhost:8080/api/',
+                  params: {
+                    title: state.value.title,
+                    password: state.value.password,
+                    description: state.value.content,
+                    thumbnail: thumbnail,
+                    userId: ''
+                    // 아이디를 넘겨줘야하지 않나?
+                  }
+                })
+                .then(() => {
+                  console.log('성공')
+                })
+              })
+              
             })
               .then(() => {
                   router.push({ name: 'ConferenceRoom' })
