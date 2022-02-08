@@ -22,32 +22,16 @@
       
         <q-list padding>
             <q-item :to='{ name: "conferenceList"}' clickable v-ripple>
-              <q-item-section>
-                수업 목록
-              </q-item-section>
+              수업 이력
+            </q-item>
+          
+            <q-item :to='{ name: "profileUpdate"}' clickable v-ripple>
+              프로필 수정
             </q-item>
 
             <q-item :to='{ name: "conferenceList"}' clickable v-ripple>
-              <q-item-section>
-                종료된 수업 기록
-              </q-item-section>
+              비밀번호 변경
             </q-item>
-
-            <q-separator/>
-            
-            <q-list padding>
-              <q-item :to='{ name: "conferenceList"}' clickable v-ripple>
-                수업 이력
-              </q-item>
-            
-              <q-item :to='{ name: "profileUpdate"}' clickable v-ripple>
-                프로필 수정
-              </q-item>
-
-              <q-item :to='{ name: "conferenceList"}' clickable v-ripple>
-                비밀번호 변경
-              </q-item>
-            </q-list>
         </q-list>
 
 
@@ -65,7 +49,7 @@
 <script>
 
 export default {
-  name: 'lobby',
+  name: 'profile',
 }
 </script>
 
