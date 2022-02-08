@@ -114,7 +114,13 @@ export default {
                         store.state.accessToken = response.data.accessToken
                     })
                     .then(()=>{
-                        router.push({name: 'lobby'})
+                        store.dispatch('getUserInfo')
+                        .then((response)=>{
+                            store.commit('SET_USER_INFO', response.data)
+                        })
+                        .then(()=>{
+                            router.push({name: 'conferenceList'})
+                        })
                     })
                     .catch(()=>{
                         alert('아이디 또는 비밀번호를 잘못 입력하였습니다.')
