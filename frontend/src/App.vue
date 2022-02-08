@@ -1,8 +1,7 @@
 <template>
-  <q-layout :style="{'background-image':'url('+ require('./assets/bg-image2.svg')+ ')'}" view="hHr lpr fFr">
-    <!-- <q-header reveal class="bg-yellow-1 text-black"> -->
-    <q-header reveal class='nav-bar'>
-      <q-toolbar class="row justify-between">
+  <div :style="{'background-image':'url('+ require('./assets/bg-image2.svg')+ ')'}" view="hHr lpr fFr">
+    <div reveal class='nav-bar'>
+      <div class="row justify-between">
         <q-btn flat round style="color: white">
           <router-link to="/">
             <q-avatar size="85px">
@@ -17,6 +16,13 @@
         <q-btn flat style="color: #000000" label="회원 가입">
         </q-btn>
         </router-link>
+        <router-link class="account" :to='{name:"profile"}'>
+          <q-avatar size="30px"  class="q-mb-sm image-box">
+            <img src="@/assets/profile-default.png">
+          </q-avatar>
+        <q-btn flat style="color: #000000" label="마이 페이지">
+        </q-btn>
+        </router-link>
         <router-link class="account" :to='{name:"login"}'>
         <q-btn flat style="color: #000000" label="로그인">
         </q-btn>
@@ -28,27 +34,24 @@
         <q-btn flat style="color: #000000" label="로그아웃">
         </q-btn>
        </div> -->
-      </q-toolbar>
-    </q-header>
-    <q-page-container>
+      </div>
+    </div>
+    <div class="wrapper">
       <router-view />
       <div :style="image" class="image"></div>
-    </q-page-container>
-  </q-layout>
-  <q-page-container>
-    <Home />
-  </q-page-container>
+    </div>
+  </div>
 </template>
 
 <script>
 import { ref } from 'vue'
-import Home from './views/home/home.vue'
+// import Home from './views/home/home.vue'
 
 export default {
   name: 'LayoutDefault',
 
   components: {
-    Home,
+    // Home,
   },
 
   setup () {
@@ -70,10 +73,14 @@ export default {
 } 
 
 .nav-bar {
-  background-color: #fcfbf9 !important;
+  /* background-color: #fcfbf9 !important; */
+  background-color: rgba(252,251,249,0) !important;
   color: black;
 }
 
+.image-box {
+  padding: 3.5px;
+}
 
 .image {
     height: 150px;
