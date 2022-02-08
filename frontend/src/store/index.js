@@ -8,11 +8,25 @@ axios.defaults.baseURL = 'https://localhost:8080/api'
 
 export default createStore({
   state: {
-    accessToken : ''
+    accessToken : '',
+
+    // profile
+    userThumbnail : '',
+    userEmail: '',
+    userId: '',
+    userName: '',
+    userDescription: ''
+
 
   },
   mutations: {
-    
+    SET_USER_INFO(state, userData){
+      state = {
+        ...state,
+        ...userData
+      }
+      console.log(state)
+    }
   },
   actions: {
 
@@ -29,11 +43,21 @@ export default createStore({
       const url = `/users/${user}`
       return axios.get(url)
     },
+
+
+    // 유저 정보 조회
+    getUserInfo({state}){
+      const url = '/users/profile'
+      return axios.get(url, {
+        headers: {
+          Authorization:  `Bearer ${state.accessToken}`
+        }
+      })
+    },
     
     // 회원가입
     signUp({state}, userInfo){
       state
-      console.log(userInfo)
       const url = '/users'
       return axios.post(url, userInfo)      
     }
