@@ -8,10 +8,12 @@ from django.http import JsonResponse
 import json
 # Create your views here.
 # nlp = nlp.NLP()
+'''['안녕하세요', '우리', '당신', '친구', '*베프다', '저희', '시스템', '수어', '통역', '*하다', '또', '자막', '*실시간', '*처리', '하다', '당신', '권리', '지키다'], 
+    ['감탄사', '명사', '명사', '명사', '용언', '명사', '명사', '명사', '명사', '용언', '부사', '명사', '명사', '명사', '용언', '명사', '명사', '용언']'''
 
 @csrf_exempt
 def matchingSign(request):
-    default_video = 'app/media/basic/24224.mp4'
+    default_video = ''
 
     if request.method == 'POST':
         request = json.loads(request.body)
@@ -20,17 +22,15 @@ def matchingSign(request):
 
     sim = SimilarytyWord()
     # request -> text '안녕하세요 00입니다.'
-    word, ty = sim.komoran(request)
+    word, ty = sim.relocateMorpheme(request)
     nums = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '100', '1000', '10000',
             '0']  # 12345 => 10000 2 1000 3 100 4 10 5
-    idx = 0 
     results = []
     not_found = []
     
     
 
     for letter in word: # [안녕, 하세요, ...]
-        idx += 1
         # 형태소가 숫자일 때,
         if letter in nums:
             number = []
@@ -59,23 +59,59 @@ def matchingSign(request):
             for let in letters:  # '12345'
                 find_word = Number.objects.get(word=let)  # ['1']
                 results.append(find_word.location)  # 동영상 위치
-                    
-            #except:
-            #    for word in letter:
-            #        for str in word:  # '1'
-            #            find_word = Number.objects.get(word=str)
-            #            results.append(find_word.location)  # 동영상 위치
-            #            print(find_word)
-            #            pass_word.append(word)  # 단어 의미
 
 
         # 형태소가 DB 검색 시 1개 일 때,
         elif Basic.objects.filter(word=letter).count() == 1:
             find_word = Basic.objects.get(word=letter)
             results.append(find_word.location)
-        elif Basic.objects.filter(word=letter).count() == 0:
-            not_found.append(word)
         
+        # 형태소가 DB 검색 시 2개 이상일 경우
+        elif Basic.objects.filter(word=letter).count() >= 2:
+            find_word = Basic.objects.filter(word=letter)
+
+            # 유사도 분석
+            noun = []
+            ref = []
+            N = ''
+            idx = word.index(letter)
+            direction = []
+            # 왼쪽 방향에 가장 인접하게 존재하는 명사
+            if idx >= 1:
+                for i in range(idx-1, -1, -1):
+                    if ty[i] == "명사":
+                        noun.append(word[i])
+                        direction.append(idx - i - 1) # 간격
+                        break
+
+            # 오른쪽 방향에 가장 인접하게 존재하는 명사
+            if idx < len(word)-1:
+                for j in range(idx+1, len(word)):
+                    if ty[j] == "명사":
+                        noun.append(word[j])
+                        direction.append(i - idx + 1) # 간격 ['나는 사과와 배를 먹는다.'] [ 나, 맛있게, 사과, 배, 먹는다.]
+                        break
+
+            if len(direction) > 1 :
+                if(direction[0] > direction[1]):
+                    N = noun[1]
+                else:
+                    N = noun[0]
+            elif len(direction) == 1:
+                N = noun[0]
+            else:
+                results.append(find_word[0].location)
+                continue
+
+            letter, N = sim.similarity_voca(letter, N) # 사과, 배
+            
+            
+            find_word = Basic.objects.filter(word=letter['Word'], mean=letter['Definition'])
+            results.append(find_word.location)
+
+        else: # Basic.objects.filter(word=letter).count() == 0
+            not_found.append(word)
+    
     
     if results == []:
         results.append(default_video)
@@ -84,6 +120,11 @@ def matchingSign(request):
         'sign': results
     }
     return JsonResponse(context)
+
+
+
+
+
 
     '''
 

@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
+import os
 from pathlib import Path
 import my_setting
 
@@ -137,3 +138,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # MEDIA_URL = '/aws/media/'
 # MEDIA_ROOT = os.path.join(BASE_DIR,  'aws/media/')
 
+MEDIA_ROOT = os.path.join(BASE_DIR,  'app/media/')
+MEDIA_URL = '/media/'
