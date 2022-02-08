@@ -110,9 +110,8 @@ export default {
                     // 유효성 통과
                     store.dispatch('getToken', {...state.value.form})
                     .then((response)=>{
-                        localStorage.setItem('accessToken', response.accessToken)
+                        localStorage.setItem('accessToken', response.data.accessToken)
                         store.state.accessToken = response.data.accessToken
-                        console.log(store.state.accessToken)
                     })
                     .then(()=>{
                         router.push({name: 'lobby'})
