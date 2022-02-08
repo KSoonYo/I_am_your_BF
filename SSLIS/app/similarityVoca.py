@@ -2,7 +2,7 @@
 import urllib3
 import json
 import numpy as np
-from constant import Morph
+from .constant import Morph
 
 class SimilarytyWord:
     def __init__(self):

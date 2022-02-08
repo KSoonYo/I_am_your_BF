@@ -2,7 +2,7 @@ from multiprocessing import managers
 from django.shortcuts import render
 from app.models import Basic, Finger, Number
 # from bin import nlp
-from .similarityVoca import SimilarytyWord
+from .nlp import NLP
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 import json
@@ -20,7 +20,7 @@ def matchingSign(request):
     else:
         request = ''
 
-    sim = SimilarytyWord()
+    sim = NLP()
     # request -> text '안녕하세요 00입니다.'
     word, ty = sim.relocateMorpheme(request)
     nums = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '100', '1000', '10000',
