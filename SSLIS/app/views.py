@@ -12,6 +12,10 @@ import json
 '''['안녕하세요', '우리', '당신', '친구', '*베프다', '저희', '시스템', '수어', '통역', '*하다', '또', '자막', '*실시간', '*처리', '하다', '당신', '권리', '지키다'], 
     ['감탄사', '명사', '명사', '명사', '용언', '명사', '명사', '명사', '명사', '용언', '부사', '명사', '명사', '명사', '용언', '명사', '명사', '용언']'''
 
+from django.http import HttpResponse
+def httpresponse(request):
+    return HttpResponse("Hello, world.")
+
 @csrf_exempt
 def matchingSign(request):
     default_video = ''

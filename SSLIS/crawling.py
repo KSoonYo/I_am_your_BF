@@ -24,7 +24,7 @@ from app.models import *
 # 한국수어사전 홈페이지에서 단어명, 품사, 뜻, 수어영상을 Crawling하는 함수
 
 
-def findWord(word):
+def signAPI():
     openApiURL = "http://api.kcisa.kr/API_CNV_054/request"
     accessKey = "d15d1b57-ecc5-43e3-b0e6-e9200ce7e92c"
 
@@ -36,16 +36,15 @@ def findWord(word):
     #         'second_word': secondWord
     #     }
     # }
-
+    url = 'http://api.kcisa.kr/openapi/service/rest/meta13/getCTE01701'
+    payload = {'serviceKey': '8e33704a-579f-4d01-8f7e-f641e2f9aa6f',
+               'numOfRow': 5,
+               'pageNo': 5}
     http = urllib3.PoolManager()
-    response = http.request(
-        "GET",
-    url = 'http://api.kcisa.kr/API_CNV_054/request'
-        # headers={"Content-Type": "application/json; charset=UTF-8"},
-        # body=json.dumps(requestJson)
-    )
+    req = http.request("GET",url, fields=payload)
 
-    return response
+
+    return req
 
 
 def spider(max_indexes):
@@ -217,4 +216,8 @@ def save_signlanguage_video(href, frame, count, type):
 
 
 # spider(10128)
-spider(9380)
+#spider(9380)
+response = signAPI()
+response = response.data.decode('utf-8')
+print(response)
+#print(response.body['itmes'])

@@ -6,7 +6,6 @@
 		<button v-if='onSpeech' @click='toggleOnSpeech'> 말하기 중지 </button>
 		<div class='words'>
 		</div>
-
     </div>
 </template>
 
