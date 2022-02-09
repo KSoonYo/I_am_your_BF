@@ -111,12 +111,12 @@ export default {
                     store.dispatch('getToken', {...state.value.form})
                     .then((response)=>{
                         localStorage.setItem('accessToken', response.data.accessToken)
-                        store.state.accessToken = response.data.accessToken
                     })
                     .then(()=>{
                         store.dispatch('getUserInfo')
                         .then((response)=>{
-                            store.commit('SET_USER_INFO', response.data)
+                            localStorage.setItem('userInfo', JSON.stringify(response.data))
+                            // console.log(JSON.parse(localStorage.getItem('userInfo')).userId)
                         })
                         .then(()=>{
                             router.push({name: 'conferenceList'})

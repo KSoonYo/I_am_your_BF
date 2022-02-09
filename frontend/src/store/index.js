@@ -8,25 +8,10 @@ import axios from 'axios'
 
 export default createStore({
   state: {
-    accessToken : '',
-
-    // profile
-    userThumbnail : '',
-    userEmail: '',
-    userId: '',
-    userName: '',
-    userDescription: ''
-
 
   },
   mutations: {
-    SET_USER_INFO(state, userData){
-      state = {
-        ...state,
-        ...userData
-      }
-      console.log(state)
-    }
+  
   },
   actions: {
 
