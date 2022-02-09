@@ -6,7 +6,7 @@ from .stopword import StopWord
 class NLP:
     def __init__(self):
         self.komoran = Komoran(DEFAULT_MODEL['FULL'])
-        self.komoran.set_user_dic(r"C:/Users/SSAFY/Desktop/ssafy공통PJT/pjt_backup/SSLIS/app/bin/dic.user")
+        # self.komoran.set_user_dic(r"C:/Users/SSAFY/Desktop/ssafy공통PJT/pjt_backup/SSLIS/app/bin/dic.user")
         self.pr = StopWord()
         pass
 

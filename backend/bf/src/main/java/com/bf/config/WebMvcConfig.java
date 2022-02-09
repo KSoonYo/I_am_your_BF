@@ -17,17 +17,17 @@ import javax.servlet.Filter;
 
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
-    private final Interceptor interceptor;
-
-    public WebMvcConfig(Interceptor interceptor) {
-        this.interceptor = interceptor;
-    }
-
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(interceptor)
-                .addPathPatterns("/**");
-    }
+//    private final Interceptor interceptor;
+//
+//    public WebMvcConfig(Interceptor interceptor) {
+//        this.interceptor = interceptor;
+//    }
+//
+//    @Override
+//    public void addInterceptors(InterceptorRegistry registry) {
+//        registry.addInterceptor(interceptor)
+//                .addPathPatterns("/**");
+//    }
 
 
     @Bean
