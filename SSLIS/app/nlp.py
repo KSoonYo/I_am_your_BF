@@ -42,8 +42,9 @@ class NLP:
         result.append(morph_list)
         return result[0], result[1]
 
-nlp = NLP()
-print(nlp.relocateMorpheme('나는 사과와 배를 먹는다. 나는 너에게 사과한다. 예쁜'))
+
+# nlp = NLP()
+# print(nlp.relocateMorpheme('나는 사과와 배를 먹는다. 나는 너에게 사과한다. 예쁜'))
 
 # 사과 = 명사, 동사, 형용사, 부사
 # 1. 동음이의어 비교
