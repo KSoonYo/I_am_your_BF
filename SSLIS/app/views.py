@@ -2,12 +2,13 @@ from multiprocessing import managers
 from django.shortcuts import render
 from app.models import Basic, Finger, Number
 # from bin import nlp
+from .nlp import NLP
 from .similarityVoca import SimilarytyWord
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 import json
 # Create your views here.
-# nlp = nlp.NLP()
+
 '''['안녕하세요', '우리', '당신', '친구', '*베프다', '저희', '시스템', '수어', '통역', '*하다', '또', '자막', '*실시간', '*처리', '하다', '당신', '권리', '지키다'], 
     ['감탄사', '명사', '명사', '명사', '용언', '명사', '명사', '명사', '명사', '용언', '부사', '명사', '명사', '명사', '용언', '명사', '명사', '용언']'''
 
@@ -19,10 +20,10 @@ def matchingSign(request):
         request = json.loads(request.body)
     else:
         request = ''
-
-    sim = SimilarytyWord()
+    nlp = NLP()
+    sim = NLP()
     # request -> text '안녕하세요 00입니다.'
-    word, ty = sim.relocateMorpheme(request)
+    word, ty = nlp.relocateMorpheme(request)
     nums = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '100', '1000', '10000',
             '0']  # 12345 => 10000 2 1000 3 100 4 10 5
     results = []
