@@ -46,8 +46,8 @@ import { OpenVidu } from 'openvidu-browser'
 import UserVideo from './components/user-video'
 
 axios.defaults.headers.post['Content-Type'] = 'application/json'
-const OPENVIDU_SERVER_URL = 'https://' + location.hostname + ':4443'
-const OPENVIDU_SERVER_SECRET = 'MY_SECRET'
+const OPENVIDU_SERVER_URL =  'https://i6b107.p.ssafy.io:6443'
+const OPENVIDU_SERVER_SECRET = 'bfssafy'
 
 export default {
 	name: 'session-test',
