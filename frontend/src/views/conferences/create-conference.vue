@@ -60,26 +60,28 @@
                   </q-input>
 
                   <!-- 이미지 파일 업로드 -->
-                  <q-file
-                    class='q-mt-lg flex justify-center items-center'
-                    v-model='state.thumbnail'
-                    accept='image/*'
-                    max-total-size='8192'
-                    @rejected='onRejected'
-                    use-chips
-                    style='border: dashed 2px black; border-radius: 10px'
-                    label='이미지 파일 업로드(최대 8KB)'
-                  >
-                  <template v-slot:prepend>
-											<i class="fas fa-cloud-upload-alt"></i>
-                  </template>
-                  
-                  </q-file>
-
-									
-
-									<!-- 강의실 생성 버튼 -->
-									<q-btn @click='createConferenceRoom' :loading='state.loading' color='black' label='강의실 생성' type='submit' style='margin-top: 20px; border-radius:10px' />
+                  <q-form>
+                    <q-file
+                      field-name="file"
+                      class='q-mt-lg flex justify-center items-center'
+                      v-model='state.thumbnail'
+                      accept='image/*'
+                      max-total-size='10485760'
+                      @rejected='onRejected'
+                      use-chips
+                      style='border: dashed 2px black; border-radius: 10px'
+                      label='이미지 파일 업로드(최대 10MB)'
+                      url="http://localhost:8080/api/image/upload"
+                    >
+                    <template v-slot:prepend>
+                        <i class="fas fa-cloud-upload-alt"></i>
+                    </template>
+                    
+                    </q-file>
+                  </q-form>
+                  <!-- 강의실 생성 버튼 -->
+                  <q-btn @click='createConferenceRoom' :loading='state.loading' color='black' label='강의실 생성' type='submit' style='margin-top: 20px; border-radius:10px' />
+                
 								</q-form>
 							</div>
 						</div> 
@@ -100,104 +102,93 @@ import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import axios from 'axios'
 import { useQuasar } from 'quasar'
-// import { useStore } from 'vuex'
 
 export default {
     name: 'CreateConference',
     
     setup() {
-      // const store = useStore()
       const router = useRouter();
       const dense = ref(false);
-      const token = localStorage.getItem('jwt')
       const $q = useQuasar()
-      
-      const qweqwe = function () {
-        console.log(state.value.thumbnail)
-      }
       function onRejected () {
         $q.notify({
           type: 'negative',
           message: `이미지 파일이 아니거나 파일 크기가 너무 큽니다.`
         })
       }
-      if (token) {
-        state.value.isLogin = true
-      }
       const state = ref({
           loading: false,
           title: '',
           content: '',
           thumbnail: ref(null),
-          password: null,
+          password: '',
           isLogin: false,
           filename: '',
           private: false
       });
-      const setprivate = function () {
-        if (state.value.private) {
-          state.value.private = false
-        } else {
-          state.value.private = true
-        }
-      };
       const createConferenceRoom = function () {
-        if (state.value.isLogin) {
-          state.value.loading = true
-          setTimeout(() => {
-            state.value.loading = false
-            if (!state.value.private) {
-              state.value.password = ''
-            }
-            axios({
-              method: 'post',
-              url: 'http://localhost:8080/api/image/upload',
-              params: {
-                thumbnail: state.value.thumbnail,
-                
-              }
-              .then((thumbnail) => {
-                axios({
-                  method: 'post',
-                  url: 'http://localhost:8080/api/',
-                  params: {
-                    title: state.value.title,
-                    password: state.value.password,
-                    description: state.value.content,
-                    thumbnail: thumbnail,
-                    userId: ''
-                    // 아이디를 넘겨줘야하지 않나?
-                  }
-                })
-                .then(() => {
-                  console.log('성공')
-                })
-              })
-              
-            })
-              .then(() => {
-                  router.push({ name: 'ConferenceRoom' })
-              })
-          }, 3000)
-        } else {
-          alert('로그인해주세요')
-          router.push({ name: 'ConferenceRoom'}) // 수정요망(로그인으로 이동)
+        state.value.loading = true
+        const formData = new FormData()
+        formData.append('file', state.value.thumbnail)
+        // if (state.value.thumbnail && state.value.thumbnail.length > 0) {
+        //   for (let i = 0; i < state.value.thumbnail.length; i++) {
+        //     formData.append('files['+i+']', state.value.thumbnail[i])
+        //   }
+        // }
+        // for (const [key, value] of Object.entries(this.form)) {
+        //   formData.append(key, value)
+        // }
+        if (!state.value.private) {
+          state.value.password = ''
+          console.log('비밀번호 인식')
         }
+        axios({
+          method: 'post',
+          url: 'http://localhost:8080/api/image/upload',
+          data: formData,
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          },
+        })
+        .then((thumbnail) => {
+          // console.log(store.state)
+          // console.log(thumbnail)
+          // console.log(JSON.parse(localStorage.getItem('userInfo')).userId)
+          axios({
+            headers: {
+            'Content-Type': 'application/json'
+            }, 
+            method: 'post',
+            url: 'http://localhost:8080/api/conferences',
+            data: {
+            'title': state.value.title,
+            'description': state.value.content,
+            'userId': JSON.parse(localStorage.getItem('userInfo')).userId,
+            'thumbnail': thumbnail.data.thumbnail,
+            'password' : state.value.password
+          }
+          })
+          .then(() => {
+            console.log('성공')
+            // state.value.loading = false
+          })
+          .catch(() => {
+            console.log('실패')
+          })
+        });
       };
+    
 
       
 
       return {
-        setprivate,
         onRejected,
         createConferenceRoom,
         // drop, 
         // selectedFile,
-        qweqwe,
         state,
         router,
         dense,
-        token,
         isPwd: ref(true),
       }
       
