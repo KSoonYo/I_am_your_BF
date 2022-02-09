@@ -32,10 +32,12 @@ export default createStore({
 
     // 유저 정보 조회
     getUserInfo({state}){
+      state
       const url = 'http://localhost:8080/api/users/profile'
+      const token = localStorage.getItem('accessToken')
       return axios.get(url, {
         headers: {
-          Authorization:  `Bearer ${state.accessToken}`
+          Authorization:  `Bearer ${token}`
         }
       })
     },
