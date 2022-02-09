@@ -1,22 +1,23 @@
 <template>
-  <div class='concard my-card shadow-5' style="">
-    <q-img class='my-card' :src="state.thumbnail" style="max-height: 242px; max-width: 486px">
-      <q-card  no-body style="width:100%; height:100%;">
-          <div class='text-h3'>
+  <div class="q-ma-md">
+    <q-img class='my-card concard shadow-5 no-border'  :fit="scale-down" :src="state.thumbnail">
+      <q-card class="no-border" no-body style="width:100%; height:100%;">
+          <div class='text-h3' style="opacity:0.7">
             <p>{{ conference.id }}</p>
           </div>
-          <div class='text-h5'>
+          <div class='text-h5' style="opacity:0.7">
             <p>{{ conference.title }}</p>
           </div>
-          {{ conference.userName }}
+          <p style="opacity:0.7">{{ conference.userName }}</p>
       </q-card>
-    </q-img>
-    <div class="container">
-      <div class="overlay">
-        <div class="text">{{ conference.description }}</div>
-        <q-btn flat color='primary' @click='openConference()'>입장하기</q-btn>
+      <div class="overlay flex column justify-center items-center">
+        <div class="text-h6">{{ conference.description }}</div>
+        <br>
+        <br>
+        <q-btn label="입장하기" rounded color="positive" @click='openConference(conference.id)'></q-btn>
       </div>
-    </div>
+    </q-img>
+    
   </div>
 </template>
 
@@ -76,7 +77,7 @@ export default {
   min-height: 121px; 
   max-width: 486px;
   max-height: 242px;
-  margin: 20px;
+  margin: 10px;
 }
 
 .overlay {
@@ -89,11 +90,12 @@ export default {
   width: 100%;
   opacity: 0;
   transition: .5s ease;
-  background-color: white;
+  /* background-color: white; */
   /* background-color: #484d4e; */
 }
 
-.container:hover .overlay {
-  opacity: 0.8;
+.my-card:hover .overlay {
+  opacity: 1;
+  font-weight: bolder;
 }
 </style>
