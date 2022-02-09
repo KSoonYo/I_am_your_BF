@@ -24,11 +24,12 @@
     <div>
         <q-btn @click='titlerule' flat style='color: #ddb193'>제목순</q-btn>
         <q-btn @click='namerule' flat style='color: #ddb193'>이름순</q-btn>
+        <q-btn @click='getConferences' flat style='color: #ddb193'>목록 가져오기</q-btn>
     </div>
 
     
       <div class='col-8 shadow-3' style='margin-left: 20px; border: solid 1px; border-radius: 10px'>
-        <div class='container create'>
+        <div class='create'>
           <!-- 회의실 생성 방법1 -->
           <div class='flex justify-between'>
             
@@ -41,15 +42,15 @@
           </div>
           <br>
           <!-- 회의실 목록 카드들   -->
-          <div v-if='state.conferenceList'>
-            <ul class='infinite-list'>
-              <li v-for='conference in state.conferenceList' :key='conference.datetime' class='infinite-list-item'>
-                <conference />
-              </li>
-            </ul>
+          <div v-if='state.conferenceList' class="row flex justify-center">
+            <Conference 
+              v-for='conference in state.conferenceList' :key='conference.id'
+              :conference="conference"
+              class="col-3 flex justify-center"
+            />
           </div>
           <div v-else>
-            <p>아무 정보가 없네요?</p>
+            <p>회의실이 없습니다.</p>
           </div>
         </div>
       </div>
@@ -60,21 +61,32 @@
 // 제목 검색시 쿼리 동적 전달방식 이용
 // import conference from './components/conference'
 
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import axios from 'axios'
-
+import Conference from './components/conference'
 
 export default {
   name: 'conferenceList',
   
-  // components: {
-  //   conference,
+  components: {
+    Conference,
     
-  // },
-
+  },
+  
   setup () {
-    
+    onMounted(() => {
+      axios({
+        method: 'get',
+        url: 'http://localhost:8080/api/conferences',
+      })
+        .then(res => {
+          state.value.conferenceList = res.data
+        })
+        .catch(() => {
+          console.log('에러')
+        })
+    })
     // router 불러오기
     const router = useRouter();
     // 반응형 버튼
@@ -95,14 +107,14 @@ export default {
       nameasc: true,
     });
 
-    const token = localStorage.getItem('jwt')
+    const token = localStorage.getItem('accessToken')
     if (token) {
       state.value.isLogin = true
     }
     const getConferences = function () {
       axios({
         method: 'get',
-        url: 'http://localhost:8080/conferences',
+        url: 'http://localhost:8080/api/conferences',
       })
         .then(res => {
           console.log(res.data)
@@ -166,20 +178,9 @@ export default {
 }
 </script>
 
-<style>  
-  .infinite-list .infinite-list-item {
-  min-width: 335px;
-  max-width: 25%;
-  display: inline-block;
-  cursor: pointer;
-  } 
-  .infinite-list {
-  padding-left: 0;
-  max-height: calc(100% - 35px);
-  }
-  
+<style> 
   .create {
-    margin: 20px;
+    margin: 10px;
   }
   .link {
       text-decoration: none;
@@ -190,14 +191,5 @@ export default {
       font-size: 18px;
       color: black;
   }
-  .contents {
-    height: 100vh;
-  }
-  .content {
-    padding: 10px;
-    border: solid 1px;
-    border-radius: 20px;
-  }
-
 
 </style>
