@@ -35,3 +35,5 @@ build/
 
 ### log ###
 *.gz
+ssafy-web.log
+

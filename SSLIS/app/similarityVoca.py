@@ -4,6 +4,7 @@ import json
 import numpy as np
 from .constant import Morph
 
+
 class SimilarytyWord:
     def __init__(self):
         self.openApiURL = "http://aiopen.etri.re.kr:8000/WiseNLU"

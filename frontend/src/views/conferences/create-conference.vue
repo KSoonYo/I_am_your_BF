@@ -102,13 +102,11 @@ import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import axios from 'axios'
 import { useQuasar } from 'quasar'
-import { useStore } from 'vuex'
 
 export default {
     name: 'CreateConference',
     
     setup() {
-      const store = useStore()
       const router = useRouter();
       const dense = ref(false);
       const $q = useQuasar()
@@ -153,8 +151,9 @@ export default {
           },
         })
         .then((thumbnail) => {
-          console.log(store.state)
-          console.log(thumbnail)
+          // console.log(store.state)
+          // console.log(thumbnail)
+          // console.log(JSON.parse(localStorage.getItem('userInfo')).userId)
           axios({
             headers: {
             'Content-Type': 'application/json'
@@ -164,15 +163,14 @@ export default {
             data: {
             'title': state.value.title,
             'description': state.value.content,
-            'userId': store.state.userId, // 유저 아이디 store에서 불러오기
+            'userId': JSON.parse(localStorage.getItem('userInfo')).userId,
             'thumbnail': thumbnail.data.thumbnail,
             'password' : state.value.password
           }
-            
           })
           .then(() => {
             console.log('성공')
-            state.value.loading = false
+            // state.value.loading = false
           })
           .catch(() => {
             console.log('실패')

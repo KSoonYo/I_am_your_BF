@@ -1,8 +1,53 @@
 <template>
   <div>
-    <div class='row justify-center flex'>
+    <div class="q-pt-lg">
+      <!-- 회의실 생성 방법1 -->
+      
+      <div class='row justify-end flex q-mt-lg'>
+        <div class="search" :class="{ active: state.open }" @keyup.enter="searchConference">
+          <div class="icon" @click="move"></div>
+          <div class="input">
+            <input type="text" v-model='state.searchValue' maxlength='20' placeholder="회의실 제목, 호스트를 검색">
+          </div>
+          <span v-if="state.searchValue != ''" class="clear" @click="state.searchValue = ''"></span>
+        </div>
+        <div class="flex justify-center items-center">
+          <q-btn @click='numrule' flat style='color: #ddb193' v-if="state.numasc">방번호<i class="fas fa-angle-up"></i></q-btn>
+          <q-btn @click='numrule' flat style='color: #ddb193' v-if="!state.numasc">방번호<i class="fas fa-angle-down"></i></q-btn>
+          <q-btn @click='titlerule' flat style='color: #ddb193' v-if="state.titleasc">제목순<i class="fas fa-angle-up"></i></q-btn>
+          <q-btn @click='titlerule' flat style='color: #ddb193' v-if="!state.titleasc">제목순<i class="fas fa-angle-down"></i></q-btn>
+          <q-btn @click='namerule' flat style='color: #ddb193' v-if="state.nameasc">이름순<i class="fas fa-angle-up"></i></q-btn>
+          <q-btn @click='namerule' flat style='color: #ddb193' v-if="!state.nameasc">이름순<i class="fas fa-angle-down"></i></q-btn>
+        </div>
+        <div class="flex justify-center items-center">
+          <router-link :to='{ name: "CreateConference"}' style='text-decoration: none;'><q-btn rounded style="background: #E6A377; color: #FFFFFF">강의실 생성</q-btn></router-link> 
+        </div>
+        <div class="offset-md-1 offset-sm-1">
+
+        </div>
+      </div> 
+      <!-- <div class='flex justify-center items-center'>
+      
+      </div> -->
+      <br>
+      <div>
+        <!-- 회의실 목록 카드들   -->
+        <div v-if='state.conferenceList' class="row flex justify-center">
+          <Conference 
+            v-for='conference in state.conferenceList' :key='conference.id'
+            :conference="conference"
+            class="col-sm-6 col-md-4 col-lg-4 col-xl-4"
+            style="max-width:486px; max-height:242px; width:100%; height:100%"
+          />
+        </div>
+        <div v-else>
+          <p>회의실이 없습니다.</p>
+        </div>
+      </div>
+    </div>
+    
         <!-- 검색창 -->
-        <q-input 
+        <!-- <q-input 
         v-model='state.searchValue' 
         :dense='dense'
         maxlength='20'
@@ -17,43 +62,9 @@
         <template v-slot:after>
           <q-btn :loading='state.loading' round flat @click='searchConference'><i class="fas fa-search"></i></q-btn>
         </template>
-        </q-input>
-    </div> 
-    <br>
-
-    <div>
-        <q-btn @click='titlerule' flat style='color: #ddb193'>제목순</q-btn>
-        <q-btn @click='namerule' flat style='color: #ddb193'>이름순</q-btn>
-        <q-btn @click='getConferences' flat style='color: #ddb193'>목록 가져오기</q-btn>
-    </div>
-
+        </q-input> -->
     
-      <div class='col-8 shadow-3' style='margin-left: 20px; border: solid 1px; border-radius: 10px'>
-        <div class='create'>
-          <!-- 회의실 생성 방법1 -->
-          <div class='flex justify-between'>
-            
-            <div v-if='state.isLogin'> 
-              <router-link :to='{ name: "CreateConference"}' style='text-decoration: none;'><q-btn flat style='color: #ddb193'>회의실 생성</q-btn></router-link> 
-            </div>
-            <div v-else>
-              <router-link :to='{ name: "CreateConference"}' style='text-decoration: none;'><q-btn flat style='color: #ddb193'>로그인</q-btn></router-link>
-            </div>
-          </div>
-          <br>
-          <!-- 회의실 목록 카드들   -->
-          <div v-if='state.conferenceList' class="row flex justify-center">
-            <Conference 
-              v-for='conference in state.conferenceList' :key='conference.id'
-              :conference="conference"
-              class="col-3 flex justify-center"
-            />
-          </div>
-          <div v-else>
-            <p>회의실이 없습니다.</p>
-          </div>
-        </div>
-      </div>
+
   </div>
 </template>
 
@@ -95,7 +106,11 @@ export default {
     // drawer(사이드바)
     const drawer = ref(true)
 
-    
+    const move = function () {
+      state.value.open = !state.value.open
+    }
+
+
     // 데이터 값 설정
     const state = ref({
       // 검색 입력 값
@@ -103,8 +118,10 @@ export default {
       loading: false,
       conferenceList: null,
       isLogin: false,
-      titleasc: true,
-      nameasc: true,
+      titleasc: false,
+      numasc: false,
+      nameasc: false,
+      open: false,
     });
 
     const token = localStorage.getItem('accessToken')
@@ -125,22 +142,63 @@ export default {
         })
     };
     const titlerule = function () {
-      if (state.value.titleasc) {
-        state.value.titleasc = false
-        state.value.conferenceList = state.value.conferenceList.sort(title => title)
-      } else {
-        state.value.titleasc = true
-        state.value.conferenceList = state.value.conferenceList.sort(title => -title)
-      }
+      axios({
+        method: 'get',
+        url: 'http://localhost:8080/api/conferences',
+      })
+        .then(res => {
+          if (state.value.titleasc) {
+            state.value.titleasc = false
+            state.value.conferenceList = res.data.sort(title => title)
+          } else {
+            state.value.titleasc = true
+            state.value.conferenceList = res.data.reverse(title => title)
+          }
+          // console.log(state.value.conferenceList)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+      
+    }
+    const numrule = function () {
+      axios({
+        method: 'get',
+        url: 'http://localhost:8080/api/conferences',
+      })
+        .then(res => {
+          if (state.value.numasc) {
+            state.value.numasc = false
+            state.value.conferenceList = res.data.sort(id => id)
+          } else {
+            state.value.numasc = true
+            state.value.conferenceList = res.data.reverse(id => id)
+          }
+          // console.log(state.value.conferenceList)
+        })
+        .catch(err => {
+          console.log(err)
+        })
     }
     const namerule = function () {
-      if (state.value.nameasc) {
-        state.value.nameasc = false
-        state.value.conferenceList = state.value.conferenceList.sort(name => name)
-      } else {
-        state.value.nameasc = true
-        state.value.conferenceList = state.value.conferenceList.sort(name => -name)
-      }
+      axios({
+        method: 'get',
+        url: 'http://localhost:8080/api/conferences',
+      })
+        .then(res => {
+          if (state.value.nameasc) {
+            state.value.nameasc = false
+            state.value.conferenceList = res.data.sort(userName => userName)
+          } else {
+            state.value.nameasc = true
+            state.value.conferenceList = res.data.reverse(userName => userName)
+          }
+          // console.log(state.value.conferenceList)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+      
     }
     const searchConference = function () {
       state.value.loading = true
@@ -162,6 +220,8 @@ export default {
 
 
     return { 
+      move,
+      numrule,
       getConferences,
       searchConference,
       createConference,
@@ -179,9 +239,6 @@ export default {
 </script>
 
 <style> 
-  .create {
-    margin: 10px;
-  }
   .link {
       text-decoration: none;
       display: flex;
@@ -191,5 +248,95 @@ export default {
       font-size: 18px;
       color: black;
   }
-
+  .search{
+    position: relative;
+    width: 45px;
+    height: 45px;
+    background: #fff;
+    border-radius: 60px;
+    transition: 0.5s;
+    box-shadow: 0 0 0 1px rgb(230, 163, 119);
+    overflow: hidden;
+  }
+  .search.active {
+    width: 360px;
+  }
+  .search .icon {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 45px;
+    height: 45px;
+    background: #fff;
+    border-radius: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;;
+    cursor: pointer;
+  }
+  .search .icon::before {
+    content: '';
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    border: 3px solid rgb(230, 163, 119);
+    border-radius: 50%;
+    transform: translate(-4px, -4px);
+  }
+  .search .icon::after {
+    content: '';
+    position: absolute;
+    width: 3px;
+    height: 12px;
+    background: rgb(230, 163, 119);
+    transform: translate(6px, 6px) rotate(315deg);
+  }
+  .search .input {
+    position: relative;
+    width: 300px;
+    height: 45px;
+    left: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .search .input input{
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+    font-size: 18px;
+    padding: 10px 0;
+  }
+  .clear {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 15px;
+    height: 15px;
+    right: 15px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .clear::before {
+    position: absolute;
+    content: '';
+    width: 1px;
+    height: 15px;
+    background: #999;
+    transform: rotate(45deg);
+  }
+  .clear::after {
+    position: absolute;
+    content: '';
+    width: 1px;
+    height: 15px;
+    background: #999;
+    transform: rotate(315deg);
+  }
 </style>

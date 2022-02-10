@@ -4,7 +4,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql', #1
         'NAME': 'ssafy_web_db', #2
         'USER': 'root', #3
-        'PASSWORD': 'qk1qk2qk3',  #4
+        'PASSWORD': 'root',  #4
         'HOST': 'localhost',   #5
         'PORT': '3306', #6
     }
