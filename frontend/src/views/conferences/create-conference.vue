@@ -100,8 +100,9 @@
 // 필수, 선택 구분, 전역가드, 비밀번호 선택시 input등장 multipart
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import axios from 'axios'
+// import axios from 'axios'
 import { useQuasar } from 'quasar'
+import { useStore } from 'vuex'
 
 export default {
     name: 'CreateConference',
@@ -109,6 +110,7 @@ export default {
     setup() {
       const router = useRouter();
       const dense = ref(false);
+      const store = useStore()
       const $q = useQuasar()
       function onRejected () {
         $q.notify({
@@ -142,40 +144,38 @@ export default {
           state.value.password = ''
           console.log('비밀번호 인식')
         }
-        axios({
-          method: 'post',
-          url: 'http://localhost:8080/api/image/upload',
-          data: formData,
-          headers: {
-            'Content-Type': 'multipart/form-data'
-          },
-        })
-        .then((thumbnail) => {
-          // console.log(store.state)
-          // console.log(thumbnail)
-          // console.log(JSON.parse(localStorage.getItem('userInfo')).userId)
-          axios({
-            headers: {
-            'Content-Type': 'application/json'
-            }, 
-            method: 'post',
-            url: 'http://localhost:8080/api/conferences',
-            data: {
-            'title': state.value.title,
-            'description': state.value.content,
-            'userId': JSON.parse(localStorage.getItem('userInfo')).userId,
-            'thumbnail': thumbnail.data.thumbnail,
-            'password' : state.value.password
-          }
-          })
-          .then(() => {
-            console.log('성공')
-            // state.value.loading = false
-          })
-          .catch(() => {
-            console.log('실패')
-          })
-        });
+        store.dispatch('uploadThumbnail', formData)
+          .then((thumbnail) => {
+            console.log(thumbnail)
+            store.dispatch('createConference', {
+              'title': state.value.title,
+              'description': state.value.content,
+              'userId': JSON.parse(localStorage.getItem('userInfo')).userId,
+              'thumbnail': thumbnail.data.thumbnail,
+              'password' : state.value.password
+            })
+            // axios({
+            //   headers: {
+            //   'Content-Type': 'application/json'
+            //   }, 
+            //   method: 'post',
+            //   url: 'http://localhost:8080/api/conferences',
+            //   data: {
+            //   'title': state.value.title,
+            //   'description': state.value.content,
+            //   'userId': JSON.parse(localStorage.getItem('userInfo')).userId,
+            //   'thumbnail': thumbnail.data.thumbnail,
+            //   'password' : state.value.password
+            // }
+            // })
+            .then(() => {
+              console.log('성공')
+              // state.value.loading = false
+            })
+            .catch(() => {
+              console.log('실패')
+            })
+          });
       };
     
 

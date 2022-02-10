@@ -1,13 +1,13 @@
 <template>
   <div>
     <div class="q-pt-lg">
-      <!-- 회의실 생성 방법1 -->
+      <!-- 강의실 생성 방법1 -->
       
       <div class='row justify-end flex q-mt-lg'>
         <div class="search" :class="{ active: state.open }" @keyup.enter="searchConference">
           <div class="icon" @click="move"></div>
           <div class="input">
-            <input type="text" v-model='state.searchValue' maxlength='20' placeholder="회의실 제목, 호스트를 검색">
+            <input type="text" v-model='state.searchValue' maxlength='20' placeholder="강의실 제목, 호스트를 검색">
           </div>
           <span v-if="state.searchValue != ''" class="clear" @click="state.searchValue = ''"></span>
         </div>
@@ -31,7 +31,7 @@
       </div> -->
       <br>
       <div>
-        <!-- 회의실 목록 카드들   -->
+        <!-- 강의실 목록 카드들   -->
         <div v-if='state.conferenceList' class="row flex justify-center">
           <Conference 
             v-for='conference in state.conferenceList' :key='conference.id'
@@ -41,7 +41,7 @@
           />
         </div>
         <div v-else>
-          <p>회의실이 없습니다.</p>
+          <p>강의실이 없습니다.</p>
         </div>
       </div>
     </div>
@@ -51,7 +51,7 @@
         v-model='state.searchValue' 
         :dense='dense'
         maxlength='20'
-        placeholder='회의실 제목, 호스트를 검색'
+        placeholder='강의실 제목, 호스트를 검색'
         style="width:100%; background: rgba(0,255,255,0.2); border-radius:60px; max-width: 1024px"
         class="q-pa-md shadow-3 q-mt-md"
         >
@@ -74,8 +74,9 @@
 
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
-import axios from 'axios'
+// import axios from 'axios'
 import Conference from './components/conference'
+import { useStore } from 'vuex'
 
 export default {
   name: 'conferenceList',
@@ -86,11 +87,10 @@ export default {
   },
   
   setup () {
+    const store = useStore()
+
     onMounted(() => {
-      axios({
-        method: 'get',
-        url: 'http://localhost:8080/api/conferences',
-      })
+      store.dispatch('getConference')
         .then(res => {
           state.value.conferenceList = res.data
         })
@@ -128,24 +128,8 @@ export default {
     if (token) {
       state.value.isLogin = true
     }
-    const getConferences = function () {
-      axios({
-        method: 'get',
-        url: 'http://localhost:8080/api/conferences',
-      })
-        .then(res => {
-          console.log(res.data)
-          state.value.conferenceList = res.data
-        })
-        .catch(err => {
-          console.log(err)
-        })
-    };
     const titlerule = function () {
-      axios({
-        method: 'get',
-        url: 'http://localhost:8080/api/conferences',
-      })
+      store.dispatch('getConference')
         .then(res => {
           if (state.value.titleasc) {
             state.value.titleasc = false
@@ -162,10 +146,7 @@ export default {
       
     }
     const numrule = function () {
-      axios({
-        method: 'get',
-        url: 'http://localhost:8080/api/conferences',
-      })
+      store.dispatch('getConference')
         .then(res => {
           if (state.value.numasc) {
             state.value.numasc = false
@@ -181,10 +162,7 @@ export default {
         })
     }
     const namerule = function () {
-      axios({
-        method: 'get',
-        url: 'http://localhost:8080/api/conferences',
-      })
+      store.dispatch('getConference')
         .then(res => {
           if (state.value.nameasc) {
             state.value.nameasc = false
@@ -201,12 +179,20 @@ export default {
       
     }
     const searchConference = function () {
-      state.value.loading = true
-      setTimeout(() => {
-        state.value.loading = false
-        // 필터기능
-        state.value.conferenceList = state.value.conferenceList.filter(title => state.value.searchValue in title) // 호스트 검색 ||
-      }, 3000)
+        store.dispatch('getConference')
+          .then(res => {
+            state.value.conferenceList = []
+            for (const data of res.data) {
+              if (data.title.includes(state.value.searchValue)) {
+                state.value.conferenceList.push(data)
+              } else if (data.userName.includes(state.value.searchValue)) {
+                state.value.conferenceList.push(data)
+              }
+            }
+          })
+          .catch(err => {
+            console.log(err)
+          })
     };
 
     // 회의실 생성 방법2
@@ -222,7 +208,6 @@ export default {
     return { 
       move,
       numrule,
-      getConferences,
       searchConference,
       createConference,
       titlerule,
