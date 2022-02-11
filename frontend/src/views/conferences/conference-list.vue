@@ -26,12 +26,14 @@
 
         </div>
       </div> 
-      <!-- <div class='flex justify-center items-center'>
-      
-      </div> -->
       <br>
       <div>
         <!-- 강의실 목록 카드들   -->
+        <q-pagination
+            v-model="state.current"
+            :max="state.maxpage"
+            input
+          />
         <div v-if='state.conferenceList' class="row flex justify-center">
           <Conference 
             v-for='conference in state.conferenceList' :key='conference.id'
@@ -45,26 +47,6 @@
         </div>
       </div>
     </div>
-    
-        <!-- 검색창 -->
-        <!-- <q-input 
-        v-model='state.searchValue' 
-        :dense='dense'
-        maxlength='20'
-        placeholder='강의실 제목, 호스트를 검색'
-        style="width:100%; background: rgba(0,255,255,0.2); border-radius:60px; max-width: 1024px"
-        class="q-pa-md shadow-3 q-mt-md"
-        >
-        <template v-slot:append>
-          <q-icon v-if='state.searchValue !== ""' name='close' @click='state.searchValue = ""' class='cursor-pointer'></q-icon>
-        </template>
-
-        <template v-slot:after>
-          <q-btn :loading='state.loading' round flat @click='searchConference'><i class="fas fa-search"></i></q-btn>
-        </template>
-        </q-input> -->
-    
-
   </div>
 </template>
 
@@ -83,13 +65,13 @@ export default {
   
   components: {
     Conference,
-    
   },
   
   setup () {
     const store = useStore()
 
     onMounted(() => {
+      // 회의실 불러오기
       store.dispatch('getConference')
         .then(res => {
           state.value.conferenceList = res.data
@@ -122,6 +104,8 @@ export default {
       numasc: false,
       nameasc: false,
       open: false,
+      current: ref(1),
+      maxpage: ref(Math.ceil(state.value.conferenceList.length/30))
     });
 
     const token = localStorage.getItem('accessToken')
@@ -129,8 +113,10 @@ export default {
       state.value.isLogin = true
     }
     const titlerule = function () {
+      // 회의실 불러오기
       store.dispatch('getConference')
         .then(res => {
+          // 제목 오름,내림차순 정렬
           if (state.value.titleasc) {
             state.value.titleasc = false
             state.value.conferenceList = res.data.sort(title => title)
@@ -148,6 +134,7 @@ export default {
     const numrule = function () {
       store.dispatch('getConference')
         .then(res => {
+          // 방번호 오름,내림차순 정렬
           if (state.value.numasc) {
             state.value.numasc = false
             state.value.conferenceList = res.data.sort(id => id)
@@ -164,6 +151,7 @@ export default {
     const namerule = function () {
       store.dispatch('getConference')
         .then(res => {
+          // 이름 오름,내림차순 정렬
           if (state.value.nameasc) {
             state.value.nameasc = false
             state.value.conferenceList = res.data.sort(userName => userName)
@@ -176,8 +164,9 @@ export default {
         .catch(err => {
           console.log(err)
         })
-      
     }
+
+    // 회의실 검색
     const searchConference = function () {
         store.dispatch('getConference')
           .then(res => {
