@@ -2,11 +2,11 @@ package com.bf.api.controller;
 
 
 
-import com.bf.api.request.UserFindIdPostReq;
-import com.bf.api.request.UserUpdatePasswordPostReq;
+import com.bf.api.request.*;
 import com.bf.api.response.UserFindIdPostRes;
 import com.bf.api.response.UserLoginPostRes;
 import com.bf.common.util.JwtTokenUtil;
+import com.querydsl.core.NonUniqueResultException;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,8 +25,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bf.api.request.UserInfoFetchReq;
-import com.bf.api.request.UserRegisterPostReq;
 import com.bf.api.response.UserRes;
 import com.bf.api.service.UserService;
 import com.bf.common.auth.SsafyUserDetails;
@@ -40,6 +38,7 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import springfox.documentation.annotations.ApiIgnore;
 
+import java.util.NoSuchElementException;
 import java.util.Random;
 import java.util.UUID;
 import java.util.regex.Pattern;
@@ -150,16 +149,26 @@ public class UserController {
     public ResponseEntity<? extends BaseResponseBody> findUserId(
             @RequestBody @ApiParam(value = "아이디 찾기 정보", required = true) UserFindIdPostReq userFindIdPostReq) {
 
-        User user = userService.getUserByUserNameAndEmail(userFindIdPostReq.getUserName(), userFindIdPostReq.getUserEmail());
-        if(user == null)
-            return ResponseEntity.status(401).body(UserFindIdPostRes.of(401, "Invalid Name And Password", null));
-        else {
+        try {
+            User user = userService.getUserByUserNameAndEmail(userFindIdPostReq.getUserName(), userFindIdPostReq.getUserEmail());
+            if(user == null)
+                return ResponseEntity.status(401).body(UserFindIdPostRes.of(401, "Invalid Name And Password", null));
+            else {
 
-            String hiddenId = user.getUserId();
-            hiddenId =hiddenId.replaceAll("(?<=.{3})." , "*");
+                String hiddenId = user.getUserId();
+                hiddenId =hiddenId.replaceAll("(?<=.{3})." , "*");
 
-            return ResponseEntity.ok(UserFindIdPostRes.of(200, "Success", hiddenId));
+                return ResponseEntity.ok(UserFindIdPostRes.of(200, "Success", hiddenId));
+            }
+        }catch (NonUniqueResultException e){
+            return ResponseEntity.status(401).body(UserFindIdPostRes.of(401, "NonUniqueResultException", null));
+
+        }catch (NoSuchElementException e){
+            return ResponseEntity.status(401).body(UserFindIdPostRes.of(401, "NoSuchElementException", null));
+
         }
+
+
 
     }
 
@@ -171,8 +180,31 @@ public class UserController {
             @ApiResponse(code = 401, message = "임시 비밀번호 발급 실패"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public ResponseEntity<? extends BaseResponseBody> findPassword() {
-//        SsafyUserDetails userDetails = (SsafyUserDetails) authentication.getDetails();
+    public ResponseEntity<? extends BaseResponseBody> findPassword(
+            @RequestBody @ApiParam(value = "비밀번호 찾기 정보", required = true) UserFindPwPostReq userFindPwPostReq
+    ) {
+
+
+        User user = userService.getUserByUserId(userFindPwPostReq.getUserId());
+
+        System.out.println(user.getUserId() + " | "+ user.getUserName() + " | " + user.getUserEmail());
+        if(user == null){
+            return ResponseEntity.status(401).body(UserFindIdPostRes.of(401, "Invalid User", null));
+
+        }
+        if(!user.getUserId().equals(userFindPwPostReq.getUserId())){
+            System.out.println(user.getUserId());
+            System.out.println(userFindPwPostReq.getUserId());
+            return ResponseEntity.status(401).body(UserFindIdPostRes.of(401, "Invalid ID", null));
+        }
+        if(!user.getUserName().equals( userFindPwPostReq.getUserName())){
+            return ResponseEntity.status(401).body(UserFindIdPostRes.of(401, "Invalid userName", null));
+        }
+        if(!user.getUserEmail().equals(userFindPwPostReq.getUserEmail())){
+            return ResponseEntity.status(401).body(UserFindIdPostRes.of(401, "Invalid userEmail", null));
+
+        }
+        //        SsafyUserDetails userDetails = (SsafyUserDetails) authentication.getDetails();
 //        User user = userDetails.getUser();
 
 //        Random r = new Random();
