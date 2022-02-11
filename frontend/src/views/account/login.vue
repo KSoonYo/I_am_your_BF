@@ -70,6 +70,10 @@
 </template>
 
 <script>
+
+// import quasarUserOptions from '../../quasar-user-options'
+
+
 import { ref } from 'vue'
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'

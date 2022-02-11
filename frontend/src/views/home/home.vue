@@ -608,6 +608,6 @@ export default {
   name: 'home'
 }
 </script>
-<style>
+<style scoped>
 @import '../../../public/assets/css/theme.css'
 </style>
