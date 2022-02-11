@@ -610,4 +610,5 @@ export default {
 </script>
 <style scoped>
 @import '../../../public/assets/css/theme.css'
+
 </style>

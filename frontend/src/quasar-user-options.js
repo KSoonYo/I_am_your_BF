@@ -1,5 +1,4 @@
-
-import 'quasar/dist/quasar.css'
+import '../public/assets/css/quasar.css'
 import lang from 'quasar/lang/ko-KR.js'
 import '@quasar/extras/roboto-font/roboto-font.css'
 import '@quasar/extras/material-icons/material-icons.css'

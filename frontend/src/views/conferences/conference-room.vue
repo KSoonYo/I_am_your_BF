@@ -264,7 +264,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .participant{
   width: 5rem;
 }
