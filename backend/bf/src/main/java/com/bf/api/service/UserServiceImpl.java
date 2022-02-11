@@ -1,5 +1,6 @@
 package com.bf.api.service;
 
+import com.querydsl.core.NonUniqueResultException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -69,6 +70,9 @@ public class UserServiceImpl implements UserService {
 	public User getUserByUserNameAndEmail(String userName, String userEmail) {
 		System.out.println(userName + " " + userEmail);
 		User user = userRepositorySupport.findUserByUserNameAndUserEmail(userName, userEmail).get();
+
+
+
 		//User user = userRepositorySupport.findUserByUserEmail(userEmail).get();
 		return user;
 	}
