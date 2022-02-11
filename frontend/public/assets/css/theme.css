@@ -3,7 +3,7 @@
 /* -------------------------------------------------------------------------- */
 /* prettier-ignore */
 /* -------------------------------------------------------------------------- */
-/*                                  Utilities                                 */
+/*                                  mo_ah                                 */
 /* -------------------------------------------------------------------------- */
 /*-----------------------------------------------
 |   Bootstrap Styles
@@ -17586,7 +17586,7 @@ ul {
 .text-gradient {
   background: -o-linear-gradient(40deg, #fb3c00, #ffb800);
   background: linear-gradient(50deg, #fb3c00, #ffb800);
-  -webkit-background-clip: text;
+  /* -webkit-background-clip: text; */
   -webkit-text-fill-color: transparent;
 }
 

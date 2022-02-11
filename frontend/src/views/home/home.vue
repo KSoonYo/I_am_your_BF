@@ -81,7 +81,7 @@
           <div class="col-lg-3 col-sm-6 mb-6">
             <div class="card service-card shadow-hover rounded-3 text-center align-items-center">
               <div class="card-body p-xxl-5 p-4"> <img src="assets/img/category/icon1.png" width="75" alt="Service" />
-                <h4 class="mb-3">Enter Classroom</h4>
+                <h4 class="mb-3">Enter <br>Classroom</h4>
                 <p class="mb-0 fw-medium">수업실로 <br>입장하세요</p>
               </div>
             </div>
@@ -89,7 +89,7 @@
           <div class="col-lg-3 col-sm-6 mb-6">
             <div class="card service-card shadow-hover rounded-3 text-center align-items-center">
               <div class="card-body p-xxl-5 p-4"> <img src="assets/img/category/icon2.png" width="75" alt="Service" />
-                <h4 class="mb-3">Turn On Subtitle </h4>
+                <h4 class="mb-3">Turn On <br>Subtitle </h4>
                 <p class="mb-0 fw-medium">자막을 <br>켜보세요.</p>
               </div>
             </div>
