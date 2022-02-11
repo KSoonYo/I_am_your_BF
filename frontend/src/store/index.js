@@ -17,18 +17,28 @@ export default createStore({
   
   },
   actions: {
+    // 회의실 상세조회
+    getConferenceDetail({state}, id) {
+      state
+      const url = '/api/conferences/' + id
+      return instance.get(url)
+    },
+
+    // 회의실 불러오기
     getConference({state}) {
       state
       const url = 'api/conferences'
       return instance.get(url)
     },
 
+    // 이미지 불러오기
     getThumbnail({state},thumbnail) {
       state
       const url = 'api/image/' + thumbnail
       return instance.get(url)
     },
 
+    // 이미지 업로드
     uploadThumbnail({state},thumbnail) {
       state
       const url = 'api/image/upload'
@@ -36,6 +46,7 @@ export default createStore({
       return instance({ method: 'post', url: url, data: thumbnail, headers: {'Content-Type': 'multipart/form-data'} })
     },
 
+    // 회의실 생성
     createConference({state}, data) {
       state
       const url = 'api/conferences'
@@ -69,12 +80,39 @@ export default createStore({
       })
     },
     
+    // 프로필 업데이트
+    updateProfile({state}, data){
+      state
+      const url = '/api/users'
+      const token = localStorage.getItem('accessToken')
+      return instance.patch(url, data, {
+        headers: {
+          Authorization:  `Bearer ${token}`
+        }
+      })
+    },
+
     // 회원가입
     signUp({state}, userInfo){
       state
       const url = 'api/users'
       return instance.post(url, userInfo)
-    }
+    },
+
+    // 아이디 찾기
+    findId({state}, data){
+      console.log(data)
+      state
+      const url = '/api/users/find/userId'
+      return instance.post(url, data)
+    },
+
+    // 비밀번호 찾기
+    findPassword({state}, data){
+      state
+      const url = '/api/users/find/password'
+      return instance.post(url, data)
+    },
       
   },
   modules: {
