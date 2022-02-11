@@ -24,7 +24,7 @@
 
 									<!-- 이메일 -->
 									<label for='Email'>이메일</label>
-									<q-input outlined v-model="state.form.email" label='이메일'>
+									<q-input outlined v-model="state.form.userEmail" label='이메일'>
 										<template v-slot:prepend>
 											<i class='far fa-envelope'></i>
 										</template>
@@ -39,8 +39,6 @@
 
 									<!-- 아이디 찾기 버튼 -->
 									<q-btn @click='findId' color='black' label='아이디 찾기' type='submit' style='border-radius:10px' />
-									
-
 								</q-form>
 							</div>
 						</div> 
@@ -54,24 +52,40 @@
 <script>
 import { ref } from 'vue'
 import { useStore } from 'vuex'
+import { useQuasar } from 'quasar'
 
 export default {
     name: 'findId',
     
     setup() {
         const store = useStore()
+        const $q = useQuasar()
         const state = ref({
-            form: {
-                userName: '',
-                email: '',
-            }
+          form: {
+            userName: '',
+            userEmail: '',
+          }
         })
-
+        // 아이디 찾기
         const findId = function(event){
-            event.preventDefault()
-            console.log('성공')
+          event.preventDefault()
+          store.dispatch('findId', state.value.form)
+            .then(res => {
+              $q.dialog({
+                message: '아이디 : ' + res.data.userId
+              })
+            })
+            .catch(() => {
+              $q.notify({
+                type: 'negative',
+                message: '아이디 혹은 이메일을 확인해주세요.'
+              })
+            })
 
         }
+
+
+
         return {store, state, findId}
     }
 
