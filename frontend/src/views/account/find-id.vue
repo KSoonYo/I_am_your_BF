@@ -78,7 +78,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .find-form{
     width: 20rem;
     

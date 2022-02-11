@@ -76,7 +76,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .update-form{
     width: 50%;
     margin: 0 auto;

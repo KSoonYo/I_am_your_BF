@@ -194,9 +194,9 @@ export default {
       
     }
 }
-</script>
+</script >
 
-<style>
+<style scoped>
 .logo{
     width: 120px;
     height: 100px;
