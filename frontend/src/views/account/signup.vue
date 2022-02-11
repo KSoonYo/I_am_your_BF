@@ -34,7 +34,7 @@
 										<template v-slot:prepend>
 											<i class='fas fa-user-circle'></i>
 										</template>
-										<q-btn color='grey-6' rounded @click="clickIdCheck" label='중복검사' style='margin-top: 10px; margin-bottom: 10px; margin-right: 5px; width: 50%'></q-btn>
+										<q-btn rounded @click="clickIdCheck" label='중복검사' style='background-color: #929291; color: #fff; margin-top: 10px; margin-bottom: 10px; margin-right: 5px; width: 50%'></q-btn>
 									</q-input>
 
 									<!-- 이메일 -->
@@ -46,7 +46,7 @@
 										<template v-slot:prepend>
 											<i class='far fa-envelope'></i>
 										</template>
-										<q-btn color='grey-6' rounded @click="clickEmailCheck" label='중복검사' style='margin-top: 10px; margin-bottom: 10px; margin-right: 5px; width: 50%'></q-btn>
+										<q-btn rounded @click="clickEmailCheck" label='중복검사' style='background-color: #929291; color: #fff; margin-top: 10px; margin-bottom: 10px; margin-right: 5px; width: 50%'></q-btn>
 									</q-input>
 
 									<!-- 비밀번호 -->
@@ -201,7 +201,6 @@ export default {
         }
 
         // 이메일 중복 검사
-
         const checkedEmail = ref('')
 
 
@@ -230,6 +229,7 @@ export default {
             }
         }
 
+        // 회원가입
         const clickSignUp = function(event){
             event.preventDefault()
             
@@ -260,7 +260,10 @@ export default {
                         router.push({name: 'login'})
                     })  
                     .catch(()=>{
-                        alert('회원가입 실패')
+                        $q.notify({
+                            type: 'negative',
+                            message: '회원가입 실패'
+                        })
                     })
                 } 
             })
