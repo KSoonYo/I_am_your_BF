@@ -80,7 +80,7 @@
                     </q-file>
                   </q-form>
                   <!-- 강의실 생성 버튼 -->
-                  <q-btn @click='createConferenceRoom' :loading='state.loading' color='black' label='강의실 생성' type='submit' style='margin-top: 20px; border-radius:10px' />
+                  <q-btn @click='createConferenceRoom' :loading='state.loading' label='강의실 생성' type='submit' style='background-color:#F17228; color:#fff; margin-top: 20px; border-radius:10px' />
                 
 								</q-form>
 							</div>
@@ -112,6 +112,8 @@ export default {
       const dense = ref(false);
       const store = useStore()
       const $q = useQuasar()
+
+      // 이미지 파일 유효성 검사
       function onRejected () {
         $q.notify({
           type: 'negative',
@@ -119,7 +121,6 @@ export default {
         })
       }
       const state = ref({
-          loading: false,
           title: '',
           content: '',
           thumbnail: ref(null),
@@ -128,25 +129,20 @@ export default {
           filename: '',
           private: false
       });
+
+      // 강의실 생성
       const createConferenceRoom = function () {
-        state.value.loading = true
         const formData = new FormData()
         formData.append('file', state.value.thumbnail)
-        // if (state.value.thumbnail && state.value.thumbnail.length > 0) {
-        //   for (let i = 0; i < state.value.thumbnail.length; i++) {
-        //     formData.append('files['+i+']', state.value.thumbnail[i])
-        //   }
-        // }
-        // for (const [key, value] of Object.entries(this.form)) {
-        //   formData.append(key, value)
-        // }
+        // 비밀번호 체크박스 확인
         if (!state.value.private) {
           state.value.password = ''
           console.log('비밀번호 인식')
         }
+        // 사진 업로드
         store.dispatch('uploadThumbnail', formData)
           .then((thumbnail) => {
-            console.log(thumbnail)
+            // 강의실 생성
             store.dispatch('createConference', {
               'title': state.value.title,
               'description': state.value.content,
@@ -154,26 +150,15 @@ export default {
               'thumbnail': thumbnail.data.thumbnail,
               'password' : state.value.password
             })
-            // axios({
-            //   headers: {
-            //   'Content-Type': 'application/json'
-            //   }, 
-            //   method: 'post',
-            //   url: 'http://localhost:8080/api/conferences',
-            //   data: {
-            //   'title': state.value.title,
-            //   'description': state.value.content,
-            //   'userId': JSON.parse(localStorage.getItem('userInfo')).userId,
-            //   'thumbnail': thumbnail.data.thumbnail,
-            //   'password' : state.value.password
-            // }
-            // })
-            .then(() => {
-              console.log('성공')
-              // state.value.loading = false
+            .then((data) => {
+              // 생성된 강의실로 이동
+              router.push({ name: 'session-test', params: { conferenceId : data.data.conference.id }})
             })
             .catch(() => {
-              console.log('실패')
+              $q.notify({
+                type: 'negative',
+                message: `회의실 생성 실패`
+              })
             })
           });
       };

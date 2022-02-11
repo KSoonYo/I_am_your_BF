@@ -75,7 +75,7 @@
 import { ref } from 'vue'
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
-// import { app } from '../main.js'
+import { useQuasar } from 'quasar'
 
 export default {
     name: 'login',
@@ -85,7 +85,7 @@ export default {
         const loginForm = ref(null)
         const store = useStore()
         const router = useRouter()
-
+        const $q = useQuasar()
         const isPwd = ref(true)
         // 특수문자 체크 정규 표현식
         const idChecker = /[{}[\]/?.,;:|)*~`!^\-_+<>@#$%&\\=('"]/g
@@ -107,6 +107,7 @@ export default {
             }
         })
 
+        // 로그인
         const clickSignIn = function(event){
             event.preventDefault()
             loginForm.value.validate().then(success => {
@@ -127,7 +128,10 @@ export default {
                         })
                     })
                     .catch(()=>{
-                        alert('아이디 또는 비밀번호를 잘못 입력하였습니다.')
+                        $q.notify({
+                            type: 'negative',
+                            message: '아이디 또는 비밀번호를 잘못 입력하였습니다.'
+                        })
                     })  
                     
                 } 

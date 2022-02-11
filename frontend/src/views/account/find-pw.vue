@@ -32,7 +32,7 @@
 
 									<!-- 이메일 -->
 									<label for='Email'>이메일</label>
-									<q-input outlined v-model="state.form.email" label='이메일'>
+									<q-input outlined v-model="state.form.userEmail" label='이메일'>
 										<template v-slot:prepend>
 											<i class='far fa-envelope'></i>
 										</template>
@@ -70,22 +70,36 @@
 <script>
 import { ref } from 'vue'
 import { useStore } from 'vuex'
+import { useQuasar } from 'quasar'
 
 export default {
     name: 'findPw',
 		
 
 		setup() {
+			const $q = useQuasar()
 			const store = useStore()
 			const state = ref({
 				form: {
 					userId: '',
 					userName: '',
-					email: '',
+					userEmail: '',
 				},
 			})
 			const findPw = function(event){
 				event.preventDefault()
+				store.dispatch('findPassword', state.value.form)
+            .then(() => {
+              $q.dialog({
+                message: '이메일로 임시 비밀번호를 보냈습니다.'
+              })
+            })
+            .catch(() => {
+              $q.notify({
+                type: 'negative',
+                message: '아이디, 이름, 이메일을 확인해주세요.'
+              })
+            })
 			}
 			
 			return {store, state, findPw}

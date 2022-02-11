@@ -260,6 +260,7 @@ export default {
 
   created(){
     this.joinSession()
+		
   }
 }
 </script>

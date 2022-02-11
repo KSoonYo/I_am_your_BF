@@ -53,7 +53,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 
 .profile{
   margin-top: 30px;
