@@ -47,11 +47,12 @@
       <br>
       <div>
         <!-- 강의실 목록 카드들   -->
-        <q-pagination
+        
+        <!-- <q-pagination
             v-model="state.current"
             :max="state.maxpage"
             input
-          />
+          /> -->
         <div v-if='state.conferenceList' class="row flex justify-center">
           <Conference 
             v-for='conference in state.conferenceList' :key='conference.id'
@@ -122,8 +123,8 @@ export default {
       numasc: false,
       nameasc: false,
       open: false,
-      current: ref(1),
-      maxpage: ref(Math.ceil(state.value.conferenceList.length/30))
+      // current: ref(1),
+      // maxpage: ref(Math.ceil(state.value.conferenceList.length/30))
     });
 
     const token = localStorage.getItem('accessToken')
