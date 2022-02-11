@@ -1,6 +1,6 @@
 <template>
   <div class="q-ma-md">
-    <q-img class='my-card concard shadow-5 no-border'  :fit="scale-down" :src="state.thumbnail">
+    <q-img class='my-card concard shadow-5 no-border' :fit="scale-down" :src="state.thumbnail">
       <q-card class="no-border" no-body style="width:100%; height:100%;">
           <div class='text-h3' style="opacity:0.7">
             <p>{{ conference.id }}</p>
@@ -22,9 +22,10 @@
 </template>
 
 <script>
-import axios from 'axios'
+// import axios from 'axios'
 // import { useRouter } from 'vue-router'
 import { ref, onMounted } from 'vue'
+import { useStore } from 'vuex'
 
 export default {
   name: 'Conference',
@@ -35,13 +36,12 @@ export default {
 
   
   setup (props) {
+    const store = useStore()
     onMounted(() => {
-      axios({
-        method: 'get',
-        url: 'http://localhost:8080/api/image/' + props.conference.thumbnail,
-      })
+      store.dispatch('getThumbnail', props.conference.thumbnail)
         .then((res) => {
-          state.value.thumbnail = res.config.url
+          // console.log(process.env.VUE_APP_BASE_URL + res.config.url)
+          state.value.thumbnail = process.env.VUE_APP_BASE_URL + '/' + res.config.url
         })
         .catch(() => {
           console.log('실패')
@@ -98,4 +98,5 @@ export default {
   opacity: 1;
   font-weight: bolder;
 }
+
 </style>
