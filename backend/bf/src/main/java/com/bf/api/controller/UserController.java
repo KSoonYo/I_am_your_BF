@@ -164,16 +164,16 @@ public class UserController {
     }
 
 
-    @GetMapping("/find/password")
+    @PostMapping("/find/password")
     @ApiOperation(value = "비밀번호 찾기", notes = "로그인한 회원의 비밀번호를 찾습니다")
     @ApiResponses({
             @ApiResponse(code = 200, message = "임시 비밀번호 발급 성공"),
             @ApiResponse(code = 401, message = "임시 비밀번호 발급 실패"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public ResponseEntity<? extends BaseResponseBody> findPassword(Authentication authentication) {
-        SsafyUserDetails userDetails = (SsafyUserDetails) authentication.getDetails();
-        User user = userDetails.getUser();
+    public ResponseEntity<? extends BaseResponseBody> findPassword() {
+//        SsafyUserDetails userDetails = (SsafyUserDetails) authentication.getDetails();
+//        User user = userDetails.getUser();
 
 //        Random r = new Random();
 //        int num = r.nextInt(999999); // 랜덤난수설정

@@ -72,8 +72,6 @@
 <script>
 
 // import quasarUserOptions from '../../quasar-user-options'
-
-
 import { ref } from 'vue'
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
@@ -83,6 +81,7 @@ export default {
     name: 'login',
 
     setup(){
+        // app.use(quasarUserOptions);
         const loginForm = ref(null)
         const store = useStore()
         const router = useRouter()
@@ -145,7 +144,16 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+/* @import 'quasar/dist/quasar.css'; */
+/* @import 'quasar/dist/quasar.css';
+@import '@quasar/extras/roboto-font/roboto-font.css';
+@import '@quasar/extras/material-icons/material-icons.css';
+@import '@quasar/extras/material-icons-outlined/material-icons-outlined.css';
+@import '@quasar/extras/material-icons-round/material-icons-round.css';
+@import '@quasar/extras/material-icons-sharp/material-icons-sharp.css';
+@import '@quasar/extras/fontawesome-v5/fontawesome-v5.css'; */
+
 .login-form{
     width: 20rem;
     
