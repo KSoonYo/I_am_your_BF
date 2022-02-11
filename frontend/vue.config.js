@@ -1,4 +1,5 @@
 module.exports = {
+  outputDir: '../backend/bf/src/main/resources/dist',
   pluginOptions: {
     quasar: {
       importStrategy: 'kebab',
