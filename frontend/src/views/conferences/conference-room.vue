@@ -13,7 +13,12 @@
 			</div>			
 
 
-			<div style='height: 100%;' class='row justify-evenly q-col-gutter-md'>
+			<div style='height: 100%; position: relative;' class='row justify-evenly q-col-gutter-md'>
+					<!-- chat box -->
+				<chat-box
+				:session='session'
+				/>
+				
 					<!-- 메인 화면  -->
 				<div id='main-video' class='col-9'>
 
@@ -42,9 +47,8 @@
 				</div>
 			</div>
 
+		
 		</div>
-			<!-- chat box -->
-			<!-- <chat-box /> -->
   </div>
 </template>
 
@@ -55,7 +59,7 @@ import UserVideo from './components/user-video'
 import PublishVideo from './components/publisher-video'
 
 import ToolBox from './components/tool-box.vue'
-// import ChatBox from './components/chat-box.vue'
+import ChatBox from './components/chat-box.vue'
 
 axios.defaults.headers.post['Content-Type'] = 'application/json'
 const OPENVIDU_URL = "http://" + location.hostname + ":8080";
@@ -68,7 +72,7 @@ export default {
 		UserVideo,
 		ToolBox,
 		PublishVideo,
-		// ChatBox
+		ChatBox
 	},
 	data () {
 		return {
@@ -131,7 +135,6 @@ export default {
 
 			// 비디오 소스 저장
 			this.session.on('signal:signVideo', (event)=>{
-				console.log('도착한 비디오: ', event.data)
 				// const videoPlayer = document.querySelector('#videoPlayer')
 
 				if(this.videoList.length === 0){
