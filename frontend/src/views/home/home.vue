@@ -5,7 +5,7 @@
   <main class="main" id="top">
     <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3 d-block"
       data-navbar-on-scroll="data-navbar-on-scroll">
-      <div class="container"><a class="navbar-brand" href="index.html"><img src="assets/img/gallery/logo.png"
+      <div class="container"><a class="navbar-brand" href="#home"><img src="assets/img/gallery/logo_bf2.png"
             height="45" alt="logo" /></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
           aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span
@@ -50,13 +50,14 @@
 
       <div class="container">
         <div class="row align-items-center">
-          <div class="col-md-5 col-xl-6 col-xxl-7 order-0 order-md-1 text-end"><img class="pt-7 pt-md-0 w-150"
+          <div class="col-md-5 col-xl-6 col-xxl-7 order-0 order-md-1 text-end"><img class="pt-7 pt-md-0 w-110"
               src="assets/img/illustrations/big-main.png" alt="hero-header" /></div>
           <div class="col-md-75 col-xl-6 col-xxl-5 text-md-start text-center py-8">
-            <h1 class="fw-normal fs-6 fs-xxl-7">A trusted provider of </h1>
-            <h1 class="fw-bolder fs-6 fs-xxl-7 mb-2">courier services.</h1>
-            <p class="fs-1 mb-5">We deliver your products safely to <br />your home in a reasonable time. </p><a
-              class="btn btn-primary me-2" href="#!" role="button">Get started<i
+            <h1 class="fw-normal fs-6 fs-xxl-7">I am Your </h1>
+            <h1 class="fw-bolder fs-6 fs-xxl-7 mb-2">Best Friend</h1>
+
+            <p class="fs-1 mb-5">당신의 수업권을<br />지키며 싸우는 BF가 되겠습니다. </p><a
+              class="btn btn-primary me-2" href="#!" role="button">수업실 입장<i
                 class="fas fa-arrow-right ms-2"></i></a>
           </div>
         </div>
@@ -130,14 +131,14 @@
         </div>
         <div class="row">
           <div class="col-12">
-            <div class="card bg-dark text-white py-4 py-sm-0"><img class="w-100" src="assets/img/gallery/video.png"
+            <div class="card bg-dark text-white py-4 py-sm-0"><img class="w-100" src="assets/img/gallery/imyourbf.png"
                 alt="video" />
               <div class="card-img-overlay bg-dark-gradient d-flex flex-column flex-center"><img
                   src="assets/img/icons/play.png" width="80" alt="play" />
-                <h5 class="text-primary">FASTEST DELIVERY</h5>
-                <p class="text-center">You can get your valuable item in the fastest period of<br
-                    class="d-none d-sm-block" />time with safety. Because your emergency<br
-                    class="d-none d-sm-block" />is our first priority.</p><a class="stretched-link" href="#"
+                <h5 class="text-primary">BF</h5>
+                <p class="text-center">당신의 수업권을 보장하는 방법, BF<br
+                    class="d-none d-sm-block" />어떻게 사용하면 좋을까요?<br
+                    class="d-none d-sm-block" /></p><a class="stretched-link" href="#"
                   data-bs-toggle="modal" data-bs-target="#exampleModal"></a>
                 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                   aria-hidden="true">
@@ -470,98 +471,9 @@
 
 
 
-    <!-- ============================================-->
-    <!-- <section> begin ============================-->
-    <section id="findUs">
-
-      <div class="container">
-        <div class="row justify-content-center">
-          <div class="col-md-8 col-lg-5 mb-6 text-center">
-            <h5 class="text-danger">FIND US</h5>
-            <h2>Access us easily</h2>
-          </div>
-          <div class="col-12">
-            <div class="card card-span rounded-2 mb-3">
-              <div class="row">
-                <div class="col-md-6 col-lg-7 d-flex"><img
-                    class="w-100 fit-cover rounded-md-start rounded-top rounded-md-top-0"
-                    src="assets/img/gallery/map.svg" alt="map" /></div>
-                <div class="col-md-6 col-lg-5 d-flex flex-center">
-                  <div class="card-body">
-                    <h5>Contact with us</h5>
-                    <p class="text-700 my-4"> <i class="fas fa-map-marker-alt text-warning me-3"></i><span>2277 Lorem
-                        Ave, San Diego, CA 22553</span></p>
-                    <p><i class="fas fa-phone-alt text-warning me-3"></i><span class="text-700">Monday - Friday: 10 am -
-                        10pm<br /><span class="ps-4">Sunday: 11 am - 9pm </span></span></p>
-                    <p><i class="fas fa-envelope text-warning me-3"> </i><a class="text-700"
-                        href="mailto:vctung@outlook.com"> info@quriarbox.com</a></p>
-                    <ul class="list-unstyled list-inline mt-5">
-                      <li class="list-inline-item"><a class="text-decoration-none" href="#!"><i
-                            class="fab fa-facebook-square fs-2"></i></a></li>
-                      <li class="list-inline-item"><a class="text-decoration-none" href="#!"><i
-                            class="fab fa-instagram-square fs-2"></i></a></li>
-                      <li class="list-inline-item"><a class="text-decoration-none" href="#!"><i
-                            class="fab fa-twitter-square fs-2"></i></a></li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="text-center">
-              <button class="btn btn-primary px-5" type="submit"><i class="fas fa-phone-alt me-2"></i><a
-                  class="text-light" href="tel:123-456789">Call us to delivery 123-456789</a></button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- end of .container-->
-
-    </section>
-    <!-- <section> close ============================-->
-    <!-- ============================================-->
+   
 
 
-    <!-- ============================================-->
-    <!-- <section> begin ============================-->
-    <section class="bg-900 pb-0 pt-5">
-
-      <div class="container">
-        <div class="row">
-          <div class="col-12 col-sm-12 col-lg-6 mb-4 order-0 order-sm-0"><a class="text-decoration-none" href="#"><img
-                src="assets/img/gallery/footer-logo.png" height="51" alt="" /></a>
-            <p class="text-500 my-4">The most trusted Courier<br />company in your area.</p>
-          </div>
-          <div class="col-6 col-sm-4 col-lg-2 mb-3 order-2 order-sm-1">
-            <h5 class="lh-lg fw-bold mb-4 text-light font-sans-serif">Other links </h5>
-            <ul class="list-unstyled mb-md-4 mb-lg-0">
-              <li class="lh-lg"><a class="text-500" href="#!">Blogs</a></li>
-              <li class="lh-lg"><a class="text-500" href="#!">Movers website</a></li>
-              <li class="lh-lg"><a class="text-500" href="#!">Traffic Update</a></li>
-            </ul>
-          </div>
-          <div class="col-6 col-sm-4 col-lg-2 mb-3 order-3 order-sm-2">
-            <h5 class="lh-lg fw-bold text-light mb-4 font-sans-serif">Services</h5>
-            <ul class="list-unstyled mb-md-4 mb-lg-0">
-              <li class="lh-lg"><a class="text-500" href="#!">Corporate goods</a></li>
-              <li class="lh-lg"><a class="text-500" href="#!">Artworks</a></li>
-              <li class="lh-lg"><a class="text-500" href="#!">Documents</a></li>
-            </ul>
-          </div>
-          <div class="col-6 col-sm-4 col-lg-2 mb-3 order-3 order-sm-2">
-            <h5 class="lh-lg fw-bold text-light mb-4 font-sans-serif"> Customer Care</h5>
-            <ul class="list-unstyled mb-md-4 mb-lg-0">
-              <li class="lh-lg"><a class="text-500" href="#!">About Us</a></li>
-              <li class="lh-lg"><a class="text-500" href="#!">Contact US</a></li>
-              <li class="lh-lg"><a class="text-500" href="#!">Get Update</a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <!-- end of .container-->
-
-    </section>
-    <!-- <section> close ============================-->
-    <!-- ============================================-->
 
 
 
@@ -573,7 +485,7 @@
       <div class="container">
         <div class="row justify-content-md-between justify-content-evenly py-4">
           <div class="col-12 col-sm-8 col-md-6 col-lg-auto text-center text-md-start">
-            <p class="fs--1 my-2 fw-bold text-200">All rights Reserved &copy; Your Company, 2021</p>
+            <p class="fs--1 my-2 fw-bold text-200">All rights Reserved &copy; BF, 2022</p>
           </div>
           <div class="col-12 col-sm-8 col-md-6">
             <p class="fs--1 my-2 text-center text-md-end text-200"> Made with&nbsp;

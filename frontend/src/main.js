@@ -6,9 +6,9 @@ import { Quasar } from 'quasar'
 import quasarUserOptions from './quasar-user-options'
 import axios from 'axios'
 
-
-
   
+
+
 const app = createApp(App)
 app.config.globalProperties.axios = axios;
 app.use(Quasar, quasarUserOptions).use(store).use(router).mount('#app')
