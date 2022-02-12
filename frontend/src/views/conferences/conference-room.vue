@@ -1,66 +1,50 @@
 <template>
-  <div id='main-container' class="container">
+  <div id='main-container'>
     <div id="session" v-if="session">
-			<div id="session-header">
-				<h1 id="session-title">{{ mySessionId }}</h1>
-				<input type="button" id="buttonLeaveSession" @click="leaveSession" value="Leave session">
-			</div>
+			<div id="session-header" class='row'>
+				<!-- tool box -->
+				<tool-box 
+				class='col'
+				:session='session'
+				:publisher='publisher'
+				@leaveSessionClick='leaveSession'
+				@toggleCaption='() => { captionEnabled = !captionEnabled }'
+				@toggleSignVideo='() => { videoEnabled = !videoEnabled }'
+				/>
+			</div>			
 
-      <div class="row">
-        <!-- 메인 화면  -->
-        <!-- <div id="main-video col-6">
-          <user-video :stream-manager="mainStreamManager"/>
-        </div> -->
 
-        <!-- 참가자 화면 -->
-        <div id="video-container col-6">
-          <!-- host -->
-          <user-video id='publisher' :stream-manager="publisher" @click="updateMainVideoStreamManager(publisher)"/>
-          
-          <!-- 참가자 -->
-          <!-- <user-video class="participant" v-for="sub in subscribers" :key="sub.stream.connection.connectionId" :stream-manager="sub" @click="updateMainVideoStreamManager(sub)"/> -->
-        </div>
-      </div>
+			<div style='height: 100%;' class='row q-col-gutter-md'>
+					<!-- 메인 화면  -->
+				<div id='main-video' class='col-10'>
 
-			<!-- 참가자 명단 -->
-			<!-- <div class="container">
-				<h2> 참가자 명단 </h2>
-				<div v-for="subscriber in subscribers" :key="subscriber.stream.connection.connectionId">
-					<p>{{ subscriber }}</p>
+					<!-- 자막 -->
+					<div v-show='captionEnabled' class='caption'>
+					</div>
+
+					<!-- 수화 video -->
+					<div v-show='videoEnabled' class='sign-video-container'>
+						<!-- <video id='videoPlayer' width='200px' height='150px'  playbackRate=2 @ended='onVideoEnded'>
+							<source type='vidoe/mp4'>
+							<strong>Your browser does not support the video tag.</strong>
+						</video> -->
+					</div>
+
+					<user-video :role='"mainStreamer"' :stream-manager="mainStreamManager"/>
 				</div>
-			</div> -->
+				<!-- 참가자 화면 -->
+				<div id="video-container" class='col-2 column'>
+					<div class='guest-box col-8'>
+						<!-- 참가자 -->
+						<user-video class="participant" v-for="sub in subscribers" :key="sub.stream.connection.connectionId" :stream-manager="sub"/>
+					</div>
 
-			<!-- 자막 -->
-			<div v-show='captionEnabled' class='caption'>
+					<publish-video id='publisher' :stream-manager='publisher'/>	
+				</div>
 			</div>
-
-			<!-- 수화 video -->
-			<div v-show='videoEnabled' class='sign-video-container'>
-				<video id='videoPlayer' width='200' height='150'  muted autoplay playbackRate=3 @ended='onVideoEnded'>
-					<source :src='videoList ? videoDefaultUrl + videoList[videoIndex]: null' type='vidoe/mp4'>
-					<strong>Your browser does not support the video tag.</strong>
-				</video>
-			</div>
-
-      <!-- tool box -->
-			<tool-box 
-			:session='session'
-			:publisher='publisher'
-			@toggleCaption='() => { captionEnabled = !captionEnabled }'
-			@toggleSignVideo='() => { videoEnabled = !videoEnabled }'
-			
-			>
-
-			</tool-box>
-
-
-
-      <div id="tool-bar">
-				<!-- 화면공유 -->
-				<button @click="openScreen">화면공유</button>
-
-      </div>
-    </div>
+    
+		
+		</div>
   </div>
 </template>
 
@@ -68,20 +52,21 @@
 import axios from 'axios'
 import { OpenVidu } from 'openvidu-browser'
 import UserVideo from './components/user-video'
+import PublishVideo from './components/publisher-video'
+
 import ToolBox from './components/tool-box.vue'
 
 axios.defaults.headers.post['Content-Type'] = 'application/json'
 const OPENVIDU_URL = "http://" + location.hostname + ":8080";
 const VIDEO_DEFAULT_URL = 'http://127.0.0.1:8000/media/'
 
-// const OPENVIDU_SERVER_URL = 'https://' + 'i6b107.p.ssafy.io' + ':6443'
-// const OPENVIDU_SERVER_SECRET = 'bfssafy'
 
 export default {
 	name: 'session-test',
 	components: {
 		UserVideo,
-		ToolBox
+		ToolBox,
+		PublishVideo
 	},
 	data () {
 		return {
@@ -132,22 +117,109 @@ export default {
 			})
 
 			this.session.on('signal:caption', ({data})=>{
-				const p = document.createElement('p')
-				p.textContent = data
-				document.querySelector('.caption').appendChild(p)
+				const span = document.createElement('span')
+				const captionBox = document.querySelector('.caption') 
+				span.textContent = data
+				if( captionBox.hasChildNodes() ){
+					captionBox.removeChild(captionBox.firstChild)
+				}
+				span.className = 'caption-text'
+				captionBox.appendChild(span)
 			})
 
 			// 비디오 소스 저장
 			this.session.on('signal:signVideo', (event)=>{
-				const videoPlayer = document.querySelector('#videoPlayer')
-				if(this.videoList.length == 0){
+				console.log('도착한 비디오: ', event.data)
+				// const videoPlayer = document.querySelector('#videoPlayer')
+
+				if(this.videoList.length === 0){
 					// 아예 비디오가 없는 경우
+					console.log('비디오 삽입')
+					const signVideoContainer = document.querySelector('.sign-video-container')
+
+					while( signVideoContainer.hasChildNodes() ){
+						signVideoContainer.removeChild(signVideoContainer.firstChild )
+					}
+	
+					const video1 = document.createElement('video')
+					video1.defaultPlaybackRate = 2
+					video1.muted = true
+					video1.width = '200px'
+					video1.height = '150px'
+	
+					const video2 = document.createElement('video')
+					video2.defaultPlaybackRate = 2
+					video2.muted = true
+					video2.width = '200px'
+					video2.height = '150px'
+
 					this.videoList = event.data.split(',')
-					videoPlayer.defaultPlaybackRate = 1
-					videoPlayer.setAttribute('src',  this.videoDefaultUrl + this.videoList[this.videoIndex])
-					videoPlayer.play()
+
+					video1.setAttribute('src', this.videoDefaultUrl + this.videoList[0])
+					signVideoContainer.appendChild(video1)
+					video1.id = 'videoPlayer'
+				
+
+					video1.addEventListener('play', () => { 
+						this.videoIndex = this.videoIndex < this.videoList.length - 1 ? this.videoIndex + 1 : 0
+
+						if(this.videoIndex === 0){
+							this.videoList = []
+							return
+						}
+						const nextIndex = this.videoIndex
+						video2.setAttribute('src', this.videoDefaultUrl + this.videoList[nextIndex])
+						video2.load()
+					})
+
+					video2.addEventListener('play', () => {
+						this.videoIndex = this.videoIndex < this.videoList.length - 1 ? this.videoIndex + 1 : 0
+						
+						if(this.videoIndex === 0){
+							this.videoList = []
+							return
+						}
+
+						const nextIndex = this.videoIndex
+						video1.setAttribute('src', this.videoDefaultUrl + this.videoList[nextIndex]) 
+						video1.load()
+					})
+
+					video1.addEventListener('ended', () => {
+						// this.onVideoEnded(1)
+						if(this.videoIndex === 0){
+							return
+						}
+						
+						const parentNode = video1.parentNode
+						video1.id = ''
+						video2.id = 'videoPlayer'
+						parentNode.replaceChild(video2, video1)
+						video2.play()
+					})
+
+					video2.addEventListener('ended', () => {
+						//this.onVideoEnded(2)
+						if(this.videoIndex === 0){
+							return
+						}
+						
+						const parentNode = video2.parentNode
+						video2.id = ''
+						video1.id = 'videoPlayer'
+						parentNode.replaceChild(video1, video2)
+						video1.play()
+					})
+
+					video1.load()
+					video1.play()
+					// videoPlayer.defaultPlaybackRate = 2
+					// videoPlayer.setAttribute('src',  this.videoDefaultUrl + this.videoList[this.videoIndex])
+					// videoPlayer.load()
+					// videoPlayer.play()
 				}	else {
 					// 배열에 기존 비디오가 있는 경우
+					console.log('비디오 추가')
 					this.videoList.push.apply(this.videoList, event.data.split(','))
 				}
 			})
@@ -157,9 +229,7 @@ export default {
 				console.warn(exception)
 			})
 
-			// --- Connect to the session with a valid user token ---
-			// 'getToken' method is simulating what your server-side should do.
-			// 'token' parameter should be retrieved and returned by your own backend
+	
 			this.getToken(this.mySessionId).then(token => {
 				this.session.connect(token, { clientData: this.myUserName })
 					.then(() => {
@@ -169,7 +239,7 @@ export default {
 							videoSource: undefined, // The source of video. If undefined default webcam
 							publishAudio: true,  	// Whether you want to start publishing with your audio unmuted or not
 							publishVideo: true,  	// Whether you want to start publishing with your video enabled or not
-							resolution: '350x240',  // The resolution of your video
+							resolution: '640x480',  // The resolution of your video
 							frameRate: 30,			// The frame rate of your video
 							insertMode: 'APPEND',	// How the video is inserted in the target element 'video-container'
 							mirror: false       	// Whether to mirror your local video or not
@@ -199,7 +269,6 @@ export default {
 											console.log('User pressed the "Stop sharing" button');
 									});
 									sessionScreen.publish(publisher);
-
 							});
 
 							publisher.once('accessDenied', () => {
@@ -230,19 +299,22 @@ export default {
 		},
 
 
-		onVideoEnded(){
-			const videoPlayer = document.querySelector('#videoPlayer')
-			if(this.videoIndex < this.videoList.length - 1){
-				this.videoIndex++
-			} else{
-				this.videoIndex = 0
-				this.videoList = []
-				return
-			}
-			videoPlayer.defaultPlaybackRate = 1
-			videoPlayer.setAttribute('src', this.videoDefaultUrl + this.videoList[this.videoIndex])
-			videoPlayer.play()
-		},
+		// onVideoEnded(index){
+		// 	const videoPlayer = document.querySelector('#videoPlayer')
+			
+		// 	if(this.videoIndex < this.videoList.length - 1){
+		// 		this.videoIndex++
+		// 	} else{
+		// 		this.videoIndex = 0
+		// 		this.videoList = []
+		// 		return
+		// 	}
+		// 	videoPlayer.defaultPlaybackRate = 2
+
+		// 	videoPlayer.setAttribute('src', this.videoDefaultUrl + this.videoList[this.videoIndex])
+		// 	videoPlayer.load()
+		// 	videoPlayer.play()
+		// },
 
 
 		getToken (mySessionId) {
@@ -268,4 +340,72 @@ export default {
 .participant{
   width: 5rem;
 }
+
+#videoPlayer{
+	object-fit: cover;
+	width: 100%;
+	height: 100%;
+}
+
+
+#session{
+	height: 100%;
+}
+
+#main-container{
+	width: 100vw;
+  height: 87vh;
+}
+
+#main-video{
+	position: relative;
+	height: 100%;
+	/* background-color: rgba(255, 235, 205, 0.719); */
+}
+
+#video-container{
+	height: 100%;
+	/* background-color: rgb(221, 182, 124); */
+}
+
+.sign-video-container{
+	position: absolute;
+	width: 30%;
+	height: 30%;
+	bottom: 0px;
+	right: 0px;
+	z-index: 2;
+}
+
+.caption{
+	position: absolute;
+	width: 50%;
+	height: 30%;
+	bottom: 0px;
+	left: 50px;
+	z-index: 2;			
+	overflow: auto;
+	word-break: keep-all;
+}
+
+.caption-text{
+	background-color: black;
+	color: white;
+	font-weight: bold;
+	font-size: 3em;
+	word-break: keep-all;
+}
+
+.guest-box{
+	border: 1px solid black;
+	border-radius: 5px;
+	padding: 10px 10px;
+	margin-bottom: 27px;
+	width: 100%;
+}
+
+.guest{
+	width: 100%;
+}
+
 </style>

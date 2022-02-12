@@ -1,6 +1,6 @@
 <template>
-    <div v-if="streamManager" :class='{"main-stream-wrapper": role === "mainStreamer"}'>
-        <ov-video :role='role' :stream-manager="streamManager"/>
+    <div v-if="streamManager" class='video-wrapper col'>
+        <ov-video :role='"publisher"' :client-data='clientData' :stream-manager="streamManager"/>
         <div class='name-box'><p class='user-name'>{{ clientData }}</p></div>
     </div>
 </template>
@@ -8,25 +8,16 @@
 <script>
 import OvVideo from './ov-video'
 
-
-// const p = document.createElement('p')
-
 export default {
-	name: 'userVideo',
-	components: {
+  name: 'publishVideo',
+  components: {
 		OvVideo,
 	},
-	props: {
-		streamManager: Object,
-		role: String
-	},
-	data(){
-		return {
-			runtimeTranscription_: "",
-			transcription_: [],
-		}
-	},
-	methods: {
+  props: {
+    streamManager: Object,
+  },
+
+  methods: {
 		getConnectionData () {
 			const { connection } = this.streamManager.stream
 			return JSON.parse(connection.data)
@@ -39,16 +30,24 @@ export default {
 			return clientData
 		},
 	},
-
-};
+}
 </script>
-
 <style>
-
-.main-stream-wrapper{
-	display: flex;
-	height: 100%;
-	flex-direction: column;
+.video-wrapper{
+  display: flex;
+  width: 100%;
+  flex-direction: column;
   align-items: center;
 }
+
+.name-box{
+  position: relative;
+  bottom: 20px;
+  color: white;
+}
+
+.user-name{
+  margin: 0;
+}
+
 </style>
