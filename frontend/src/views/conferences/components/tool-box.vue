@@ -1,5 +1,7 @@
 <template>
-  <div>
+  <div class='button-wrapper'>
+		<button @click='$emit("leaveSessionClick")'> Leave Session </button>
+
     <button v-show='!onSpeech' @click='toggleOnSpeech'> 말하기 </button>
 		<button v-show='onSpeech' @click='toggleOnSpeech'> 말하기 중지 </button>
 
@@ -14,7 +16,6 @@
 
 <script>
 import axios from 'axios'
-
 
 const baseUrl = 'http://127.0.0.1:8000/'
 
@@ -99,7 +100,7 @@ export default {
 							data: JSON.stringify(transcription)
 						})
 						.then((res)=>{
-								if(res){
+								if(res.data.sign[0] !== ''){
 									this.session.signal({
 											data: res.data.sign.toString(),  
 											to: [],                     
