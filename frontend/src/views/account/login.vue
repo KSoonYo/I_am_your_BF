@@ -144,16 +144,11 @@ export default {
 }
 </script>
 
-<style scoped>
-/* @import 'quasar/dist/quasar.css'; */
-/* @import 'quasar/dist/quasar.css';
-@import '@quasar/extras/roboto-font/roboto-font.css';
-@import '@quasar/extras/material-icons/material-icons.css';
-@import '@quasar/extras/material-icons-outlined/material-icons-outlined.css';
-@import '@quasar/extras/material-icons-round/material-icons-round.css';
-@import '@quasar/extras/material-icons-sharp/material-icons-sharp.css';
-@import '@quasar/extras/fontawesome-v5/fontawesome-v5.css'; */
-
+<style >
+.row{
+    --bs-gutter-x:0;
+    --bs-gutter-y:0;
+}
 .login-form{
     width: 20rem;
     
