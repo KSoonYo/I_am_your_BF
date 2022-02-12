@@ -1,10 +1,9 @@
 <template>
   <div id='main-container'>
     <div id="session" v-if="session">
-			<div id="session-header" class='row'>
+			<div id="session-header" class='row justify-center'>
 				<!-- tool box -->
 				<tool-box 
-				class='col'
 				:session='session'
 				:publisher='publisher'
 				@leaveSessionClick='leaveSession'
@@ -14,9 +13,14 @@
 			</div>			
 
 
-			<div style='height: 100%;' class='row q-col-gutter-md'>
+			<div style='height: 100%; position: relative;' class='row justify-evenly q-col-gutter-md'>
+					<!-- chat box -->
+				<chat-box
+				:session='session'
+				/>
+				
 					<!-- 메인 화면  -->
-				<div id='main-video' class='col-10'>
+				<div id='main-video' class='col-9'>
 
 					<!-- 자막 -->
 					<div v-show='captionEnabled' class='caption'>
@@ -42,7 +46,7 @@
 					<publish-video id='publisher' :stream-manager='publisher'/>	
 				</div>
 			</div>
-    
+
 		
 		</div>
   </div>
@@ -55,6 +59,7 @@ import UserVideo from './components/user-video'
 import PublishVideo from './components/publisher-video'
 
 import ToolBox from './components/tool-box.vue'
+import ChatBox from './components/chat-box.vue'
 
 axios.defaults.headers.post['Content-Type'] = 'application/json'
 const OPENVIDU_URL = "http://" + location.hostname + ":8080";
@@ -66,7 +71,8 @@ export default {
 	components: {
 		UserVideo,
 		ToolBox,
-		PublishVideo
+		PublishVideo,
+		ChatBox
 	},
 	data () {
 		return {
@@ -129,7 +135,6 @@ export default {
 
 			// 비디오 소스 저장
 			this.session.on('signal:signVideo', (event)=>{
-				console.log('도착한 비디오: ', event.data)
 				// const videoPlayer = document.querySelector('#videoPlayer')
 
 				if(this.videoList.length === 0){
@@ -337,7 +342,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 .participant{
   width: 5rem;
 }
@@ -355,7 +360,7 @@ export default {
 
 #main-container{
 	width: 100vw;
-  height: 87vh;
+  height: 90vh;
 }
 
 #main-video{
@@ -374,7 +379,7 @@ export default {
 	width: 30%;
 	height: 30%;
 	bottom: 0px;
-	right: 0px;
+	right: 16px;
 	z-index: 2;
 }
 
@@ -393,7 +398,7 @@ export default {
 	background-color: black;
 	color: white;
 	font-weight: bold;
-	font-size: 3em;
+	font-size: 2em;
 	word-break: keep-all;
 }
 
@@ -401,7 +406,6 @@ export default {
 	border: 1px solid black;
 	border-radius: 5px;
 	padding: 10px 10px;
-	margin-bottom: 27px;
 	width: 100%;
 }
 

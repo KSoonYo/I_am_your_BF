@@ -17,6 +17,8 @@ export default {
 </script>
 <style>
 .publish-video{
+	position: absolute;
+	bottom: 0px;
 	width: 100%;
 	object-fit: cover;
 }

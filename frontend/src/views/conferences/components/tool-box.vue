@@ -1,5 +1,5 @@
 <template>
-  <div class='button-wrapper'>
+  <div class='button-wrapper' style="width: fit-content;">
 		<button @click='$emit("leaveSessionClick")'> Leave Session </button>
 
     <button v-show='!onSpeech' @click='toggleOnSpeech'> 말하기 </button>

@@ -34,6 +34,7 @@ export default {
 </script>
 <style>
 .video-wrapper{
+  position: relative;
   display: flex;
   width: 100%;
   flex-direction: column;
@@ -41,7 +42,7 @@ export default {
 }
 
 .name-box{
-  position: relative;
+  position: absolute;
   bottom: 20px;
   color: white;
 }
