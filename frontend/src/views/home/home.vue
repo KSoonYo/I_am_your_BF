@@ -12,12 +12,12 @@
             class="navbar-toggler-icon"> </span></button>
         <div class="collapse navbar-collapse border-top border-lg-0 mt-4 mt-lg-0" id="navbarSupportedContent">
           <ul class="navbar-nav ms-auto pt-2 pt-lg-0 font-base">
-            <li class="nav-item px-2"><a class="nav-link" aria-current="page" href="index.html">Home</a></li>
-            <li class="nav-item px-2"><a class="nav-link" aria-current="page" href="index.html">Service</a></li>
-            <li class="nav-item px-2"><a class="nav-link" aria-current="page" href="index.html">Demonstaration</a></li>
-            <li class="nav-item px-2"><a class="nav-link" aria-current="page" href="index.html">Testimonial</a></li>
-            <li class="nav-item px-2"><a class="nav-link" aria-current="page" href="index.html">Login</a></li>
-            <li class="nav-item px-2"><a class="nav-link" aria-current="page" href="index.html">Sign Up</a></li>
+            <li class="nav-item px-2" style="cursor:pointer;"><a class="nav-link" aria-current="page" href="#home">Home</a></li>
+            <li class="nav-item px-2"><a class="nav-link" aria-current="page" href="#service">Service</a></li>
+            <li class="nav-item px-2"><a class="nav-link" aria-current="page" href="#demonstration">Demonstaration</a></li>
+            <li class="nav-item px-2"><a class="nav-link" aria-current="page" href="#testimonial">Testimonial</a></li>
+            <li class="nav-item px-2" id="btn-outline-dark"><a class="nav-link" aria-current="page" @click='clickLogin'>Login</a></li>
+            <li class="nav-item px-2" id="btn-outline-dark"><a class="nav-link" aria-current="page" @click='clickSignUp'>SignUp</a></li>
             <!-- <li class="nav-item px-2"><a class="nav-link" href="#services">Our Services</a></li>
             <li class="nav-item px-2"><a class="nav-link" href="#findUs">Find Us</a></li> -->
           </ul>
@@ -50,8 +50,8 @@
 
       <div class="container">
         <div class="row align-items-center">
-          <div class="col-md-5 col-xl-6 col-xxl-7 order-0 order-md-1 text-end"><img class="pt-7 pt-md-0 w-100"
-              src="assets/img/illustrations/hero.png" alt="hero-header" /></div>
+          <div class="col-md-5 col-xl-6 col-xxl-7 order-0 order-md-1 text-end"><img class="pt-7 pt-md-0 w-150"
+              src="assets/img/illustrations/big-main.png" alt="hero-header" /></div>
           <div class="col-md-75 col-xl-6 col-xxl-5 text-md-start text-center py-8">
             <h1 class="fw-normal fs-6 fs-xxl-7">A trusted provider of </h1>
             <h1 class="fw-bolder fs-6 fs-xxl-7 mb-2">courier services.</h1>
@@ -120,7 +120,7 @@
     
     <!-- ============================================-->
     <!-- <section> begin ============================-->
-    <section>
+    <section id="demonstration">
       <div class="container">
         <div class="row justify-content-center">
           <div class="col-md-8 col-lg-5 text-center mb-3">
@@ -171,7 +171,7 @@
 
     <!-- ============================================-->
     <!-- <section> begin ============================-->
-    <section class="py-7">
+    <section class="py-7" id="testimonial">
 
       <div class="container-fluid">
         <div class="row flex-center">
@@ -603,12 +603,43 @@
 
 
 <script>
-
+import { useRouter } from 'vue-router'
 export default {
-  name: 'home'
+  name: 'home',
+  setup () {
+       const router = useRouter()
+       const clickLogin = function() {
+           router.push({name: 'login'})
+       }
+       const clickSignUp = function() {
+           router.push({name: 'signup'})
+       }
+       
+    return {
+      clickLogin,clickSignUp
+    }
+  },
 }
 </script>
 <style scoped>
-@import '../../../public/assets/css/theme.css'
+/* @import '../../../public/assets/css/theme.css' */
+.px-2{
+    padding-left : 1rem !important;
+    padding-right : 1rem !important;
+}
+#btn-outline-dark {
+  color: #212832;
+  border-color: #212832;
+}
 
+#btn-outline-dark:hover a {
+  cursor :pointer;
+  color: #FFFEFE;
+  background-color: #212832;
+  border-color: #212832;
+  border-radius: 10px;
+}
+/* #btn-outline-dark a:hover{
+    color:white
+} */
 </style>

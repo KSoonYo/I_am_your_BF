@@ -183,8 +183,6 @@ public class UserController {
     public ResponseEntity<? extends BaseResponseBody> findPassword(
             @RequestBody @ApiParam(value = "비밀번호 찾기 정보", required = true) UserFindPwPostReq userFindPwPostReq
     ) {
-
-
         User user = userService.getUserByUserId(userFindPwPostReq.getUserId());
 
         System.out.println(user.getUserId() + " | "+ user.getUserName() + " | " + user.getUserEmail());
