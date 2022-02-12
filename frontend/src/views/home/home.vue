@@ -554,4 +554,8 @@ export default {
 /* #btn-outline-dark a:hover{
     color:white
 } */
+
+.card{
+  margin: 0.5rem;
+}
 </style>
