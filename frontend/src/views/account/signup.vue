@@ -276,7 +276,7 @@ export default {
 }
 </script>
 
-<style>
+<style >
 
 
 
@@ -284,7 +284,10 @@ export default {
     margin: 0px 300px;
     border: 1px black solid;
 } */
-
+.row{
+    --bs-gutter-x:0;
+    --bs-gutter-y:0;
+}
 .logo{
     width: 120px;
     height: 100px;
