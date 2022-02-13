@@ -1,5 +1,6 @@
 <template>
-    <div v-if="streamManager" :class='{"main-stream-wrapper": role === "mainStreamer"}'>
+    <div v-if="streamManager"
+		:class='[{"main-stream-wrapper": role === "mainStreamer"}, {"subscriber-wrapper" : role === "subscriber"}]'>
         <ov-video :role='role' :stream-manager="streamManager"/>
         <div class='name-box'><p class='user-name'>{{ clientData }}</p></div>
     </div>
@@ -8,8 +9,6 @@
 <script>
 import OvVideo from './ov-video'
 
-
-// const p = document.createElement('p')
 
 export default {
 	name: 'userVideo',
@@ -50,6 +49,15 @@ export default {
 	width: 100%;
 	height: 100%;
 	flex-direction: column;
+  align-items: center;
+}
+
+.subscriber-wrapper{
+	position: relative;
+  display: flex !important;
+  width: 100%;
+	height: 45%;
+  flex-direction: column;
   align-items: center;
 }
 </style>

@@ -49,7 +49,12 @@
 				<div id="video-container" class='col-2 column'>
 					<div class='guest-box col-8'>
 						<!-- 참가자 -->
-						<user-video class="participant" v-for="sub in subscribers" :key="sub.stream.connection.connectionId" :stream-manager="sub"/>
+						<Flicking 
+						:options='{ horizontal: false,  moveType: "freeScroll", bound: true}'
+						style="width: 100%; height: 100%;"
+						>
+							<user-video :role='"subscriber"' v-for="sub in subscribers" :key="sub.stream.connection.connectionId" :stream-manager="sub"/>
+						</Flicking>
 					</div>
 
 					<publish-video id='publisher' :stream-manager='publisher'/>	
@@ -355,9 +360,6 @@ export default {
 </script>
 
 <style>
-.participant{
-  width: 5rem;
-}
 
 #videoPlayer{
 	object-fit: cover;
@@ -415,6 +417,7 @@ export default {
 }
 
 .guest-box{
+	position: relative;
 	border: 1px solid black;
 	border-radius: 5px;
 	padding: 10px 10px;
