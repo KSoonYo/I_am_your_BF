@@ -11,6 +11,9 @@
 		<button v-show='!signVideoEnabled'  @click='() => { signVideoEnabled = !signVideoEnabled, $emit("toggleSignVideo") }'> 수화 on </button>
 		<button v-show='signVideoEnabled'  @click='() => { signVideoEnabled = !signVideoEnabled, $emit("toggleSignVideo") }'>  수화 off </button>
 	
+		<button @click='() => { $emit("toggleShowChat")}'> 채팅 </button>
+
+		<button @click='() => { $emit("toggleShowMemo")}' > 기록 </button>
 	</div>
 </template>
 
@@ -90,7 +93,14 @@ export default {
 	
 								type: 'caption'
 							})
-							.then(()=>{	
+
+						this.session.signal({
+								data : this.runtimeTranscription_,
+								to: [],
+	
+								type: 'memo'
+						})
+						.then(()=>{	
 								this.runtimeTranscription_ = ''	
 							})
 

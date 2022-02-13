@@ -1,5 +1,10 @@
 <template>
-	<video  :class='[{"publish-video" : role === "publisher"}, {"main-stream" : role === "mainStreamer"}]' autoplay/>
+	<video  
+	:class='[
+	{"publish-video" : role === "publisher"}, 
+	{"subscribe-video" : role === "subscriber"},
+	{"main-stream" : role === "mainStreamer"},
+	]' autoplay/>
 </template>
 
 <script>
@@ -17,6 +22,13 @@ export default {
 </script>
 <style>
 .publish-video{
+	position: absolute;
+	bottom: 0px;
+	width: 100%;
+	object-fit: cover;
+}
+
+.subscribe-video{
 	position: absolute;
 	bottom: 0px;
 	width: 100%;

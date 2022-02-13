@@ -1,5 +1,8 @@
 <template>
-  <div id='chatBox' class='column'>
+  <div 
+  class='chatBox column'
+  :class='{"show-chat" : showChat}'
+  >
     <div id='chatLog' class='col-11'>
     </div>
     <div id='textBox' class='col'>
@@ -15,7 +18,8 @@
 export default {
   name: 'chatBox',
   props:{
-    session: Object
+    session: Object,
+    showChat: Boolean
   },
 
   data () {
@@ -81,18 +85,23 @@ export default {
 </script>
 
 <style>
-#chatBox{
+.chatBox{
   position: absolute;
   width: 20%;
   height: 100%;
-  padding-left: 30px;
-  right: 0px;
+  right: -20%;
   z-index: 3;
-  overflow: auto;
+  transition: all .35s;
+
+}
+
+.show-chat{
+  right: 0px;
 }
 
 #chatLog{
   background-color: rgb(243, 240, 240);
+  overflow: auto;
 }
 
 
