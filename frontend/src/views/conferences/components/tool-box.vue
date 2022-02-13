@@ -93,7 +93,14 @@ export default {
 	
 								type: 'caption'
 							})
-							.then(()=>{	
+
+						this.session.signal({
+								data : this.runtimeTranscription_,
+								to: [],
+	
+								type: 'memo'
+						})
+						.then(()=>{	
 								this.runtimeTranscription_ = ''	
 							})
 

@@ -9,16 +9,25 @@
 				@leaveSessionClick='leaveSession'
 				@toggleCaption='() => { captionEnabled = !captionEnabled }'
 				@toggleSignVideo='() => { videoEnabled = !videoEnabled }'
+				@toggleShowMemo='() => { showMemo = !showMemo }'
+				@toggleShowChat='() => { showChat = !showChat }'
 				/>
 			</div>			
 
 
-			<div style='height: 100%; position: relative;' class='row justify-evenly q-col-gutter-md'>
+			<div style='height: 100%; position: relative; overflow: hidden;' class='row justify-evenly q-col-gutter-md'>
 					<!-- chat box -->
 				<chat-box
 				:session='session'
+				:showChat='showChat'
 				/>
 				
+					<!-- memo box -->
+				<memo-box 
+				:session='session'
+				:showMemo='showMemo'
+				/>
+
 					<!-- 메인 화면  -->
 				<div id='main-video' class='col-9'>
 
@@ -60,6 +69,7 @@ import PublishVideo from './components/publisher-video'
 
 import ToolBox from './components/tool-box.vue'
 import ChatBox from './components/chat-box.vue'
+import MemoBox from './components/memo-box.vue'
 
 axios.defaults.headers.post['Content-Type'] = 'application/json'
 const OPENVIDU_URL = "http://" + location.hostname + ":8080";
@@ -72,7 +82,8 @@ export default {
 		UserVideo,
 		ToolBox,
 		PublishVideo,
-		ChatBox
+		ChatBox,
+		MemoBox
 	},
 	data () {
 		return {
@@ -88,6 +99,8 @@ export default {
 			videoIndex : 0,
 			videoDefaultUrl : VIDEO_DEFAULT_URL,
 
+			showMemo : false,
+			showChat : false,
 
       // conference-list에서 참여하기 버튼 눌렀을 때, 강의실 제목을 props로 전달받아야 할 듯
 			mySessionId: 'SessionA',
@@ -242,7 +255,7 @@ export default {
 						let publisher = this.OV.initPublisher('#publisher', {
 							audioSource: undefined, // The source of audio. If undefined default microphone
 							videoSource: undefined, // The source of video. If undefined default webcam
-							publishAudio: true,  	// Whether you want to start publishing with your audio unmuted or not
+							publishAudio: false,  	// Whether you want to start publishing with your audio unmuted or not
 							publishVideo: true,  	// Whether you want to start publishing with your video enabled or not
 							resolution: '640x480',  // The resolution of your video
 							frameRate: 30,			// The frame rate of your video
@@ -263,21 +276,20 @@ export default {
 		},
 		
 		openScreen () {
-			var OV = new OpenVidu();
-			var sessionScreen = OV.initSession();
-			this.getToken().then((token) => {
-					sessionScreen.connect(token).then(() => {
-							var publisher = OV.initPublisher("html-element-id", { videoSource: "screen" });
+			this.getToken(this.mySessionId).then((token) => {
+					this.session.connect(token).then(() => {
+							let publisher = this.OV.initPublisher("html-element-id", { videoSource: "screen" })
 
 							publisher.once('accessAllowed', () => {
 									publisher.stream.getMediaStream().getVideoTracks()[0].addEventListener('ended', () => {
 											console.log('User pressed the "Stop sharing" button');
-									});
-									sessionScreen.publish(publisher);
-							});
+									})
+									this.mainStreamManager = publisher
+									this.session.publish(publisher);
+							})
 
 							publisher.once('accessDenied', () => {
-									console.warn('ScreenShare: Access Denied');
+									console.warn('ScreenShare: Access Denied')
 							})
 
 					}).catch((error => {
