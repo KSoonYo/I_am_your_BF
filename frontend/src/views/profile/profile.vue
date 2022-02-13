@@ -252,6 +252,14 @@ export default {
       // 업데이트 유효성 검사
       profileForm.value.validate().then(success => {
           if ( success ){
+            // 비밀번호 변경
+            if (state.value.private) {
+              store.dispatch('changePassword', {
+                currentPassword : state.value.passw,
+                newPassword  : state.value.form.password
+              })
+            }
+            // 이메일 변경
             if (state.value.email) {
               if(state.value.userEmailCh !== checkedEmail.value){
                 $q.notify({
@@ -265,7 +273,6 @@ export default {
                   userId : state.value.form.userId,
                   userName : state.value.form.userName,
                   userEmail : state.value.form.userEmailCh,
-                  password : state.value.form.password,
                   thumbnail : state.value.result,
               })
               .then(()=>{
@@ -280,8 +287,7 @@ export default {
               store.dispatch('updateProfile', {
                   userId : state.value.form.userId,
                   userName : state.value.form.userName,
-                  userEmail : state.value.form.userEmail,
-                  password : state.value.form.password,
+                  userEmail : state.value.form.userEmailCh,
                   thumbnail : state.value.result,
               })
               .then(()=>{

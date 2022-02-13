@@ -83,9 +83,15 @@ export default createStore({
     // 프로필 업데이트
     updateProfile({state}, data){
       state
-      const url = '/api/users'
+      const userId = data.userId
+      const url = `/api/users${userId}`
+      const userdata = {
+        userName : data.userName,
+        userEmail : data.userEmail,
+        thumbnail : data.thumbnail,
+      }
       const token = localStorage.getItem('accessToken')
-      return instance.patch(url, data, {
+      return instance.patch(url, userdata, {
         headers: {
           Authorization:  `Bearer ${token}`
         }
@@ -113,6 +119,13 @@ export default createStore({
       const url = '/api/users/find/password'
       return instance.post(url, data)
     },
+    
+    // 비밀번호 변경
+    changePassword({state}, data){
+      state
+      const url = '/api/users/password'
+      return instance.post(url, data)
+    }
       
   },
   modules: {

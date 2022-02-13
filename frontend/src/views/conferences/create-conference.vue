@@ -1,5 +1,5 @@
 <template>
-  <div class='column items-center bg-grey-3 flex justify-center' style='min-height:100vh'>
+  <div class='column items-center flex justify-center' style='min-height:100vh; background-image:url(../../../public/assets/img/illustrations/big-main.png); '>
 		<div class='container'>
 			<div class='row justify-center backimg'>
 				<div class='col-12 flex items-center justify-center'>

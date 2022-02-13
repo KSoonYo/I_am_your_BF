@@ -16,8 +16,10 @@
             <li class="nav-item px-2"><a class="nav-link" aria-current="page" href="#service">Service</a></li>
             <li class="nav-item px-2"><a class="nav-link" aria-current="page" href="#demonstration">Demonstaration</a></li>
             <li class="nav-item px-2"><a class="nav-link" aria-current="page" href="#testimonial">Testimonial</a></li>
-            <li class="nav-item px-2" id="btn-outline-dark"><a class="nav-link" aria-current="page" @click='clickLogin'>Login</a></li>
-            <li class="nav-item px-2" id="btn-outline-dark"><a class="nav-link" aria-current="page" @click='clickSignUp'>SignUp</a></li>
+            <li v-if="!state.isLogin" class="nav-item px-2" id="btn-outline-dark"><a class="nav-link" aria-current="page" @click='clickLogin'>Login</a></li>
+            <li v-if="!state.isLogin" class="nav-item px-2" id="btn-outline-dark"><a class="nav-link" aria-current="page" @click='clickSignUp'>SignUp</a></li>
+            <li v-if="state.isLogin" class="nav-item px-2" id="btn-outline-dark"><a class="nav-link" aria-current="page" @click='editProfile'>Edit</a></li>
+            <li v-if="state.isLogin" class="nav-item px-2" id="btn-outline-dark"><a class="nav-link" aria-current="page" @click='logout'>Logout</a></li>
             <!-- <li class="nav-item px-2"><a class="nav-link" href="#services">Our Services</a></li>
             <li class="nav-item px-2"><a class="nav-link" href="#findUs">Find Us</a></li> -->
           </ul>
@@ -424,7 +426,27 @@
     </section>
     <!-- <section> close ============================-->
     <!-- ============================================-->
-
+    <div class="position-relative pt-9 pt-lg-8 pb-6 pb-lg-8">
+        <div class="container">
+          <div class="row row-cols-lg-5 row-cols-md-3 row-cols-2 flex-center">
+            <div class="col">
+              <div class="card shadow-hover mb-4" style="border-radius:10px;">
+                <div class="card-body text-center"> <img class="img-fluid" style="min-width: 200px; min-height: 125px; max-width:200px; max-height:125px" src="assets/img/partner/samsung.png" alt="" /></div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card shadow-hover mb-4" style="border-radius:10px;">
+                <div class="card-body text-center"> <img class="img-fluid" style="min-width: 200px; min-height: 125px; max-width:200px; max-height:125px" src="assets/img/partner/ssafy.png" alt="" /></div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card shadow-hover mb-4" style="border-radius:10px;">
+                <div class="card-body text-center"> <img class="img-fluid" style="min-width: 200px; min-height: 125px; max-width:200px; max-height:125px" src="assets/img/partner/고용노동부.jpg" alt="" /></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
 
 
@@ -515,20 +537,39 @@
 
 
 <script>
+import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 export default {
   name: 'home',
   setup () {
-       const router = useRouter()
-       const clickLogin = function() {
-           router.push({name: 'login'})
-       }
-       const clickSignUp = function() {
-           router.push({name: 'signup'})
-       }
-       
+    onMounted (() => {
+      const token = localStorage.getItem('accessToken')
+      if (token) {
+        state.value.isLogin = true
+      } else {
+        state.value.isLogin = false
+      }
+    })
+    const router = useRouter()
+    const clickLogin = function() {
+        router.push({name: 'login'})
+    }
+    const clickSignUp = function() {
+        router.push({name: 'signup'})
+    }
+    const state = ref({
+      isLogin: false,
+    })
+    const editProfile = function() {
+      router.push({name: 'profile'})
+    }
+    const logout = function () {
+      localStorage.removeItem('accessToken')
+      localStorage.removeItem('userInfo')
+      router.push({ name : 'Home'})
+    }
     return {
-      clickLogin,clickSignUp
+      state, clickLogin,clickSignUp, editProfile, logout
     }
   },
 }

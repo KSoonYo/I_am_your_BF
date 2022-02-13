@@ -8,11 +8,8 @@
               class="navbar-toggler-icon"> </span></button>
           <div class="collapse navbar-collapse border-top border-lg-0 mt-4 mt-lg-0" id="navbarSupportedContent">
             <ul class="navbar-nav ms-auto pt-2 pt-lg-0 font-base">
-              <li class="nav-item px-2"><a class="nav-link" aria-current="page" href="index.html">Home</a></li>
-              <li class="nav-item px-2"><a class="nav-link" aria-current="page" href="index.html">Login</a></li>
-              <li class="nav-item px-2"><a class="nav-link" aria-current="page" href="index.html">Sign Up</a></li>
-              <!-- <li class="nav-item px-2"><a class="nav-link" href="#services">Our Services</a></li>
-              <li class="nav-item px-2"><a class="nav-link" href="#findUs">Find Us</a></li> -->
+              <li class="nav-item px-2" id="btn-outline-dark"><a class="nav-link" aria-current="page" @click='editProfile'>Edit</a></li>
+              <li class="nav-item px-2" id="btn-outline-dark"><a class="nav-link" aria-current="page" @click='logout'>Logout</a></li>
             </ul>
           </div>
         </div>
@@ -21,8 +18,8 @@
     <div class="q-pt-lg">
       <!-- 강의실 생성 방법1 -->
       
-      <div class='row justify-end flex q-mt-lg'>
-        <div class="search" :class="{ active: state.open }" @keyup.enter="searchConference">
+      <div class='justify-end flex q-mt-lg' style="padding-top:75px">
+        <div class="search q-mr-md" :class="{ active: state.open }" @keyup.enter="searchConference">
           <div class="icon" @click="move"></div>
           <div class="input">
             <input type="text" v-model='state.searchValue' maxlength='20' placeholder="강의실 제목, 호스트를 검색">
@@ -30,7 +27,7 @@
           <span v-if="state.searchValue != ''" class="clear" @click="state.searchValue = ''"></span>
         </div>
         <div class="flex justify-center items-center">
-          <q-btn @click='numrule' flat style='color: #ddb193' v-if="state.numasc">방번호<i class="fas fa-angle-up"></i></q-btn>
+          <q-btn @click='numrule' flat style='color: #ddb193' v-if="state.numasc">방번호<i class="fa-solid fa-angle-up"></i></q-btn>
           <q-btn @click='numrule' flat style='color: #ddb193' v-if="!state.numasc">방번호<i class="fas fa-angle-down"></i></q-btn>
           <q-btn @click='titlerule' flat style='color: #ddb193' v-if="state.titleasc">제목순<i class="fas fa-angle-up"></i></q-btn>
           <q-btn @click='titlerule' flat style='color: #ddb193' v-if="!state.titleasc">제목순<i class="fas fa-angle-down"></i></q-btn>
@@ -38,26 +35,19 @@
           <q-btn @click='namerule' flat style='color: #ddb193' v-if="!state.nameasc">이름순<i class="fas fa-angle-down"></i></q-btn>
         </div>
         <div class="flex justify-center items-center">
-          <router-link :to='{ name: "CreateConference"}' style='text-decoration: none;'><q-btn rounded style="background: #E6A377; color: #FFFFFF">강의실 생성</q-btn></router-link> 
+          <router-link :to='{ name: "CreateConference"}' style='text-decoration: none;'><q-btn rounded style="background: #E6A377; color: #FFFFFF; min-width:100px;">강의실 생성</q-btn></router-link> 
         </div>
         <div class="offset-md-1 offset-sm-1">
 
         </div>
       </div> 
       <br>
-      <div>
-        <!-- 강의실 목록 카드들   -->
-        
-        <!-- <q-pagination
-            v-model="state.current"
-            :max="state.maxpage"
-            input
-          /> -->
-        <div v-if='state.conferenceList' class="row flex justify-center">
+      <div class="flex justify-center items-center">
+        <div v-if='state.perPageList' class="row flex justify-center">
           <Conference 
-            v-for='conference in state.conferenceList' :key='conference.id'
+            v-for='conference in state.perPageList' :key='conference.id'
             :conference="conference"
-            class="col-sm-6 col-md-4 col-lg-4 col-xl-4"
+            class="justify-center items-center flex col-sm-6 col-4"
             style="max-width:486px; max-height:242px; width:100%; height:100%"
           />
         </div>
@@ -65,15 +55,22 @@
           <p>강의실이 없습니다.</p>
         </div>
       </div>
+      <q-pagination
+        v-if="state.conferenceList"
+        v-model="state.currentpage"
+        :max="state.maxpage"
+        input
+      />
     </div>
   </div>
+  
 </template>
 
 <script>
 // 제목 검색시 쿼리 동적 전달방식 이용
 // import conference from './components/conference'
 
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch, watchEffect } from 'vue'
 import { useRouter } from 'vue-router'
 // import axios from 'axios'
 import Conference from './components/conference'
@@ -90,10 +87,16 @@ export default {
     const store = useStore()
 
     onMounted(() => {
+      const token = localStorage.getItem('accessToken')
+      if (!token) {
+        router.push( {name:"Home"} )
+      }
       // 회의실 불러오기
       store.dispatch('getConference')
         .then(res => {
           state.value.conferenceList = res.data
+          state.value.maxpage = Math.ceil(state.value.conferenceList.length/30)
+          state.value.perPageList = state.value.conferenceList.slice(30)
         })
         .catch(() => {
           console.log('에러')
@@ -115,6 +118,7 @@ export default {
     // 데이터 값 설정
     const state = ref({
       // 검색 입력 값
+      perPageList: null,
       searchValue: '',
       loading: false,
       conferenceList: null,
@@ -123,8 +127,8 @@ export default {
       numasc: false,
       nameasc: false,
       open: false,
-      // current: ref(1),
-      // maxpage: ref(Math.ceil(state.value.conferenceList.length/30))
+      currentpage: ref(1),
+      maxpage: ref(0),
     });
 
     const token = localStorage.getItem('accessToken')
@@ -212,8 +216,30 @@ export default {
       }
     };
 
+    // 프로필 수정 페이지 이동
+    const editProfile = function () {
+      router.push({ name: 'profile' })
+    }
+
+    // 로그아웃
+    const logout = function () {
+      localStorage.removeItem('accessToken')
+      localStorage.removeItem('userInfo')
+      router.push({ name : 'home' })
+    }
+    watch(state.value.currentpage)
+    watchEffect(() => {
+      if (state.value.conferenceList) {
+        const start = (state.value.currentpage-1) * 30
+        const end = start + 30
+        state.value.perPageList = state.value.conferenceList.slice(start, end)
+      }
+    })
+
 
     return { 
+      logout,
+      editProfile,
       move,
       numrule,
       searchConference,
