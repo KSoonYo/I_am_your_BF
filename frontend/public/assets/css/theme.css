@@ -54,7 +54,7 @@
   }
 }
 
-body {
+#top {
   margin: 0;
   font-family: "Raleway", -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   font-size: 1rem;
@@ -17458,11 +17458,11 @@ html {
   scroll-padding-top: 6.3125rem;
 }
 
-main {
+#mainbig {
   background-image: url("../img/gallery/bg.png");
 }
 
-body {
+#top {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   position: relative;

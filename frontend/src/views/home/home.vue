@@ -3,6 +3,7 @@
   <!--    Main Content-->
   <!-- ===============================================-->
   <main class="main" id="top">
+    <div id="mainbig"> 
     <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3 d-block"
       data-navbar-on-scroll="data-navbar-on-scroll">
       <div class="container"><a class="navbar-brand" href="#home"><img src="assets/img/gallery/logo_bf2.png"
@@ -541,7 +542,7 @@
     <!-- <section> close ============================-->
     <!-- ============================================-->
 
-
+  </div>
   </main>
   <!-- ===============================================-->
   <!--    End of Main Content-->
