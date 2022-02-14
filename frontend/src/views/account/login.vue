@@ -1,5 +1,5 @@
 <template>
-	<div class='column items-center flex justify-center' style='min-height:100vh; background-image:url(../../../public/assets/img/illustrations/big-main.png);'>
+	<div class='column items-center flex justify-center' style='min-height:100vh; background-color : '>
 		<div class='container'>
 			<div class='row justify-center'>
 				<div class='col-12 flex items-center justify-center'>
@@ -145,10 +145,11 @@ export default {
 </script>
 
 <style >
-.row{
+/* .row{
     --bs-gutter-x:0;
     --bs-gutter-y:0;
-}
+} */
+
 .login-form{
     width: 20rem;
     

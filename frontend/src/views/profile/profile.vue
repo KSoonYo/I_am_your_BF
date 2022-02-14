@@ -343,7 +343,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .cont-title {
   margin-bottom: 26px;
   margin-bottom: 2.6rem;

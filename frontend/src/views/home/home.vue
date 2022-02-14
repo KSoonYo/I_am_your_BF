@@ -3,8 +3,9 @@
   <!--    Main Content-->
   <!-- ===============================================-->
   <main class="main" id="top">
+    
     <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3 d-block"
-      data-navbar-on-scroll="data-navbar-on-scroll">
+      data-navbar-on-scroll="data-navbar-on-scroll" style="background-color:rgba(255,248,232,0.5)">
       <div class="container"><a class="navbar-brand" href="#home"><img src="assets/img/gallery/logo_bf2.png"
             height="45" alt="logo" /></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -16,10 +17,10 @@
             <li class="nav-item px-2"><a class="nav-link" aria-current="page" href="#service">Service</a></li>
             <li class="nav-item px-2"><a class="nav-link" aria-current="page" href="#demonstration">Demonstaration</a></li>
             <li class="nav-item px-2"><a class="nav-link" aria-current="page" href="#testimonial">Testimonial</a></li>
-            <li v-if="!state.isLogin" class="nav-item px-2" id="btn-outline-dark"><a class="nav-link" aria-current="page" @click='clickLogin'>Login</a></li>
-            <li v-if="!state.isLogin" class="nav-item px-2" id="btn-outline-dark"><a class="nav-link" aria-current="page" @click='clickSignUp'>SignUp</a></li>
-            <li v-if="state.isLogin" class="nav-item px-2" id="btn-outline-dark"><a class="nav-link" aria-current="page" @click='editProfile'>Edit</a></li>
-            <li v-if="state.isLogin" class="nav-item px-2" id="btn-outline-dark"><a class="nav-link" aria-current="page" @click='logout'>Logout</a></li>
+            <li v-if="!state.isLogin" class="nav-item px-2" id="btn-outline-dark"><a class="nav-link" aria-current="page" @click='clickLogin' href="#">Login</a></li>
+            <li v-if="!state.isLogin" class="nav-item px-2" id="btn-outline-dark"><a class="nav-link" aria-current="page" @click='clickSignUp' href="#">SignUp</a></li>
+            <li v-if="state.isLogin" class="nav-item px-2" id="btn-outline-dark"><a class="nav-link" aria-current="page" @click='editProfile' href="#">Edit</a></li>
+            <li v-if="state.isLogin" class="nav-item px-2" id="btn-outline-dark"><a class="nav-link" aria-current="page" @click='logout' href="#">Logout</a></li>
             <!-- <li class="nav-item px-2"><a class="nav-link" href="#services">Our Services</a></li>
             <li class="nav-item px-2"><a class="nav-link" href="#findUs">Find Us</a></li> -->
           </ul>
@@ -55,11 +56,25 @@
           <div class="col-md-5 col-xl-6 col-xxl-7 order-0 order-md-1 text-end"><img class="pt-7 pt-md-0 w-110"
               src="assets/img/illustrations/big-main.png" alt="hero-header" /></div>
           <div class="col-md-75 col-xl-6 col-xxl-5 text-md-start text-center py-8">
-            <h1 class="fw-normal fs-6 fs-xxl-7">I am Your </h1>
-            <h1 class="fw-bolder fs-6 fs-xxl-7 mb-2">Best Friend</h1>
-
-            <p class="fs-1 mb-5">당신의 수업권을<br />지키며 싸우는 BF가 되겠습니다. </p><a
-              class="btn btn-primary me-2" href="#!" role="button">수업실 입장<i
+            <!-- <h1 class="fw-normal fs-6 fs-xxl-7">I am Your </h1>
+            <h1 class="fw-bolder fs-6 fs-xxl-7 mb-2">Best Friend</h1> -->
+            <div class="content">
+              <div class="content__container">
+                <p class="content__container__text">
+                  I'm Your
+                </p>
+              </div>
+              <div class="content__container">
+                <ul class="content__container__list">
+                  <li class="content__container__list__item">BEST FRIEND</li>
+                  <li class="content__container__list__item">BARRIER FREE</li>
+                  <li class="content__container__list__item">BREAK FENCE</li>
+                  <li class="content__container__list__item">BLUE FLOWER</li>
+                </ul>
+              </div>
+            </div>
+            <p class="main-msg fs-1 mb-5">당신의 수업권을<br />지키며 싸우는 BF가 되겠습니다. </p><a
+              class="btn btn-primary me-2" role="button" @click="moveConferenceList">수업실 입장<i
                 class="fas fa-arrow-right ms-2"></i></a>
           </div>
         </div>
@@ -426,29 +441,6 @@
     </section>
     <!-- <section> close ============================-->
     <!-- ============================================-->
-    <div class="position-relative pt-9 pt-lg-8 pb-6 pb-lg-8">
-        <div class="container">
-          <div class="row row-cols-lg-5 row-cols-md-3 row-cols-2 flex-center">
-            <div class="col">
-              <div class="card shadow-hover mb-4" style="border-radius:10px;">
-                <div class="card-body text-center"> <img class="img-fluid" style="min-width: 200px; min-height: 125px; max-width:200px; max-height:125px" src="assets/img/partner/samsung.png" alt="" /></div>
-              </div>
-            </div>
-            <div class="col">
-              <div class="card shadow-hover mb-4" style="border-radius:10px;">
-                <div class="card-body text-center"> <img class="img-fluid" style="min-width: 200px; min-height: 125px; max-width:200px; max-height:125px" src="assets/img/partner/ssafy.png" alt="" /></div>
-              </div>
-            </div>
-            <div class="col">
-              <div class="card shadow-hover mb-4" style="border-radius:10px;">
-                <div class="card-body text-center"> <img class="img-fluid" style="min-width: 200px; min-height: 125px; max-width:200px; max-height:125px" src="assets/img/partner/고용노동부.jpg" alt="" /></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-
 
     <!-- ============================================-->
     <!-- <section> begin ============================-->
@@ -485,6 +477,28 @@
         </div>
       </div>
       <!-- end of .container-->
+
+      <div class="position-relative pt-9 pt-lg-8 pb-6 pb-lg-8">
+        <div class="container">
+          <div class="row row-cols-lg-5 row-cols-md-3 row-cols-2 flex-center">
+            <div class="col">
+              <div class="partner card shadow-hover mb-4" style="border-radius:10px;">
+                <div class="card-body text-center"> <img class="img-fluid" style="min-width: 200px; min-height: 125px; max-width:200px; max-height:125px" src="assets/img/partner/samsung_logo_1.svg" alt="" /></div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="partner card shadow-hover mb-4" style="border-radius:10px;">
+                <div class="card-body text-center"> <img class="img-fluid" style="min-width: 200px; min-height: 125px; max-width:200px; max-height:125px" src="assets/img/partner/ssafy_1.svg" alt="" /></div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="partner card shadow-hover mb-4" style="border-radius:10px;">
+                <div class="card-body text-center"> <img class="img-fluid" style="min-width: 200px; min-height: 125px; max-width:200px; max-height:125px" src="assets/img/partner/ministry_1.svg" alt="" /></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
     </section>
     <!-- <section> close ============================-->
@@ -528,13 +542,11 @@
     <!-- <section> close ============================-->
     <!-- ============================================-->
 
-
   </main>
   <!-- ===============================================-->
   <!--    End of Main Content-->
   <!-- ===============================================-->
 </template>
-
 
 <script>
 import { ref, onMounted } from 'vue'
@@ -566,37 +578,24 @@ export default {
     const logout = function () {
       localStorage.removeItem('accessToken')
       localStorage.removeItem('userInfo')
-      router.push({ name : 'Home'})
+      router.go({ name : 'home'})
+    }
+    const moveConferenceList = function () {
+      const token = localStorage.getItem('accessToken')
+      if (token) {
+        router.push({ name : 'conferenceList'})
+      } else {
+        router.push({ name : 'login'})
+      }
     }
     return {
-      state, clickLogin,clickSignUp, editProfile, logout
+      state, clickLogin,clickSignUp, editProfile, logout, moveConferenceList
     }
   },
 }
 </script>
-<style scoped>
-/* @import '../../../public/assets/css/theme.css' */
-.px-2{
-    padding-left : 1rem !important;
-    padding-right : 1rem !important;
-}
-#btn-outline-dark {
-  color: #212832;
-  border-color: #212832;
-}
+<style scoped src='../../../public/assets/css/theme.css'>
+ /* @import '../../../public/assets/css/theme.css' */
 
-#btn-outline-dark:hover a {
-  cursor :pointer;
-  color: #FFFEFE;
-  background-color: #212832;
-  border-color: #212832;
-  border-radius: 10px;
-}
-/* #btn-outline-dark a:hover{
-    color:white
-} */
 
-.card{
-  margin: 0.5rem;
-}
 </style>

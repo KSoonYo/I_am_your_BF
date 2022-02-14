@@ -1,10 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Home from '../views/home/home.vue'
+// import Home from '../views/home/home.vue'
 import Test from '../views/account/test.vue'
 import login from './login'
 import signup from './signup'
 import findId from './find-id'
 import findPw from './find-pw'
+import home from './home'
 
 // conferenceRoom
 import conferenceRoom from './conference-room'
@@ -16,11 +17,7 @@ import conferenceList from './conference-list'
 import profile from './profile'
 
 const routes = [
-  {
-    path: '/',
-    name: 'Home',
-    component: Home
-  },
+
   {
     path: '/test',
     name: 'Test',
@@ -33,7 +30,8 @@ const routes = [
   ...CreateConference,
   ...findId,
   ...findPw,
-  ...conferenceRoom
+  ...conferenceRoom,
+  ...home
 ]
 
 const router = createRouter({
