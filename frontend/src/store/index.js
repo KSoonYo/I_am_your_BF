@@ -2,7 +2,7 @@ import { createStore } from 'vuex'
 import axios from 'axios'
 
 const instance = axios.create({
-  baseURL: process.env.VUE_APP_BASE_URL_LOCAL
+  baseURL: process.env.VUE_APP_API_URL
 })
 
 // axios.defaults.baseURL = 'https://localhost:8080/api'

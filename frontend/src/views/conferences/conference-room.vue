@@ -82,7 +82,7 @@ import ChatBox from './components/chat-box.vue'
 import MemoBox from './components/memo-box.vue'
 
 axios.defaults.headers.post['Content-Type'] = 'application/json'
-// const OPENVIDU_URL = process.env.VUE_APP_OPENVIDU_URL_LOCAL;
+const OPENVIDU_URL = process.env.VUE_APP_OPENVIDU_URL;
 const VIDEO_DEFAULT_URL = process.env.VUE_APP_DJANGO_MEDIA_URL;
 
 
