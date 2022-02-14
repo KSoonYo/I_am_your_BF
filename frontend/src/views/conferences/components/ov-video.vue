@@ -20,7 +20,7 @@ export default {
 	},
 }
 </script>
-<style>
+<style scoped>
 .publish-video{
 	position: absolute;
 	bottom: 0px;
