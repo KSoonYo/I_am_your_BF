@@ -574,31 +574,8 @@ export default {
   },
 }
 </script>
-<style scoped>
-/* @import '../../../public/assets/css/theme.css' */
-.px-2{
-    padding-left : 1rem !important;
-    padding-right : 1rem !important;
-}
-#btn-outline-dark {
-  color: #212832;
-  border-color: #212832;
-}
-#btn-outline-dark a{
-  border-radius: 10px;
-}
-#btn-outline-dark:hover a {
-  cursor :pointer;
-  color: #FFFEFE;
-  background-color: #212832;
-  border-color: #212832;
-  border-radius: 10px;
-}
-/* #btn-outline-dark a:hover{
-    color:white
-} */
+<style scoped src='../../../public/assets/css/theme.css'>
+ /* @import '../../../public/assets/css/theme.css' */
 
-.card{
-  margin: 0.5rem;
-}
+
 </style>

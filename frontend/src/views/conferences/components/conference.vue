@@ -26,7 +26,7 @@
   </div>
 </template>
 
-<script>
+<script scoped>
 // import axios from 'axios'
 import { useRouter } from 'vue-router'
 import { ref, onMounted } from 'vue'

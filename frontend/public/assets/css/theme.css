@@ -18528,4 +18528,35 @@ ul {
   -webkit-box-shadow: 0 6.25rem 5rem 0 rgba(0, 0, 0, 0.02), 0 4.05063rem 2.92813rem 0 rgba(0, 0, 0, 0.0152), 0 2.4075rem 1.5925rem 0 rgba(0, 0, 0, 0.0121), 0 1.25rem 0.8125rem 0 rgba(0, 0, 0, 0.01), 0 0.50938rem 0.4075rem 0 rgba(0, 0, 0, 0.0079), 0 0.11563rem 0.19687rem 0 rgba(0, 0, 0, 0.0048);
   box-shadow: 0 6.25rem 5rem 0 rgba(0, 0, 0, 0.02), 0 4.05063rem 2.92813rem 0 rgba(0, 0, 0, 0.0152), 0 2.4075rem 1.5925rem 0 rgba(0, 0, 0, 0.0121), 0 1.25rem 0.8125rem 0 rgba(0, 0, 0, 0.01), 0 0.50938rem 0.4075rem 0 rgba(0, 0, 0, 0.0079), 0 0.11563rem 0.19687rem 0 rgba(0, 0, 0, 0.0048);
 }
-/*  */
+/* User Style */
+/* .row > * {
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  width: 100%;
+  max-width: 100%;
+  padding-right: calc(var(--bs-gutter-x) / 2);
+  padding-left: calc(var(--bs-gutter-x) / 2);
+  margin-top: var(--bs-gutter-y);
+} */
+.px-2{
+    padding-left : 1rem !important;
+    padding-right : 1rem !important;
+}
+#btn-outline-dark {
+  color: #212832;
+  border-color: #212832;
+}
+#btn-outline-dark a{
+  border-radius: 10px;
+}
+#btn-outline-dark:hover a {
+  cursor :pointer;
+  color: #FFFEFE;
+  background-color: #212832;
+  border-color: #212832;
+  border-radius: 10px;
+}
+
+.card{
+  margin: 0.5rem;
+}

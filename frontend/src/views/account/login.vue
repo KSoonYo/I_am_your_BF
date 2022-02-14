@@ -145,10 +145,11 @@ export default {
 </script>
 
 <style >
-.row{
+/* .row{
     --bs-gutter-x:0;
     --bs-gutter-y:0;
-}
+} */
+
 .login-form{
     width: 20rem;
     
