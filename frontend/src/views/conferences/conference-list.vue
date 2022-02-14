@@ -1,24 +1,10 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3 d-block"
-        data-navbar-on-scroll="data-navbar-on-scroll">
-        <div class="container"><a class="navbar-brand" href="index.html"><img src="assets/img/gallery/logo.png"
-              height="45" alt="logo" /></a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span
-              class="navbar-toggler-icon"> </span></button>
-          <div class="collapse navbar-collapse border-top border-lg-0 mt-4 mt-lg-0" id="navbarSupportedContent">
-            <ul class="navbar-nav ms-auto pt-2 pt-lg-0 font-base">
-              <li class="nav-item px-2" id="btn-outline-dark"><a class="nav-link" aria-current="page" @click='editProfile'>Edit</a></li>
-              <li class="nav-item px-2" id="btn-outline-dark"><a class="nav-link" aria-current="page" @click='logout'>Logout</a></li>
-            </ul>
-          </div>
-        </div>
-  </nav>
+  <navbarConference/>
   <div>
-    <div class="q-pt-lg">
+    <div class="q-pt-lg"> 
       <!-- 강의실 생성 방법1 -->
       
-      <div class='justify-end flex q-mt-lg' style="padding-top:75px">
+      <div class='justify-end flex q-mt-lg' style="padding: 75px 100px 0px 0px">
         <div class="search q-mr-md" :class="{ active: state.open }" @keyup.enter="searchConference">
           <div class="icon" @click="move"></div>
           <div class="input">
@@ -27,7 +13,7 @@
           <span v-if="state.searchValue != ''" class="clear" @click="state.searchValue = ''"></span>
         </div>
         <div class="flex justify-center items-center">
-          <q-btn @click='numrule' flat style='color: #ddb193' v-if="state.numasc">방번호<i class="fa-solid fa-angle-up"></i></q-btn>
+          <q-btn @click='numrule' flat style='color: #ddb193' v-if="state.numasc">방번호<i class="fas fa-angle-up"></i></q-btn>
           <q-btn @click='numrule' flat style='color: #ddb193' v-if="!state.numasc">방번호<i class="fas fa-angle-down"></i></q-btn>
           <q-btn @click='titlerule' flat style='color: #ddb193' v-if="state.titleasc">제목순<i class="fas fa-angle-up"></i></q-btn>
           <q-btn @click='titlerule' flat style='color: #ddb193' v-if="!state.titleasc">제목순<i class="fas fa-angle-down"></i></q-btn>
@@ -36,9 +22,6 @@
         </div>
         <div class="flex justify-center items-center">
           <router-link :to='{ name: "CreateConference"}' style='text-decoration: none;'><q-btn rounded style="background: #E6A377; color: #FFFFFF; min-width:100px;">강의실 생성</q-btn></router-link> 
-        </div>
-        <div class="offset-md-1 offset-sm-1">
-
         </div>
       </div> 
       <br>
@@ -55,12 +38,17 @@
           <p>강의실이 없습니다.</p>
         </div>
       </div>
-      <q-pagination
-        v-if="state.conferenceList"
-        v-model="state.currentpage"
-        :max="state.maxpage"
-        input
-      />
+      <div class="justify-center items-center flex">
+        <q-pagination
+          size='30px'
+          input-style='color: #fb8c00'
+          v-if="state.conferenceList"
+          v-model="state.currentpage"
+          :max="state.maxpage"
+          input
+          color='orange-7'
+        />
+      </div>
     </div>
   </div>
   
@@ -74,6 +62,7 @@ import { ref, onMounted, watch, watchEffect } from 'vue'
 import { useRouter } from 'vue-router'
 // import axios from 'axios'
 import Conference from './components/conference'
+import navbarConference from './components/navbar-conference'
 import { useStore } from 'vuex'
 
 export default {
@@ -81,6 +70,7 @@ export default {
   
   components: {
     Conference,
+    navbarConference,
   },
   
   setup () {
@@ -216,17 +206,7 @@ export default {
       }
     };
 
-    // 프로필 수정 페이지 이동
-    const editProfile = function () {
-      router.push({ name: 'profile' })
-    }
-
-    // 로그아웃
-    const logout = function () {
-      localStorage.removeItem('accessToken')
-      localStorage.removeItem('userInfo')
-      router.push({ name : 'home' })
-    }
+    
     watch(state.value.currentpage)
     watchEffect(() => {
       if (state.value.conferenceList) {
@@ -238,8 +218,6 @@ export default {
 
 
     return { 
-      logout,
-      editProfile,
       move,
       numrule,
       searchConference,

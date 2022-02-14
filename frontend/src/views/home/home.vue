@@ -5,7 +5,7 @@
   <main class="main" id="top">
     <div id="mainbig"> 
     <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3 d-block"
-      data-navbar-on-scroll="data-navbar-on-scroll">
+      data-navbar-on-scroll="data-navbar-on-scroll" style="background-color:rgba(255,248,232,0.5)">
       <div class="container"><a class="navbar-brand" href="#home"><img src="assets/img/gallery/logo_bf2.png"
             height="45" alt="logo" /></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -17,10 +17,10 @@
             <li class="nav-item px-2"><a class="nav-link" aria-current="page" href="#service">Service</a></li>
             <li class="nav-item px-2"><a class="nav-link" aria-current="page" href="#demonstration">Demonstaration</a></li>
             <li class="nav-item px-2"><a class="nav-link" aria-current="page" href="#testimonial">Testimonial</a></li>
-            <li v-if="!state.isLogin" class="nav-item px-2" id="btn-outline-dark"><a class="nav-link" aria-current="page" @click='clickLogin'>Login</a></li>
-            <li v-if="!state.isLogin" class="nav-item px-2" id="btn-outline-dark"><a class="nav-link" aria-current="page" @click='clickSignUp'>SignUp</a></li>
-            <li v-if="state.isLogin" class="nav-item px-2" id="btn-outline-dark"><a class="nav-link" aria-current="page" @click='editProfile'>Edit</a></li>
-            <li v-if="state.isLogin" class="nav-item px-2" id="btn-outline-dark"><a class="nav-link" aria-current="page" @click='logout'>Logout</a></li>
+            <li v-if="!state.isLogin" class="nav-item px-2" id="btn-outline-dark"><a class="nav-link" aria-current="page" @click='clickLogin' href="#">Login</a></li>
+            <li v-if="!state.isLogin" class="nav-item px-2" id="btn-outline-dark"><a class="nav-link" aria-current="page" @click='clickSignUp' href="#">SignUp</a></li>
+            <li v-if="state.isLogin" class="nav-item px-2" id="btn-outline-dark"><a class="nav-link" aria-current="page" @click='editProfile' href="#">Edit</a></li>
+            <li v-if="state.isLogin" class="nav-item px-2" id="btn-outline-dark"><a class="nav-link" aria-current="page" @click='logout' href="#">Logout</a></li>
             <!-- <li class="nav-item px-2"><a class="nav-link" href="#services">Our Services</a></li>
             <li class="nav-item px-2"><a class="nav-link" href="#findUs">Find Us</a></li> -->
           </ul>
@@ -74,7 +74,7 @@
               </div>
             </div>
             <p class="main-msg fs-1 mb-5">당신의 수업권을<br />지키며 싸우는 BF가 되겠습니다. </p><a
-              class="btn btn-primary me-2" href="#!" role="button">수업실 입장<i
+              class="btn btn-primary me-2" role="button" @click="moveConferenceList">수업실 입장<i
                 class="fas fa-arrow-right ms-2"></i></a>
           </div>
         </div>
@@ -579,10 +579,18 @@ export default {
     const logout = function () {
       localStorage.removeItem('accessToken')
       localStorage.removeItem('userInfo')
-      router.push({ name : 'Home'})
+      router.go({ name : 'home'})
+    }
+    const moveConferenceList = function () {
+      const token = localStorage.getItem('accessToken')
+      if (token) {
+        router.push({ name : 'conferenceList'})
+      } else {
+        router.push({ name : 'login'})
+      }
     }
     return {
-      state, clickLogin,clickSignUp, editProfile, logout
+      state, clickLogin,clickSignUp, editProfile, logout, moveConferenceList
     }
   },
 }
