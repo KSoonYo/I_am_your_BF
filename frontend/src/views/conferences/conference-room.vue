@@ -82,7 +82,7 @@ import ChatBox from './components/chat-box.vue'
 import MemoBox from './components/memo-box.vue'
 
 axios.defaults.headers.post['Content-Type'] = 'application/json'
-const OPENVIDU_URL = process.env.VUE_APP_OPENVIDU_URL;
+// const OPENVIDU_URL = process.env.VUE_APP_OPENVIDU_URL_LOCAL;
 const VIDEO_DEFAULT_URL = process.env.VUE_APP_DJANGO_MEDIA_URL;
 
 
@@ -369,7 +369,7 @@ export default {
 
 		getToken (mySessionId) {
 			return new Promise((resolve, reject) => {
-					axios.post(`${OPENVIDU_URL}/api/openvidu/get-token`, JSON.stringify({
+					axios.post(`http://localhost:8080/api/openvidu/get-token`, JSON.stringify({
 									sessionName: mySessionId,
 							}))
 							.then(response => response.data)

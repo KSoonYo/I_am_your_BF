@@ -1,7 +1,7 @@
 export default [
     {
-        path: '/conferenceRoom',
-        name: 'conferenceRoom',
+        path: '/session-test',
+        name: 'session-test',
         component: () => import('@/views/conferences/conference-room')
     }
 ]

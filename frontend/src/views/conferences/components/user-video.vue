@@ -75,5 +75,14 @@ export default {
   align-items: center;
 }
 
+.name-box{
+  position: absolute;
+  bottom: 20px;
+  color: white;
+}
+
+.user-name{
+  margin: 0;
+}
 
 </style>
