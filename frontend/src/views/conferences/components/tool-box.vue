@@ -5,6 +5,9 @@
     <button v-show='!onSpeech' @click='toggleOnSpeech'> 말하기 </button>
 		<button v-show='onSpeech' @click='toggleOnSpeech'> 말하기 중지 </button>
 
+		<button v-show='!onMute' @click='toggleOnMute' > 음소거 on </button>
+		<button v-show='onMute'  @click='toggleOnMute' > 음소거 off </button>
+
 		<button v-show='!captionEnabled'  @click='() => { captionEnabled = !captionEnabled, $emit("toggleCaption") }'> 자막 on </button>
 		<button v-show='captionEnabled'  @click='() => { captionEnabled = !captionEnabled, $emit("toggleCaption") }'>  자막 off </button>
   
@@ -14,6 +17,8 @@
 		<button @click='() => { $emit("toggleShowChat")}'> 채팅 </button>
 
 		<button @click='() => { $emit("toggleShowMemo")}' > 기록 </button>
+
+		<button @click='() => { $emit("clickOpenScreen")}' > 화면 공유 </button>
 	</div>
 </template>
 
@@ -33,13 +38,15 @@ export default {
   name: 'toolBox',
   props: {
 		session: Object,
-		publisher: Object
+		publisher: Object,
+		subscribers: Array
 	},
 
   data(){
     return {
       runtimeTranscription_: '',
       onSpeech : false,
+			onMute : false,
 			captionEnabled : false,
 			signVideoEnabled : false,
 			recognition : null
@@ -50,7 +57,7 @@ export default {
   methods: {
     // STT
 		toggleOnSpeech(){
-			this.recognition = this.onSpeech ? null: this.recognition
+			this.recognition = this.onSpeech ? null : this.recognition
 			setTimeout(()=>{
 				this.onSpeech = !this.onSpeech
 				this.publisher.publishAudio(this.onSpeech)
@@ -120,7 +127,17 @@ export default {
 						})
 					}
 				})
-		},
+			},
+
+			// onMute
+			toggleOnMute(){
+				this.onMute = !this.onMute
+				this.subscribers.forEach((subscriber) => {
+					subscriber.subscribeToAudio(!this.onMute)
+				})
+				
+			}
+		
   },
 
 	watch: {

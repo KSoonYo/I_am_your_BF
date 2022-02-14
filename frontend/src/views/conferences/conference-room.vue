@@ -5,12 +5,14 @@
 				<!-- tool box -->
 				<tool-box 
 				:session='session'
-				:publisher='publisher'
+				:publisher='myPublisher'
+				:subscribers='subscribers'
 				@leaveSessionClick='leaveSession'
 				@toggleCaption='() => { captionEnabled = !captionEnabled }'
 				@toggleSignVideo='() => { videoEnabled = !videoEnabled }'
 				@toggleShowMemo='() => { showMemo = !showMemo }'
 				@toggleShowChat='() => { showChat = !showChat }'
+				@clickOpenScreen='openScreen'
 				/>
 			</div>			
 
@@ -43,21 +45,24 @@
 						</video> -->
 					</div>
 
-					<user-video :role='"mainStreamer"' :stream-manager="mainStreamManager"/>
+					<user-video :role='"mainStreamer"' id='mainStream' :stream-manager="mainStreamManager"/>
 				</div>
+
 				<!-- 참가자 화면 -->
 				<div id="video-container" class='col-2 column'>
-					<div class='guest-box col-8'>
+					<div class='guest-box col'>
 						<!-- 참가자 -->
 						<Flicking 
 						:options='{ horizontal: false,  moveType: "freeScroll", bound: true}'
 						style="width: 100%; height: 100%;"
 						>
-							<user-video :role='"subscriber"' v-for="sub in subscribers" :key="sub.stream.connection.connectionId" :stream-manager="sub"/>
+							<user-video 
+							:host='host'
+							:role='"subscriber"' v-for="sub in subscribers" :key="sub.stream.connection.connectionId" :stream-manager="sub"/>
 						</Flicking>
 					</div>
 
-					<publish-video id='publisher' :stream-manager='publisher'/>	
+					<publish-video v-show='!host' id='publisher' :stream-manager='myPublisher'/>	
 				</div>
 			</div>
 
@@ -77,8 +82,8 @@ import ChatBox from './components/chat-box.vue'
 import MemoBox from './components/memo-box.vue'
 
 axios.defaults.headers.post['Content-Type'] = 'application/json'
-const OPENVIDU_URL = "http://" + location.hostname + ":8080";
-const VIDEO_DEFAULT_URL = 'http://127.0.0.1:8000/media/'
+const OPENVIDU_URL = process.env.VUE_APP_OPENVIDU_URL;
+const VIDEO_DEFAULT_URL = process.env.VUE_APP_DJANGO_MEDIA_URL;
 
 
 export default {
@@ -95,7 +100,8 @@ export default {
 			OV: undefined,
 			session: undefined,
 			mainStreamManager: undefined,
-			publisher: undefined,
+			myPublisher: undefined,
+			screenPublisher: undefined,
 			subscribers: [],
 			videoEnabled : false,
 			captionEnabled : false,
@@ -107,11 +113,10 @@ export default {
 			showMemo : false,
 			showChat : false,
 
-      // conference-list에서 참여하기 버튼 눌렀을 때, 강의실 제목을 props로 전달받아야 할 듯
-			mySessionId: 'SessionA',
-
-      // 헌재 유저의 이름(별명)을 store의 state로 받아야 할 것 같다.
-			myUserName: 'Participant' + Math.floor(Math.random() * 100),
+			host: true,
+			mySessionId: null,
+			myUserName: '',
+		
 		}
 	},
 	methods: {
@@ -125,13 +130,12 @@ export default {
 			// On every new Stream received...
 			this.session.on('streamCreated', ({ stream }) => {
 				const subscriber = this.session.subscribe(stream)
-				// if(stream.connect.data.signVideod){
-
-				// }
-
+				if(stream.typeOfVideo === 'SCREEN'){
+					this.mainStreamManager = subscriber
+				} 
 				this.subscribers.push(subscriber)
-				// console.log('사용자 목록 : ',this.subscribers)
-			});
+			})
+			
 			// On every Stream destroyed...
 			this.session.on('streamDestroyed', ({ stream }) => {
 				const index = this.subscribers.indexOf(stream.streamManager, 0);
@@ -267,11 +271,17 @@ export default {
 							insertMode: 'APPEND',	// How the video is inserted in the target element 'video-container'
 							mirror: false       	// Whether to mirror your local video or not
 						})
-						this.mainStreamManager = publisher
-						this.publisher = publisher
+						this.myPublisher = publisher
+
+						// 호스트 일 때, mainStream으로
+						if(this.host){
+							this.mainStreamManager = publisher
+						}
+						
+						this.screenPublisher = publisher
 
 						// --- Publish your stream ---
-						this.session.publish(this.publisher)
+						this.session.publish(this.myPublisher)
 					})
 					.catch(error => {
 						console.log('There was an error connecting to the session:', error.code, error.message);
@@ -281,32 +291,49 @@ export default {
 		},
 		
 		openScreen () {
-			this.getToken(this.mySessionId).then((token) => {
-					this.session.connect(token).then(() => {
-							let publisher = this.OV.initPublisher("html-element-id", { videoSource: "screen" })
+			console.log('화면 공유 시작')	
+					let publisher = this.OV.initPublisher('#publisher', { 
+								videoSource: 'screen', 
+								publishAudio: false,
+								})
 
 							publisher.once('accessAllowed', () => {
 									publisher.stream.getMediaStream().getVideoTracks()[0].addEventListener('ended', () => {
-											console.log('User pressed the "Stop sharing" button');
-									})
-									this.mainStreamManager = publisher
-									this.session.publish(publisher);
-							})
+											console.log('User pressed the "Stop sharing" button')
+												// let publisher = this.OV.initPublisher('#publisher', {
+												// 	audioSource: undefined, // The source of audio. If undefined default microphone
+												// 	videoSource: undefined, // The source of video. If undefined default webcam
+												// 	publishAudio: false,  	// Whether you want to start publishing with your audio unmuted or not
+												// 	publishVideo: true,  	// Whether you want to start publishing with your video enabled or not
+												// 	resolution: '640x480',  // The resolution of your video
+												// 	frameRate: 30,			// The frame rate of your video
+												// 	insertMode: 'APPEND',	// How the video is inserted in the target element 'video-container'
+												// 	mirror: false       	// Whether to mirror your local video or not
+												// })
+											this.session.unpublish(this.screenPublisher)
+											this.mainStreamManager = undefined
+											this.session.publish(this.myPublisher)
+								})
 
+							this.session.unpublish(this.myPublisher)
+							this.screenPublisher = publisher
+							console.log('화면 공유 시작')
+							console.log('myPublisher', this.myPublisher)
+							console.log('screenPublisher', this.screenPublisher)
+							this.mainStreamManager = publisher
+							this.session.publish(this.screenPublisher)
+						
+						})
 							publisher.once('accessDenied', () => {
 									console.warn('ScreenShare: Access Denied')
-							})
-
-					}).catch((error => {
-							console.warn('There was an error connecting to the session:', error.code, error.message);
-
-					}));
-			});
+						})
 		},
 
 		leaveSession () {
 			// --- Leave the session by calling 'disconnect' method over the Session object ---
-			if (this.session) this.session.disconnect()
+			if (this.session){
+				this.session.disconnect()
+			}
 			this.session = undefined
 			this.mainStreamManager = undefined
 			this.publisher = undefined
@@ -315,6 +342,7 @@ export default {
 			window.removeEventListener('beforeunload', this.leaveSession)
 
 		},
+
 		updateMainVideoStreamManager (stream) {
 			if (this.mainStreamManager === stream) return;
 			this.mainStreamManager = stream;
@@ -347,13 +375,23 @@ export default {
 							.then(response => response.data)
 							.then(data => resolve(data.token))
 							.catch(error => reject(error.response));
-			});
-	},
+				})
+		},
 
 	},
 
   created(){
-    this.joinSession()
+		this.$store.dispatch('getConferenceDetail', this.$route.params.conferenceId)
+		.then((response)=>{
+			this.mySessionId = this.$route.params.conferenceId
+			this.myUserName = response.data.userName
+			if(JSON.parse(localStorage.getItem('userInfo')).userId === response.data.userId){
+				this.host = true
+			} 
+		})
+		.then(() => {
+			this.joinSession()
+		})
 		
   }
 }
