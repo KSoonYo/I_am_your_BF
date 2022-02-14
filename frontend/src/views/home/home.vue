@@ -584,7 +584,9 @@ export default {
   color: #212832;
   border-color: #212832;
 }
-
+#btn-outline-dark a{
+  border-radius: 10px;
+}
 #btn-outline-dark:hover a {
   cursor :pointer;
   color: #FFFEFE;
