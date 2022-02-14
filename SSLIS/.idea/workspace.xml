@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="845a77b3-dca7-49ef-8d51-efa7cbf7eb93" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/SignLanguage/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/SignLanguage/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/views/home/home.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/views/home/home.vue" afterDir="false" />
-    </list>
+    <list default="true" id="845a77b3-dca7-49ef-8d51-efa7cbf7eb93" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,25 +56,19 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/SignLanguage/settings.py">
+        <entry file="file://$PROJECT_DIR$/SignLanguage/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2508">
-              <caret line="134" selection-start-line="134" selection-end-line="134" />
-              <folding>
-                <element signature="e#313#322#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="304">
+              <caret line="16" column="37" lean-forward="true" selection-start-line="16" selection-start-column="37" selection-end-line="16" selection-end-column="37" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/SignLanguage/urls.py">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="456">
-              <caret line="24" column="65" lean-forward="true" selection-start-line="24" selection-start-column="65" selection-end-line="24" selection-end-column="65" />
-              <folding>
-                <element signature="e#636#668#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="152">
+              <caret line="8" column="17" lean-forward="true" selection-start-line="8" selection-start-column="17" selection-end-line="8" selection-end-column="17" />
             </state>
           </provider>
         </entry>
@@ -85,7 +76,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/nlp.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="456">
+            <state relative-caret-position="494">
               <caret line="27" column="51" selection-start-line="27" selection-start-column="51" selection-end-line="27" selection-end-column="51" />
             </state>
           </provider>
@@ -202,7 +193,8 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="190" />
+    <option name="x" value="175" />
+    <option name="y" value="69" />
     <option name="width" value="1219" />
     <option name="height" value="1047" />
   </component>
@@ -219,6 +211,11 @@
             <path>
               <item name="SSLIS" type="b2602c69:ProjectViewProjectNode" />
               <item name="SSLIS" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SSLIS" type="b2602c69:ProjectViewProjectNode" />
+              <item name="SSLIS" type="462c0819:PsiDirectoryNode" />
+              <item name=".config" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="SSLIS" type="b2602c69:ProjectViewProjectNode" />
@@ -627,8 +624,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
-          <caret line="12" column="5" selection-start-line="12" selection-start-column="5" selection-end-line="12" selection-end-column="5" />
+        <state relative-caret-position="152">
+          <caret line="8" column="17" lean-forward="true" selection-start-line="8" selection-start-column="17" selection-end-line="8" selection-end-column="17" />
         </state>
       </provider>
     </entry>
@@ -663,7 +660,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/nlp.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="456">
+        <state relative-caret-position="494">
           <caret line="27" column="51" selection-start-line="27" selection-start-column="51" selection-end-line="27" selection-end-column="51" />
         </state>
       </provider>
@@ -725,11 +722,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/SignLanguage/urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="456">
-          <caret line="24" column="65" lean-forward="true" selection-start-line="24" selection-start-column="65" selection-end-line="24" selection-end-column="65" />
-          <folding>
-            <element signature="e#636#668#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="304">
+          <caret line="16" column="37" lean-forward="true" selection-start-line="16" selection-start-column="37" selection-end-line="16" selection-end-column="37" />
         </state>
       </provider>
     </entry>
