@@ -42,7 +42,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .memoBox{
   position: absolute;
   width: 20%;

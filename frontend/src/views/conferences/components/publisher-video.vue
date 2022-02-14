@@ -33,7 +33,7 @@ export default {
 	},
 }
 </script>
-<style>
+<style scoped>
 .video-wrapper{
   position: relative;
   display: flex;

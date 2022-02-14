@@ -369,7 +369,7 @@ export default {
 
 		getToken (mySessionId) {
 			return new Promise((resolve, reject) => {
-					axios.post(`${OPENVIDU_URL}/api/openvidu/get-token`, JSON.stringify({
+					axios.post(`http://localhost:8080/api/openvidu/get-token`, JSON.stringify({
 									sessionName: mySessionId,
 							}))
 							.then(response => response.data)
