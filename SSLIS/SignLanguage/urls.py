@@ -19,8 +19,8 @@ from django.conf import settings
 from django.conf.urls.static import static
 from app import views
 urlpatterns = [
-    path('a/',views.httpresponse ),
+    path('django/a',views.httpresponse ),
     path('admin/', admin.site.urls),
-    path('sslis/', include('app.urls')),
+    path('django/sslis/', include('app.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
