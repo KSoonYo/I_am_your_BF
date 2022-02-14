@@ -1,6 +1,9 @@
 import { createStore } from 'vuex'
 import axios from 'axios'
 
+const instance = axios.create({
+  baseURL: process.env.VUE_APP_BASE_URL
+})
 
 // axios.defaults.baseURL = 'https://localhost:8080/api'
 // axios.defaults.headers['Content-Type'] = DEFAULT_ACCEPT_TYPE
@@ -14,39 +17,114 @@ export default createStore({
   
   },
   actions: {
+    // 회의실 상세조회
+    getConferenceDetail({state}, id) {
+      state
+      const url = 'api/conferences/' + id
+      return instance.get(url)
+    },
+
+    // 회의실 불러오기
+    getConference({state}) {
+      state
+      const url = 'api/conferences'
+      return instance.get(url)
+    },
+
+    // 이미지 불러오기
+    getThumbnail({state},thumbnail) {
+      state
+      const url = 'api/image/' + thumbnail
+      return instance.get(url)
+    },
+
+    // 이미지 업로드
+    uploadThumbnail({state},thumbnail) {
+      state
+      const url = 'api/image/upload'
+      
+      return instance({ method: 'post', url: url, data: thumbnail, headers: {'Content-Type': 'multipart/form-data'} })
+    },
+
+    // 회의실 생성
+    createConference({state}, data) {
+      state
+      const url = 'api/conferences'
+      return instance.post(url, data,{  headers: {'Content-Type': 'application/json'} })
+    },
 
     // 로그인 JWT 토큰 
     getToken({ state }, payload){
       state
-      const url = 'http://localhost:8080/api/auth/login'
-      return axios.post(url, payload)
+      const url = 'api/auth/login'
+      return instance.post(url, payload)
     },
     
     // 유저 확인(userId or userEmail)
     requestGetUser({ state }, user){
       state
-      const url = `http://localhost:8080/api/users/${user}`
-      return axios.get(url)
+      const url = `api/users/${user}`
+      return instance.get(url)
     },
 
 
     // 유저 정보 조회
     getUserInfo({state}){
       state
-      const url = 'http://localhost:8080/api/users/profile'
+      const url = 'api/users/profile'
       const token = localStorage.getItem('accessToken')
-      return axios.get(url, {
+      return instance.get(url, {
         headers: {
           Authorization:  `Bearer ${token}`
         }
       })
     },
     
+    // 프로필 업데이트
+    updateProfile({state}, data){
+      state
+      const userId = data.userId
+      const url = `/api/users${userId}`
+      const userdata = {
+        userName : data.userName,
+        userEmail : data.userEmail,
+        thumbnail : data.thumbnail,
+      }
+      const token = localStorage.getItem('accessToken')
+      return instance.patch(url, userdata, {
+        headers: {
+          Authorization:  `Bearer ${token}`
+        }
+      })
+    },
+
     // 회원가입
     signUp({state}, userInfo){
       state
-      const url = 'http://localhost:8080/api/users'
-      return axios.post(url, userInfo)
+      const url = 'api/users'
+      return instance.post(url, userInfo)
+    },
+
+    // 아이디 찾기
+    findId({state}, data){
+      console.log(data)
+      state
+      const url = '/api/users/find/userId'
+      return instance.post(url, data)
+    },
+
+    // 비밀번호 찾기
+    findPassword({state}, data){
+      state
+      const url = '/api/users/find/password'
+      return instance.post(url, data)
+    },
+    
+    // 비밀번호 변경
+    changePassword({state}, data){
+      state
+      const url = '/api/users/password'
+      return instance.post(url, data)
     }
       
   },

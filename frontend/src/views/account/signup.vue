@@ -1,5 +1,5 @@
 <template>
-    <div class='column items-center bg-grey-3 flex justify-center' style='min-height:100vh'>
+    <div class='column items-center flex justify-center' style='min-height:100vh;'>
 		<div class='container'>
 			<div class='row justify-center backimg'>
 				<div class='col-12 flex items-center justify-center'>
@@ -34,7 +34,7 @@
 										<template v-slot:prepend>
 											<i class='fas fa-user-circle'></i>
 										</template>
-										<q-btn color='grey-6' rounded @click="clickIdCheck" label='중복검사' style='margin-top: 10px; margin-bottom: 10px; margin-right: 5px; width: 50%'></q-btn>
+										<q-btn rounded @click="clickIdCheck" label='중복검사' style='background-color: #929291; color: #fff; margin-top: 10px; margin-bottom: 10px; margin-right: 5px; width: 50%'></q-btn>
 									</q-input>
 
 									<!-- 이메일 -->
@@ -46,7 +46,7 @@
 										<template v-slot:prepend>
 											<i class='far fa-envelope'></i>
 										</template>
-										<q-btn color='grey-6' rounded @click="clickEmailCheck" label='중복검사' style='margin-top: 10px; margin-bottom: 10px; margin-right: 5px; width: 50%'></q-btn>
+										<q-btn rounded @click="clickEmailCheck" label='중복검사' style='background-color: #929291; color: #fff; margin-top: 10px; margin-bottom: 10px; margin-right: 5px; width: 50%'></q-btn>
 									</q-input>
 
 									<!-- 비밀번호 -->
@@ -201,7 +201,6 @@ export default {
         }
 
         // 이메일 중복 검사
-
         const checkedEmail = ref('')
 
 
@@ -230,6 +229,7 @@ export default {
             }
         }
 
+        // 회원가입
         const clickSignUp = function(event){
             event.preventDefault()
             
@@ -260,7 +260,10 @@ export default {
                         router.push({name: 'login'})
                     })  
                     .catch(()=>{
-                        alert('회원가입 실패')
+                        $q.notify({
+                            type: 'negative',
+                            message: '회원가입 실패'
+                        })
                     })
                 } 
             })
@@ -273,7 +276,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped >
 
 
 
@@ -281,7 +284,10 @@ export default {
     margin: 0px 300px;
     border: 1px black solid;
 } */
-
+.row{
+    --bs-gutter-x:0;
+    --bs-gutter-y:0;
+}
 .logo{
     width: 120px;
     height: 100px;
@@ -289,46 +295,6 @@ export default {
 
 .sign-up-form{
     width: 30rem;
-}
-
-.input-group {
-    position: relative;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: stretch;
-    width: 100%;
-}
-.input-group-text {
-    display: flex;
-    align-items: center;
-    padding: 0.5rem 0.625rem;
-    font-size: 0.875rem;
-    font-weight: 400;
-    line-height: 1.5;
-    color: #6B7280;
-    text-align: center;
-    white-space: nowrap;
-    background-color: #ffffff;
-    border: 0.0625rem solid #D1D5DB;
-    border-radius: 0.5rem;
-}
-
-.form-control {
-    display: block;
-    width: 100%;
-    padding: 0.5rem 1rem;
-    font-size: 0.875rem;
-    font-weight: 400;
-    line-height: 1.5;
-    color: #6B7280;
-    background-color: #ffffff;
-    background-clip: padding-box;
-    border: 0.0625rem solid #D1D5DB;
-    -webkit-appearance: none;
-    appearance: none;
-    border-radius: 0.5rem;
-    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 7%);
-    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 label {
     font-weight: 600;

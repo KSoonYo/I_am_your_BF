@@ -1,5 +1,10 @@
 <template>
-	<video autoplay/>
+	<video  
+	:class='[
+	{"publish-video" : role === "publisher"}, 
+	{"subscribe-video" : role === "subscriber"},
+	{"main-stream" : role === "mainStreamer"},
+	]' autoplay/>
 </template>
 
 <script>
@@ -7,9 +12,33 @@ export default {
 	name: 'OvVideo',
 	props: {
 		streamManager: Object,
+		role: String,
 	},
 	mounted () {
-		this.streamManager.addVideoElement(this.$el);
+		this.streamManager.addVideoElement(this.$el)
+		console.log('role: ', this.role)
 	},
 }
 </script>
+<style scoped>
+.publish-video{
+	position: absolute;
+	bottom: 0px;
+	width: 100%;
+	object-fit: cover;
+}
+
+.subscribe-video{
+	position: absolute;
+	bottom: 0px;
+	width: 100%;
+	object-fit: cover;
+}
+
+.main-stream{
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+</style>
+

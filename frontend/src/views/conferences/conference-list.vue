@@ -1,18 +1,33 @@
 <template>
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3 d-block"
+        data-navbar-on-scroll="data-navbar-on-scroll">
+        <div class="container"><a class="navbar-brand" href="index.html"><img src="assets/img/gallery/logo.png"
+              height="45" alt="logo" /></a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span
+              class="navbar-toggler-icon"> </span></button>
+          <div class="collapse navbar-collapse border-top border-lg-0 mt-4 mt-lg-0" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto pt-2 pt-lg-0 font-base">
+              <li class="nav-item px-2" id="btn-outline-dark"><a class="nav-link" aria-current="page" @click='editProfile'>Edit</a></li>
+              <li class="nav-item px-2" id="btn-outline-dark"><a class="nav-link" aria-current="page" @click='logout'>Logout</a></li>
+            </ul>
+          </div>
+        </div>
+  </nav>
   <div>
     <div class="q-pt-lg">
-      <!-- 회의실 생성 방법1 -->
+      <!-- 강의실 생성 방법1 -->
       
-      <div class='row justify-end flex q-mt-lg'>
-        <div class="search" :class="{ active: state.open }" @keyup.enter="searchConference">
+      <div class='justify-end flex q-mt-lg' style="padding-top:75px">
+        <div class="search q-mr-md" :class="{ active: state.open }" @keyup.enter="searchConference">
           <div class="icon" @click="move"></div>
           <div class="input">
-            <input type="text" v-model='state.searchValue' maxlength='20' placeholder="회의실 제목, 호스트를 검색">
+            <input type="text" v-model='state.searchValue' maxlength='20' placeholder="강의실 제목, 호스트를 검색">
           </div>
           <span v-if="state.searchValue != ''" class="clear" @click="state.searchValue = ''"></span>
         </div>
         <div class="flex justify-center items-center">
-          <q-btn @click='numrule' flat style='color: #ddb193' v-if="state.numasc">방번호<i class="fas fa-angle-up"></i></q-btn>
+          <q-btn @click='numrule' flat style='color: #ddb193' v-if="state.numasc">방번호<i class="fa-solid fa-angle-up"></i></q-btn>
           <q-btn @click='numrule' flat style='color: #ddb193' v-if="!state.numasc">방번호<i class="fas fa-angle-down"></i></q-btn>
           <q-btn @click='titlerule' flat style='color: #ddb193' v-if="state.titleasc">제목순<i class="fas fa-angle-up"></i></q-btn>
           <q-btn @click='titlerule' flat style='color: #ddb193' v-if="!state.titleasc">제목순<i class="fas fa-angle-down"></i></q-btn>
@@ -20,79 +35,68 @@
           <q-btn @click='namerule' flat style='color: #ddb193' v-if="!state.nameasc">이름순<i class="fas fa-angle-down"></i></q-btn>
         </div>
         <div class="flex justify-center items-center">
-          <router-link :to='{ name: "CreateConference"}' style='text-decoration: none;'><q-btn rounded style="background: #E6A377; color: #FFFFFF">강의실 생성</q-btn></router-link> 
+          <router-link :to='{ name: "CreateConference"}' style='text-decoration: none;'><q-btn rounded style="background: #E6A377; color: #FFFFFF; min-width:100px;">강의실 생성</q-btn></router-link> 
         </div>
         <div class="offset-md-1 offset-sm-1">
 
         </div>
       </div> 
-      <!-- <div class='flex justify-center items-center'>
-      
-      </div> -->
       <br>
-      <div>
-        <!-- 회의실 목록 카드들   -->
-        <div v-if='state.conferenceList' class="row flex justify-center">
+      <div class="flex justify-center items-center">
+        <div v-if='state.perPageList' class="row flex justify-center">
           <Conference 
-            v-for='conference in state.conferenceList' :key='conference.id'
+            v-for='conference in state.perPageList' :key='conference.id'
             :conference="conference"
-            class="col-sm-6 col-md-4 col-lg-4 col-xl-4"
+            class="justify-center items-center flex col-sm-6 col-4"
             style="max-width:486px; max-height:242px; width:100%; height:100%"
           />
         </div>
         <div v-else>
-          <p>회의실이 없습니다.</p>
+          <p>강의실이 없습니다.</p>
         </div>
       </div>
+      <q-pagination
+        v-if="state.conferenceList"
+        v-model="state.currentpage"
+        :max="state.maxpage"
+        input
+      />
     </div>
-    
-        <!-- 검색창 -->
-        <!-- <q-input 
-        v-model='state.searchValue' 
-        :dense='dense'
-        maxlength='20'
-        placeholder='회의실 제목, 호스트를 검색'
-        style="width:100%; background: rgba(0,255,255,0.2); border-radius:60px; max-width: 1024px"
-        class="q-pa-md shadow-3 q-mt-md"
-        >
-        <template v-slot:append>
-          <q-icon v-if='state.searchValue !== ""' name='close' @click='state.searchValue = ""' class='cursor-pointer'></q-icon>
-        </template>
-
-        <template v-slot:after>
-          <q-btn :loading='state.loading' round flat @click='searchConference'><i class="fas fa-search"></i></q-btn>
-        </template>
-        </q-input> -->
-    
-
   </div>
+  
 </template>
 
 <script>
 // 제목 검색시 쿼리 동적 전달방식 이용
 // import conference from './components/conference'
 
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch, watchEffect } from 'vue'
 import { useRouter } from 'vue-router'
-import axios from 'axios'
+// import axios from 'axios'
 import Conference from './components/conference'
+import { useStore } from 'vuex'
 
 export default {
   name: 'conferenceList',
   
   components: {
     Conference,
-    
   },
   
   setup () {
+    const store = useStore()
+
     onMounted(() => {
-      axios({
-        method: 'get',
-        url: 'http://localhost:8080/api/conferences',
-      })
+      const token = localStorage.getItem('accessToken')
+      if (!token) {
+        router.push( {name:"Home"} )
+      }
+      // 회의실 불러오기
+      store.dispatch('getConference')
         .then(res => {
           state.value.conferenceList = res.data
+          state.value.maxpage = Math.ceil(state.value.conferenceList.length/30)
+          state.value.perPageList = state.value.conferenceList.slice(30)
         })
         .catch(() => {
           console.log('에러')
@@ -114,6 +118,7 @@ export default {
     // 데이터 값 설정
     const state = ref({
       // 검색 입력 값
+      perPageList: null,
       searchValue: '',
       loading: false,
       conferenceList: null,
@@ -122,31 +127,19 @@ export default {
       numasc: false,
       nameasc: false,
       open: false,
+      currentpage: ref(1),
+      maxpage: ref(0),
     });
 
     const token = localStorage.getItem('accessToken')
     if (token) {
       state.value.isLogin = true
     }
-    const getConferences = function () {
-      axios({
-        method: 'get',
-        url: 'http://localhost:8080/api/conferences',
-      })
-        .then(res => {
-          console.log(res.data)
-          state.value.conferenceList = res.data
-        })
-        .catch(err => {
-          console.log(err)
-        })
-    };
     const titlerule = function () {
-      axios({
-        method: 'get',
-        url: 'http://localhost:8080/api/conferences',
-      })
+      // 회의실 불러오기
+      store.dispatch('getConference')
         .then(res => {
+          // 제목 오름,내림차순 정렬
           if (state.value.titleasc) {
             state.value.titleasc = false
             state.value.conferenceList = res.data.sort(title => title)
@@ -162,11 +155,9 @@ export default {
       
     }
     const numrule = function () {
-      axios({
-        method: 'get',
-        url: 'http://localhost:8080/api/conferences',
-      })
+      store.dispatch('getConference')
         .then(res => {
+          // 방번호 오름,내림차순 정렬
           if (state.value.numasc) {
             state.value.numasc = false
             state.value.conferenceList = res.data.sort(id => id)
@@ -181,11 +172,9 @@ export default {
         })
     }
     const namerule = function () {
-      axios({
-        method: 'get',
-        url: 'http://localhost:8080/api/conferences',
-      })
+      store.dispatch('getConference')
         .then(res => {
+          // 이름 오름,내림차순 정렬
           if (state.value.nameasc) {
             state.value.nameasc = false
             state.value.conferenceList = res.data.sort(userName => userName)
@@ -198,15 +187,24 @@ export default {
         .catch(err => {
           console.log(err)
         })
-      
     }
+
+    // 회의실 검색
     const searchConference = function () {
-      state.value.loading = true
-      setTimeout(() => {
-        state.value.loading = false
-        // 필터기능
-        state.value.conferenceList = state.value.conferenceList.filter(title => state.value.searchValue in title) // 호스트 검색 ||
-      }, 3000)
+        store.dispatch('getConference')
+          .then(res => {
+            state.value.conferenceList = []
+            for (const data of res.data) {
+              if (data.title.includes(state.value.searchValue)) {
+                state.value.conferenceList.push(data)
+              } else if (data.userName.includes(state.value.searchValue)) {
+                state.value.conferenceList.push(data)
+              }
+            }
+          })
+          .catch(err => {
+            console.log(err)
+          })
     };
 
     // 회의실 생성 방법2
@@ -218,11 +216,32 @@ export default {
       }
     };
 
+    // 프로필 수정 페이지 이동
+    const editProfile = function () {
+      router.push({ name: 'profile' })
+    }
+
+    // 로그아웃
+    const logout = function () {
+      localStorage.removeItem('accessToken')
+      localStorage.removeItem('userInfo')
+      router.push({ name : 'home' })
+    }
+    watch(state.value.currentpage)
+    watchEffect(() => {
+      if (state.value.conferenceList) {
+        const start = (state.value.currentpage-1) * 30
+        const end = start + 30
+        state.value.perPageList = state.value.conferenceList.slice(start, end)
+      }
+    })
+
 
     return { 
+      logout,
+      editProfile,
       move,
       numrule,
-      getConferences,
       searchConference,
       createConference,
       titlerule,
@@ -238,7 +257,7 @@ export default {
 }
 </script>
 
-<style> 
+<style scoped> 
   .link {
       text-decoration: none;
       display: flex;

@@ -34,7 +34,8 @@ public class UserRepositorySupport {
 
     public Optional<User> findUserByUserNameAndUserEmail(String userName, String userEmail) {
         User user = jpaQueryFactory.select(qUser).from(qUser)
-                .where(qUser.userEmail.eq(userEmail)).fetchOne();
+                .where((qUser.userEmail.eq(userEmail)).and(qUser.userName.eq(userName)))
+                .fetchOne();
         if(user == null) return Optional.empty();
         return Optional.ofNullable(user);
     }

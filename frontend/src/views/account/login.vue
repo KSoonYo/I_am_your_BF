@@ -1,7 +1,7 @@
 <template>
-	<div class='column items-center bg-grey-3 flex justify-center' style='min-height:100vh'>
+	<div class='column items-center flex justify-center' style='min-height:100vh; background-color : '>
 		<div class='container'>
-			<div class='row justify-center backimg'>
+			<div class='row justify-center'>
 				<div class='col-12 flex items-center justify-center'>
 					<div class='bg-white shadow-3' style='max-width: 500px; width: 100%; padding: 3rem; border: 0; border-radius: 0.5rem'>
 						<div>
@@ -70,18 +70,22 @@
 </template>
 
 <script>
+
+// import quasarUserOptions from '../../quasar-user-options'
 import { ref } from 'vue'
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
+import { useQuasar } from 'quasar'
 
 export default {
     name: 'login',
 
     setup(){
+        // app.use(quasarUserOptions);
         const loginForm = ref(null)
         const store = useStore()
         const router = useRouter()
-
+        const $q = useQuasar()
         const isPwd = ref(true)
         // 특수문자 체크 정규 표현식
         const idChecker = /[{}[\]/?.,;:|)*~`!^\-_+<>@#$%&\\=('"]/g
@@ -103,6 +107,7 @@ export default {
             }
         })
 
+        // 로그인
         const clickSignIn = function(event){
             event.preventDefault()
             loginForm.value.validate().then(success => {
@@ -123,7 +128,10 @@ export default {
                         })
                     })
                     .catch(()=>{
-                        alert('아이디 또는 비밀번호를 잘못 입력하였습니다.')
+                        $q.notify({
+                            type: 'negative',
+                            message: '아이디 또는 비밀번호를 잘못 입력하였습니다.'
+                        })
                     })  
                     
                 } 
@@ -136,7 +144,12 @@ export default {
 }
 </script>
 
-<style>
+<style >
+/* .row{
+    --bs-gutter-x:0;
+    --bs-gutter-y:0;
+} */
+
 .login-form{
     width: 20rem;
     
@@ -145,50 +158,6 @@ export default {
 .logo{
     width: 120px;
     height: 100px;
-}
-
-.backimg {
-	background-image: url("../../assets/signin.svg");
-	
-}
-.input-group {
-    position: relative;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: stretch;
-    width: 100%;
-}
-.input-group-text {
-    display: flex;
-    align-items: center;
-    padding: 0.5rem 0.625rem;
-    font-size: 0.875rem;
-    font-weight: 400;
-    line-height: 1.5;
-    color: #6B7280;
-    text-align: center;
-    white-space: nowrap;
-    background-color: #ffffff;
-    border: 0.0625rem solid #D1D5DB;
-    border-radius: 0.5rem;
-}
-
-.form-control {
-    display: block;
-    width: 100%;
-    padding: 0.5rem 1rem;
-    font-size: 0.875rem;
-    font-weight: 400;
-    line-height: 1.5;
-    color: #6B7280;
-    background-color: #ffffff;
-    background-clip: padding-box;
-    border: 0.0625rem solid #D1D5DB;
-    -webkit-appearance: none;
-    appearance: none;
-    border-radius: 0.5rem;
-    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 7%);
-    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 label {
     font-weight: 600;
