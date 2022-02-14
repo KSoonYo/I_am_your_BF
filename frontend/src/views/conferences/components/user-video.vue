@@ -1,6 +1,10 @@
 <template>
     <div v-if="streamManager"
-		:class='[{"main-stream-wrapper": role === "mainStreamer"}, {"subscriber-wrapper" : role === "subscriber"}]'>
+		:class='[
+		{"main-stream-wrapper": role === "mainStreamer"}, 
+		{"subscriber-wrapper-host" : host === true && role === "subscriber"}, 
+		{"subscriber-wrapper-guest" : host === false && role === "subscriber"}
+		]'>
         <ov-video :role='role' :stream-manager="streamManager"/>
         <div class='name-box'><p class='user-name'>{{ clientData }}</p></div>
     </div>
@@ -17,7 +21,8 @@ export default {
 	},
 	props: {
 		streamManager: Object,
-		role: String
+		role: String,
+		host: Boolean,
 	},
 	data(){
 		return {
@@ -52,7 +57,16 @@ export default {
   align-items: center;
 }
 
-.subscriber-wrapper{
+.subscriber-wrapper-host{
+	position: relative;
+  display: flex !important;
+  width: 100%;
+	height: 30%;
+  flex-direction: column;
+  align-items: center;
+}
+
+.subscriber-wrapper-guest{
 	position: relative;
   display: flex !important;
   width: 100%;
@@ -60,4 +74,6 @@ export default {
   flex-direction: column;
   align-items: center;
 }
+
+
 </style>

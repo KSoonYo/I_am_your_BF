@@ -1,17 +1,17 @@
 <template>
-    <div v-if="streamManager" class='video-wrapper col'>
-        <ov-video :role='"publisher"' :client-data='clientData' :stream-manager="streamManager"/>
+    <div v-if="streamManager" class='video-wrapper col-4'>
+        <my-video :stream-manager="streamManager"/>
         <div class='name-box'><p class='user-name'>{{ clientData }}</p></div>
     </div>
 </template>
 
 <script>
-import OvVideo from './ov-video'
+import MyVideo from './my-video'
 
 export default {
   name: 'publishVideo',
   components: {
-		OvVideo,
+		MyVideo,
 	},
   props: {
     streamManager: Object,
@@ -19,6 +19,7 @@ export default {
 
   methods: {
 		getConnectionData () {
+      console.log(this.streamManager)
 			const { connection } = this.streamManager.stream
 			return JSON.parse(connection.data)
 		},
