@@ -177,13 +177,13 @@ public class OpenviduController {
 	
 	
 	@ApiOperation(value = "session 닫기", notes = "해당하는 sessionName의 세션을 지운다.")//body{tokenName:'aaa'}
-	@RequestMapping(value = "/close-session", method = RequestMethod.DELETE)
-	public ResponseEntity<? extends BaseResponseBody> closeSession(@RequestBody @ApiParam(value="session 닫기", required = true) OpenviduPostReq openviduPostReq) throws Exception {
+	@RequestMapping(value = "/close-session/{sessionName}", method = RequestMethod.DELETE)
+	public ResponseEntity<? extends BaseResponseBody> closeSession(@PathVariable  String sessionName) throws Exception {
 
-		System.out.println("Closing session | {sessionName}="+openviduPostReq.getSessionName() );
+		System.out.println("Closing session | {sessionName}="+sessionName );
 
 		// Retrieve the param from BODY
-		String session = (String) openviduPostReq.getSessionName();
+		String session = sessionName;
 
 		// If the session exists
 		if (this.mapSessions.get(session) != null && this.mapSessionNamesTokens.get(session) != null) {
