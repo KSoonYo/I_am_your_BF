@@ -18,7 +18,7 @@
 
 		<button @click='() => { $emit("toggleShowMemo")}' > 기록 </button>
 
-		<button @click='() => { $emit("clickOpenScreen")}' > 화면 공유 </button>
+		<button v-if='host' @click='() => { $emit("clickOpenScreen")}' > 화면 공유 </button>
 	</div>
 </template>
 
@@ -39,7 +39,8 @@ export default {
   props: {
 		session: Object,
 		publisher: Object,
-		subscribers: Array
+		subscribers: Array,
+		host: Boolean
 	},
 
   data(){
@@ -144,7 +145,9 @@ export default {
 		onSpeech : function(){
 			if(this.onSpeech === true){
 				console.log('말하기 시작')
-				this.startSpeechToTxt()
+				if(this.host){
+					this.startSpeechToTxt()
+				}
 			} else {
 				console.log('말하기 중단')
 				this.recognition = null

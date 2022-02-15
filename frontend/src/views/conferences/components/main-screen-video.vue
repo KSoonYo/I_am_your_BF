@@ -1,15 +1,14 @@
 <template>
 	<video  
-	:class='{"subscribe-video" : role === "subscriber"}' 
-	autoplay/>
+  class='main-stream'
+  autoplay/>
 </template>
 
 <script>
 export default {
-	name: 'OvVideo',
+	name: 'mainStream',
 	props: {
 		streamManager: Object,
-		role: String,
 	},
 	mounted () {
 		this.streamManager.addVideoElement(this.$el)
@@ -17,13 +16,10 @@ export default {
 }
 </script>
 <style>
-
-.subscribe-video{
-	position: absolute;
-	bottom: 0px;
+.main-stream{
 	width: 100%;
+	height: 100%;
 	object-fit: cover;
 }
-
 </style>
 

@@ -7,6 +7,7 @@
 				:session='session'
 				:publisher='myPublisher'
 				:subscribers='subscribers'
+				:host='host'
 				@leaveSessionClick='leaveSession'
 				@toggleCaption='() => { captionEnabled = !captionEnabled }'
 				@toggleSignVideo='() => { videoEnabled = !videoEnabled }'
@@ -45,7 +46,11 @@
 						</video> -->
 					</div>
 
-					<user-video :role='"mainStreamer"' id='mainStream' :stream-manager="mainStreamManager"/>
+					<main-stream-video :show='!shareScreenEnabled' id='mainStream' :stream-manager="mainStreamManager"/>
+					<div v-show='shareScreenEnabled' class='share-screen'>
+						<!-- 화면 공유용 비디오 공간 -->
+
+					</div>
 				</div>
 
 				<!-- 참가자 화면 -->
@@ -75,7 +80,9 @@
 import axios from 'axios'
 import { OpenVidu } from 'openvidu-browser'
 import UserVideo from './components/user-video'
+import MainStreamVideo from './components/main-stream-video'
 import PublishVideo from './components/publisher-video'
+
 
 import ToolBox from './components/tool-box.vue'
 import ChatBox from './components/chat-box.vue'
@@ -93,7 +100,8 @@ export default {
 		ToolBox,
 		PublishVideo,
 		ChatBox,
-		MemoBox
+		MemoBox,
+		MainStreamVideo
 	},
 	data () {
 		return {
@@ -105,6 +113,7 @@ export default {
 			subscribers: [],
 			videoEnabled : false,
 			captionEnabled : false,
+			shareScreenEnabled : false,
 			captionText : [],
 			videoList : [],
 			videoIndex : 0,
@@ -114,6 +123,10 @@ export default {
 			showChat : false,
 
 			host: false,
+			hostId : '',
+			hostName : '',
+
+			hostPublisher : undefined,
 			mySessionId: null,
 			myUserName: '',
 		
@@ -126,14 +139,45 @@ export default {
 			// --- Init a session ---
 			this.session = this.OV.initSession();
 
+			this.session.on('connectionCreated', ()=>{
+				console.log('세션 연결!')
+			})
+
+			this.session.on('connectionDestroyed', ()=>{
+				console.log('세션 연결 해제!')
+			})
+
 			// --- Specify the actions when events take place in the session ---
 			// On every new Stream received...
 			this.session.on('streamCreated', ({ stream }) => {
-				const subscriber = this.session.subscribe(stream)
 				if(stream.typeOfVideo === 'SCREEN'){
+					const shareScreen = document.querySelector('.share-screen')
+					const subscriber = this.session.subscribe(stream, shareScreen, {insertMode: 'APPEND'})
+					subscriber.createVideoElement(shareScreen, 'APPEND')
+
+					subscriber.on('videoElementCreated', event => {
+						this.initMainVideo(event.element)
+						event.element['muted'] = true
+					})
+					this.shareScreenEnabled = true
+					return
+				}
+
+				const subscriber = this.session.subscribe(stream, undefined)
+				const { connection } = subscriber.stream
+				const { clientData } = JSON.parse(connection.data)
+				console.log('clientData[0]: ', clientData[0], 'hostId: ', this.hostId)
+				
+				
+				if( stream.typeOfVideo === 'CAMERA' &&  clientData[0] === this.hostId ){
+					this.shareScreenEnabled = false
+
 					this.mainStreamManager = subscriber
-				} 
-				this.subscribers.push(subscriber)
+					this.hostPublisher = subscriber
+				} else{
+					this.subscribers.push(subscriber)
+				}
+				
 			})
 			
 			// On every Stream destroyed...
@@ -144,14 +188,13 @@ export default {
 				}
 			})
 
-			this.session.on('signal:chat', (event)=>{
-        console.log('메시지 보낸 사람 object: ',  JSON.parse(event.from.data).clientData)
-        
+			// 채팅
+			this.session.on('signal:chat', (event)=>{        
         const messageBox = document.createElement('div')
         const p = document.createElement('p')
         const nameSpan = document.createElement('span')
         nameSpan.style.display = 'block'
-        nameSpan.textContent = '보낸사람: ' + JSON.parse(event.from.data).clientData
+        nameSpan.textContent = '보낸사람: ' + JSON.parse(event.from.data).clientData[1]
         messageBox.appendChild(nameSpan)
 
         p.innerText = event.data
@@ -160,13 +203,13 @@ export default {
 
       })
 
-
+			// 수업 기록
 			this.session.on('signal:memo', (event)=>{        
         const messageBox = document.createElement('div')
         const p = document.createElement('p')
         const nameSpan = document.createElement('span')
         nameSpan.style.display = 'block'
-        nameSpan.textContent = JSON.parse(event.from.data).clientData 
+        nameSpan.textContent = JSON.parse(event.from.data).clientData[1] 
         messageBox.appendChild(nameSpan)
 
         p.innerText = event.data
@@ -175,6 +218,7 @@ export default {
 
       })
 
+			// 자막
 			this.session.on('signal:caption', ({data})=>{
 				const span = document.createElement('span')
 				const captionBox = document.querySelector('.caption') 
@@ -289,10 +333,10 @@ export default {
 
 	
 			this.getToken(this.mySessionId).then(token => {
-				this.session.connect(token, { clientData: this.myUserName })
+				this.session.connect(token, { clientData: [this.myUserId, this.myUserName] })
 					.then(() => {
 						// --- Get your own camera stream with the desired properties ---
-						let publisher = this.OV.initPublisher('#publisher', {
+						let publisher = this.OV.initPublisher('undefined', {
 							audioSource: undefined, // The source of audio. If undefined default microphone
 							videoSource: undefined, // The source of video. If undefined default webcam
 							publishAudio: false,  	// Whether you want to start publishing with your audio unmuted or not
@@ -305,12 +349,10 @@ export default {
 						this.myPublisher = publisher
 
 						// 호스트 일 때, mainStream으로
-						if(this.host){
+						if(this.hostId === this.myUserId ){
+							this.hostPublisher = publisher
 							this.mainStreamManager = publisher
 						}
-						
-						this.screenPublisher = publisher
-
 						// --- Publish your stream ---
 						this.session.publish(this.myPublisher)
 					})
@@ -318,44 +360,47 @@ export default {
 						console.log('There was an error connecting to the session:', error.code, error.message);
 					})
 			})
+
+			// 새로고침하면 leaveSession 메소드가 실행되는 이벤트 리스너 등록
 			window.addEventListener('beforeunload', this.leaveSession)
 		},
 		
+		initMainVideo(videoElement){
+			document.querySelector('.share-screen video').srcObject = videoElement.srcObject
+			document.querySelector('.share-screen video')['muted'] = true
+		},
+
 		openScreen () {
-			console.log('화면 공유 시작')	
-					let publisher = this.OV.initPublisher('#publisher', { 
+					const shareScreen = document.querySelector('.share-screen')	
+					let newPublisher = this.OV.initPublisher(shareScreen, { 
 								videoSource: 'screen', 
 								publishAudio: false,
-								})
+								insertMode: 'APPEND'
+							})
+							newPublisher.on('videoElementCreated', (event) => {
+								console.log('화면 공유 video 생성')
+								this.initMainVideo(event.element)
+								event.element['muted'] = true
+							})
 
-							publisher.once('accessAllowed', () => {
-									publisher.stream.getMediaStream().getVideoTracks()[0].addEventListener('ended', () => {
+							newPublisher.once('accessAllowed', () => {
+								console.log('화면 공유 시작')
+									newPublisher.stream.getMediaStream().getVideoTracks()[0].addEventListener('ended', () => {
 											console.log('User pressed the "Stop sharing" button')
-												// let publisher = this.OV.initPublisher('#publisher', {
-												// 	audioSource: undefined, // The source of audio. If undefined default microphone
-												// 	videoSource: undefined, // The source of video. If undefined default webcam
-												// 	publishAudio: false,  	// Whether you want to start publishing with your audio unmuted or not
-												// 	publishVideo: true,  	// Whether you want to start publishing with your video enabled or not
-												// 	resolution: '640x480',  // The resolution of your video
-												// 	frameRate: 30,			// The frame rate of your video
-												// 	insertMode: 'APPEND',	// How the video is inserted in the target element 'video-container'
-												// 	mirror: false       	// Whether to mirror your local video or not
-												// })
-											this.session.unpublish(this.screenPublisher)
-											this.mainStreamManager = undefined
+							
+											this.session.unpublish(newPublisher)
+											this.myPublisher = this.hostPublisher
+											this.shareScreenEnabled = false
 											this.session.publish(this.myPublisher)
 								})
 
 							this.session.unpublish(this.myPublisher)
-							this.screenPublisher = publisher
-							console.log('화면 공유 시작')
-							console.log('myPublisher', this.myPublisher)
-							console.log('screenPublisher', this.screenPublisher)
-							this.mainStreamManager = publisher
-							this.session.publish(this.screenPublisher)
+							newPublisher.createVideoElement(shareScreen, 'APPEND')
+							this.shareScreenEnabled = true
+							this.session.publish(newPublisher)
 						
 						})
-							publisher.once('accessDenied', () => {
+							newPublisher.once('accessDenied', () => {
 									console.warn('ScreenShare: Access Denied')
 						})
 		},
@@ -367,17 +412,26 @@ export default {
 			}
 			this.session = undefined
 			this.mainStreamManager = undefined
-			this.publisher = undefined
+			this.myPublisher = undefined
 			this.subscribers = []
 			this.OV = undefined
 			window.removeEventListener('beforeunload', this.leaveSession)
+			
+			if (this.host){
+				this.$store.dispatch('deleteConference', this.mySessionId)
+				.then(()=>{
+					this.$router.push({name: 'conferenceList'})
+				})
+			} else{
+				this.$router.push({name: 'conferenceList'})
+			}
 
 		},
 
-		updateMainVideoStreamManager (stream) {
-			if (this.mainStreamManager === stream) return;
-			this.mainStreamManager = stream;
-		},
+		// updateMainVideoStreamManager (stream) {
+		// 	if (this.mainStreamManager === stream) return;
+		// 	this.mainStreamManager = stream;
+		// },
 
 
 		// onVideoEnded(index){
@@ -412,14 +466,21 @@ export default {
 	},
 
   created(){
+		console.log('현재 session', this.session)
 		console.log(this.$route.params.conferenceId)
 		this.$store.dispatch('getConferenceDetail', this.$route.params.conferenceId)
 		.then((response)=>{
+			console.log(response.data.userId)
+			this.hostId = response.data.userId
+			this.hostName = response.data.userName
+
 			this.mySessionId = this.$route.params.conferenceId
-			this.myUserName = response.data.userName
-			// if(JSON.parse(localStorage.getItem('userInfo')).userId === response.data.userId){
-			// 	this.host = true
-			// } 
+
+			this.myUserId = JSON.parse(localStorage.getItem('userInfo')).userId
+			this.myUserName = JSON.parse(localStorage.getItem('userInfo')).userName
+			if(JSON.parse(localStorage.getItem('userInfo')).userId === this.hostId){
+				this.host = true
+			} 
 		})
 		.then(() => {
 			this.joinSession()
@@ -461,6 +522,20 @@ export default {
 #video-container{
 	height: 100%;
 	/* background-color: rgb(221, 182, 124); */
+}
+
+.share-screen{
+	display: flex;
+	width: 100%;
+	height: 100%;
+	flex-direction: column;
+  align-items: center;
+}
+
+.share-screen > video:nth-child(1){
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
 }
 
 .sign-video-container{
