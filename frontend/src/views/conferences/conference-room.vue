@@ -1,7 +1,7 @@
 <template>
   <div id='main-container'>
     <div id="session" v-if="session">
-			<div id="session-header" class='row justify-center'>
+			<div id="session-header" class='row flex justify-between'>
 				<!-- tool box -->
 				<tool-box 
 				:session='session'
@@ -49,8 +49,8 @@
 				</div>
 
 				<!-- 참가자 화면 -->
-				<div id="video-container" class='col-2 column'>
-					<div class='guest-box col'>
+				<div id="video-container" class='col-2 column displaywidth'>
+					<div class='guest-box shadow-3 col'>
 						<!-- 참가자 -->
 						<!-- <Flicking 
 						:options='{ horizontal: false,  moveType: "freeScroll", bound: true}'
@@ -62,7 +62,7 @@
 						:role='"subscriber"' v-for="sub in subscribers" :key="sub.stream.connection.connectionId" :stream-manager="sub"/>
 					</div>
 
-					<publish-video v-show='!host' id='publisher' :stream-manager='myPublisher'/>	
+					<publish-video class="displaywidth" v-show='!host' id='publisher' :stream-manager='myPublisher'/>	
 				</div>
 			</div>
 
@@ -82,7 +82,7 @@ import ChatBox from './components/chat-box.vue'
 import MemoBox from './components/memo-box.vue'
 
 axios.defaults.headers.post['Content-Type'] = 'application/json'
-const OPENVIDU_URL = process.env.VUE_APP_OPENVIDU_URL;
+// const OPENVIDU_URL = process.env.VUE_APP_OPENVIDU_URL;
 const VIDEO_DEFAULT_URL = process.env.VUE_APP_DJANGO_MEDIA_URL;
 
 
@@ -151,10 +151,16 @@ export default {
         const p = document.createElement('p')
         const nameSpan = document.createElement('span')
         nameSpan.style.display = 'block'
+				nameSpan.style.color = 'white'
+				nameSpan.style.fontSize = '15px'
+				messageBox.style.padding = '0.5rem 0.5rem 0.25rem 0.5rem'
         nameSpan.textContent = '보낸사람: ' + JSON.parse(event.from.data).clientData
         messageBox.appendChild(nameSpan)
 
         p.innerText = event.data
+				p.style.color = 'white'
+				p.style.fontSize = '18px'
+				p.style.fontWeight = '600'
         messageBox.appendChild(p)
         document.querySelector('#chatLog').appendChild(messageBox)
 
@@ -166,10 +172,16 @@ export default {
         const p = document.createElement('p')
         const nameSpan = document.createElement('span')
         nameSpan.style.display = 'block'
+				nameSpan.style.color = 'white'
+				nameSpan.style.fontSize = '15px'
+				messageBox.style.padding = '0.5rem 0.5rem 0.25rem 0.5rem'
         nameSpan.textContent = JSON.parse(event.from.data).clientData 
         messageBox.appendChild(nameSpan)
 
         p.innerText = event.data
+				p.style.color = 'white'
+				p.style.fontSize = '18px'
+				p.style.fontWeight = '600'
         messageBox.appendChild(p)
         document.querySelector('#memoLog').appendChild(messageBox)
 
@@ -182,7 +194,11 @@ export default {
 				if( captionBox.hasChildNodes() ){
 					captionBox.removeChild(captionBox.firstChild)
 				}
-				span.className = 'caption-text'
+				span.style.backgroundColor='black'
+				span.style.color= 'white'
+				span.style.fontWeight= 'bold'
+				span.style.fontSize = '2em'
+				span.style.wordBreak = 'keep-all'
 				captionBox.appendChild(span)
 			})
 
@@ -417,9 +433,9 @@ export default {
 		.then((response)=>{
 			this.mySessionId = this.$route.params.conferenceId
 			this.myUserName = response.data.userName
-			// if(JSON.parse(localStorage.getItem('userInfo')).userId === response.data.userId){
-			// 	this.host = true
-			// } 
+			if(JSON.parse(localStorage.getItem('userInfo')).userId === response.data.userId){
+				this.host = true
+			} 
 		})
 		.then(() => {
 			this.joinSession()
@@ -429,7 +445,10 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+@media screen and (max-width: 1600px) 
+{ .displaywidth { display: none; } }
+
 
 #videoPlayer{
 	object-fit: cover;
@@ -494,7 +513,7 @@ export default {
 .guest-box{
 	position: relative;
 	border: 1px solid black;
-	border-radius: 5px;
+	border-radius: 10px;
 	padding: 10px 10px;
 	width: 100%;
 	overflow: auto;
