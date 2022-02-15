@@ -64,8 +64,6 @@ public class ConferenceController {
     })
 	public ResponseEntity<Conference> register(Authentication authentication,
 			@RequestBody @ApiParam(value = "회의실 생성 정보", required = true)ConferenceRegisterPostReq conferenceRegisterPostReq) throws Exception {
-		SsafyUserDetails userDetails = (SsafyUserDetails) authentication.getDetails();
-		User user = userDetails.getUser();
 
 		Conference conference=conferenceService.createConference(conferenceRegisterPostReq);
 		if(conference==null) {
