@@ -59,28 +59,6 @@ export default {
     }
   },
 
-  mounted(){
-    this.$nextTick(function () {
-      // 전체 화면내용이 렌더링된 후에 아래의 코드 실행
-       this.session.on('signal:chat', (event)=>{
-        console.log('메시지 보낸 사람 object: ',  JSON.parse(event.from.data).clientData)
-        
-        const messageBox = document.createElement('div')
-        const p = document.createElement('p')
-        const nameSpan = document.createElement('span')
-        nameSpan.style.display = 'block'
-        nameSpan.textContent = '보낸사람: ' + JSON.parse(event.from.data).clientData
-        messageBox.appendChild(nameSpan)
-
-        p.innerText = event.data
-        messageBox.appendChild(p)
-        document.querySelector('#chatLog').appendChild(messageBox)
-
-      })
-
-  })
-  }
-
 }
 </script>
 
