@@ -212,20 +212,20 @@
                 <div class="col-md-4 mb-3 mb-md-0">
                   <div class="card h-100 card-span p-3">
                     <div class="card-body">
-                      <h5 class="mb-0 text-primary">Fantastic service!</h5>
-                      <p class="card-text pt-3">정말 놀라운 서비스에요. 제가 평소에 비대면 강의를 들으면서 불편 했던 점들이 말끔하게 해결 되는 느낌이에요. 정말 감사드립니다. 박스 CSS를 건들지 않으려면
-                        어느정도 양을 맞춰서 적어 놓는게 필요해요. 제일 긴 박스 크기를 따라서 다 맞춰집니다. 
+                      <h5 class="mb-0 text-primary">이용하기 쉬워요!</h5>
+                      <p class="card-text pt-3">저희 반에 청각 장애가 있어 화상 수업에 적응하지 못하는 학생이 있어 사용해봤는데, 이용하기도 쉽고 모든 학생들이 수업에 빠르게 적응했어요!
+앞으로도 이렇게 모든 학생들이 이용할 수 있는 서비스 만들어가주세요. 전국에 청각장애를 가진 학생을 지도하고 있는 모든 교육자 분들에게 추천합니다.
                       </p>
                       <div class="d-xl-flex justify-content-between align-items-center">
                         <div class="d-flex align-items-center mb-3"><i class="fas fa-star text-primary me-1"></i><i
                             class="fas fa-star text-primary me-1"></i><i class="fas fa-star text-primary me-1"></i><i
                             class="fas fa-star text-primary me-1"></i><i class="fas fa-star text-primary me-1"></i>
                         </div>
-                        <div class="d-flex align-items-center"><img class="img-fluid" src="assets/img/icons/avatar.png"
+                        <div class="d-flex align-items-center"><img class="img-fluid" src="assets/img/icons/avatar-1.png"
                             alt="" />
                           <div class="flex-1 ms-3">
-                            <h6 class="mb-0 fs--1 text-1000 fw-medium">Yves Tanguy</h6>
-                            <p class="fs--2 fw-normal mb-0">Chief Executive, DLF</p>
+                            <h6 class="mb-0 fs--1 text-1000 fw-medium">Park Hyo Jin</h6>
+                            <p class="fs--2 fw-normal mb-0">Middle school teacher</p>
                           </div>
                         </div>
                       </div>
@@ -235,20 +235,18 @@
                 <div class="col-md-4 mb-3 mb-md-0">
                   <div class="card h-100 card-span p-3">
                     <div class="card-body">
-                      <h5 class="mb-0 text-primary">Fantastic service!</h5>
-                      <p class="card-text pt-3">I purchased a phone from an e-commerce site, and this courier service
-                        provider assisted me in getting it delivered to my home. I received my phone within one day, and
-                        I was really satisfied with their service when I received it.</p>
+                      <h5 class="mb-0 text-primary">숨통이 트입니다..!</h5>
+                      <p class="card-text pt-3">다른 화상 수업 서비스를 이용할 때에는 강사님들의 입모양을 읽다가 지쳐 수업듣는 것을 포기하고, 거의 반강제로 자율 학습을 해야 했지만, 베프와 함께 하고 난 후에는 수업을 이해할 수 있게 되었어요! 강사님들의 농담을 이해하고 함께 웃을 때 같이 수업에 참여하는 거 같아 너무 좋았습니다!</p>
                       <div class="d-xl-flex justify-content-between align-items-center">
                         <div class="d-flex align-items-center mb-3"><i class="fas fa-star text-primary me-1"></i><i
                             class="fas fa-star text-primary me-1"></i><i class="fas fa-star text-primary me-1"></i><i
                             class="fas fa-star text-primary me-1"></i><i class="fas fa-star text-primary me-1"></i>
                         </div>
-                        <div class="d-flex align-items-center"><img class="img-fluid" src="assets/img/icons/avatar.png"
+                        <div class="d-flex align-items-center"><img class="img-fluid" src="assets/img/icons/avatar-2.png"
                             alt="" />
                           <div class="flex-1 ms-3">
                             <h6 class="mb-0 fs--1 text-1000 fw-medium">Kim Young Jou</h6>
-                            <p class="fs--2 fw-normal mb-0">Chief Executive, DLF</p>
+                            <p class="fs--2 fw-normal mb-0">College Student</p>
                           </div>
                         </div>
                       </div>
@@ -258,20 +256,18 @@
                 <div class="col-md-4 mb-3 mb-md-0">
                   <div class="card h-100 card-span p-3">
                     <div class="card-body">
-                      <h5 class="mb-0 text-primary">Fantastic service!</h5>
-                      <p class="card-text pt-3">I purchased a phone from an e-commerce site, and this courier service
-                        provider assisted me in getting it delivered to my home. I received my phone within one day, and
-                        I was really satisfied with their service when I received it. .</p>
+                      <h5 class="mb-0 text-primary">너무 좋아요!</h5>
+                      <p class="card-text pt-3">저는 청각이 전부 소실되지는 않았지만, 희미하게 들리는 상태인데 화상 수업을 들을 때 교수님의 입모양이 안보이거나, 발표자료를 띄워놓고 수업을 진행하게 되면 내용을 거의 이해하지 못했어요! 하지만 베프의 자막 기능과 함께라면 이해도가 쑥쑥 up 되는 것을 느낍니다.</p>
                       <div class="d-xl-flex justify-content-between align-items-center">
                         <div class="d-flex align-items-center mb-3"><i class="fas fa-star text-primary me-1"></i><i
                             class="fas fa-star text-primary me-1"></i><i class="fas fa-star text-primary me-1"></i><i
                             class="fas fa-star text-primary me-1"></i><i class="fas fa-star text-primary me-1"></i>
                         </div>
-                        <div class="d-flex align-items-center"><img class="img-fluid" src="assets/img/icons/avatar.png"
+                        <div class="d-flex align-items-center"><img class="img-fluid" src="assets/img/icons/avatar-3.png"
                             alt="" />
                           <div class="flex-1 ms-3">
-                            <h6 class="mb-0 fs--1 text-1000 fw-medium">Yves Tanguy</h6>
-                            <p class="fs--2 fw-normal mb-0">Chief Executive, DLF</p>
+                            <h6 class="mb-0 fs--1 text-1000 fw-medium">Lee Min Jung</h6>
+                            <p class="fs--2 fw-normal mb-0">College Student</p>
                           </div>
                         </div>
                       </div>
@@ -285,20 +281,20 @@
                 <div class="col-md-4 mb-3 mb-md-0">
                   <div class="card h-100 card-span p-3">
                     <div class="card-body">
-                      <h5 class="mb-0 text-primary">Fantastic service!</h5>
-                      <p class="card-text pt-3">I purchased a phone from an e-commerce site, and this courier service
-                        provider assisted me in getting it delivered to my home. I received my phone within one day, and
-                        I was really satisfied with their service when I received it. </p>
+                      <h5 class="mb-0 text-primary">수어번역 최고입니다.
+</h5>
+                      <p class="card-text pt-3">평소 동영상을 볼 때, 자동 자막 생성기능을 사용해서 많이 봤는데, 물론 없는 것보다는 너무 큰 도움이 되지만, 저는 수어를 주 언어로 사용하는 사람이다보니 약간의 불편감이 있었어요, 하지만 수어 번역기능을 사용하면 그 약간의 불편감마저 없어진 것 같아 너무 편합니다!
+ </p>
                       <div class="d-xl-flex justify-content-between align-items-center">
                         <div class="d-flex align-items-center mb-3"><i class="fas fa-star text-primary me-1"></i><i
                             class="fas fa-star text-primary me-1"></i><i class="fas fa-star text-primary me-1"></i><i
                             class="fas fa-star text-primary me-1"></i><i class="fas fa-star text-primary me-1"></i>
                         </div>
-                        <div class="d-flex align-items-center"><img class="img-fluid" src="assets/img/icons/avatar.png"
+                        <div class="d-flex align-items-center"><img class="img-fluid" src="assets/img/icons/avatar-4.png"
                             alt="" />
                           <div class="flex-1 ms-3">
-                            <h6 class="mb-0 fs--1 text-1000 fw-medium">Yves Tanguy</h6>
-                            <p class="fs--2 fw-normal mb-0">Chief Executive, DLF</p>
+                            <h6 class="mb-0 fs--1 text-1000 fw-medium">Choi Hee</h6>
+                            <p class="fs--2 fw-normal mb-0">Designer</p>
                           </div>
                         </div>
                       </div>
@@ -308,20 +304,19 @@
                 <div class="col-md-4 mb-3 mb-md-0">
                   <div class="card h-100 card-span p-3">
                     <div class="card-body">
-                      <h5 class="mb-0 text-primary">Fantastic service!</h5>
-                      <p class="card-text pt-3">I purchased a phone from an e-commerce site, and this courier service
-                        provider assisted me in getting it delivered to my home. I received my phone within one day, and
-                        I was really satisfied with their service when I received it. </p>
+                      <h5 class="mb-0 text-primary">수업들을 맛 납니다.</h5>
+                      <p class="card-text pt-3">대학교 온라인 수업 때, 이 비싼 등록금 내놓고 나는 지금 무엇을 하는 것인가... 하고 엄청난 자괴감이 들었었는데, 이제서야 수업에 온전히 참여해서 등록금이 아깝지 않은 것 같아요! 특히 가끔 집중력이 흐려질 때 회의록 기록을 참고하는게 너무 큰 도움이 됩니다.
+</p>
                       <div class="d-xl-flex justify-content-between align-items-center">
                         <div class="d-flex align-items-center mb-3"><i class="fas fa-star text-primary me-1"></i><i
                             class="fas fa-star text-primary me-1"></i><i class="fas fa-star text-primary me-1"></i><i
                             class="fas fa-star text-primary me-1"></i><i class="fas fa-star text-primary me-1"></i>
                         </div>
-                        <div class="d-flex align-items-center"><img class="img-fluid" src="assets/img/icons/avatar.png"
+                        <div class="d-flex align-items-center"><img class="img-fluid" src="assets/img/icons/avatar-5.png"
                             alt="" />
                           <div class="flex-1 ms-3">
-                            <h6 class="mb-0 fs--1 text-1000 fw-medium">Kim Young Jou</h6>
-                            <p class="fs--2 fw-normal mb-0">Chief Executive, DLF</p>
+                            <h6 class="mb-0 fs--1 text-1000 fw-medium">Lee Dae Hoon</h6>
+                            <p class="fs--2 fw-normal mb-0">College Student</p>
                           </div>
                         </div>
                       </div>
@@ -331,20 +326,18 @@
                 <div class="col-md-4 mb-3 mb-md-0">
                   <div class="card h-100 card-span p-3">
                     <div class="card-body">
-                      <h5 class="mb-0 text-primary">Fantastic service!</h5>
-                      <p class="card-text pt-3">I purchased a phone from an e-commerce site, and this courier service
-                        provider assisted me in getting it delivered to my home. I received my phone within one day, and
-                        I was really satisfied with their service when I received it. .</p>
+                      <h5 class="mb-0 text-primary">왜 이제서야...!</h5>
+                      <p class="card-text pt-3">저는 청각 장애가 있진 않지만, 자막기능 너무 유용합니다. 온라인 미팅에서 수업이 끊기거나, 지지직 거리는 소리가 들리면, 무슨말을 했는지 모르고 정적이 찾아오는 순간이 있는데 자막을 켜놓으면 그럴일이 없어서 좋아요! 또 모든사람의 학습권을 지키는 느낌이 들어서 사용할 때마다 기분이 좋습니다. </p>
                       <div class="d-xl-flex justify-content-between align-items-center">
                         <div class="d-flex align-items-center mb-3"><i class="fas fa-star text-primary me-1"></i><i
                             class="fas fa-star text-primary me-1"></i><i class="fas fa-star text-primary me-1"></i><i
                             class="fas fa-star text-primary me-1"></i><i class="fas fa-star text-primary me-1"></i>
                         </div>
-                        <div class="d-flex align-items-center"><img class="img-fluid" src="assets/img/icons/avatar.png"
+                        <div class="d-flex align-items-center"><img class="img-fluid" src="assets/img/icons/avatar-6.png"
                             alt="" />
                           <div class="flex-1 ms-3">
-                            <h6 class="mb-0 fs--1 text-1000 fw-medium">Yves Tanguy</h6>
-                            <p class="fs--2 fw-normal mb-0">Chief Executive, DLF</p>
+                            <h6 class="mb-0 fs--1 text-1000 fw-medium">Park Tae Hwan</h6>
+                            <p class="fs--2 fw-normal mb-0">Engineer</p>
                           </div>
                         </div>
                       </div>
@@ -358,20 +351,18 @@
                 <div class="col-md-4 mb-3 mb-md-0">
                   <div class="card h-100 card-span p-3">
                     <div class="card-body">
-                      <h5 class="mb-0 text-primary">Fantastic service!</h5>
-                      <p class="card-text pt-3">I purchased a phone from an e-commerce site, and this courier service
-                        provider assisted me in getting it delivered to my home. I received my phone within one day, and
-                        I was really satisfied with their service when I received it. </p>
+                      <h5 class="mb-0 text-primary">회의록 너무 편해요</h5>
+                      <p class="card-text pt-3">온라인 수업을 듣다보면 집중력이 잘 흐려지는데, 그럴때 바로 회의록 참고해서 진도를 따라갈 수 있어서 너무 좋았습니다. 또한 모든 학생들이 같은 질의 수업을 받을 수 있다는 점이 서비스를 이용할 때마다 기분이 좋아지네요. 많은 분들이 이 서비스를 이용했으면 좋겠습니다.</p>
                       <div class="d-xl-flex justify-content-between align-items-center">
                         <div class="d-flex align-items-center mb-3"><i class="fas fa-star text-primary me-1"></i><i
                             class="fas fa-star text-primary me-1"></i><i class="fas fa-star text-primary me-1"></i><i
                             class="fas fa-star text-primary me-1"></i><i class="fas fa-star text-primary me-1"></i>
                         </div>
-                        <div class="d-flex align-items-center"><img class="img-fluid" src="assets/img/icons/avatar.png"
+                        <div class="d-flex align-items-center"><img class="img-fluid" src="assets/img/icons/avatar-7.png"
                             alt="" />
                           <div class="flex-1 ms-3">
-                            <h6 class="mb-0 fs--1 text-1000 fw-medium">Yves Tanguy</h6>
-                            <p class="fs--2 fw-normal mb-0">Chief Executive, DLF</p>
+                            <h6 class="mb-0 fs--1 text-1000 fw-medium">Kim Ah Rang</h6>
+                            <p class="fs--2 fw-normal mb-0">Job Seeker</p>
                           </div>
                         </div>
                       </div>
@@ -381,20 +372,19 @@
                 <div class="col-md-4 mb-3 mb-md-0">
                   <div class="card h-100 card-span p-3">
                     <div class="card-body">
-                      <h5 class="mb-0 text-primary">Fantastic service!</h5>
-                      <p class="card-text pt-3">“I purchased a phone from an e-commerce site, and this courier service
-                        provider assisted me in getting it delivered to my home. I received my phone within one day, and
-                        I was really satisfied with their service when I received it. </p>
+                      <h5 class="mb-0 text-primary">세상에</h5>
+                      <p class="card-text pt-3">온라인 수업으로 바뀐다는 문자를 보자마자, 또 자습을 해야하나 싶어 우울했는데, 이번학기부터 베프를 이용하니, 오히려 대면 수업을 진행했을 때 보다 수업이 잘 이해됐어요. 다른 플랫폼에도 자막서비스는 제공이 되었지만, 수어서비스를 같이 제공해주어서, 더욱 더 쉽게 이해할 수 있었습니다!
+ </p>
                       <div class="d-xl-flex justify-content-between align-items-center">
                         <div class="d-flex align-items-center mb-3"><i class="fas fa-star text-primary me-1"></i><i
                             class="fas fa-star text-primary me-1"></i><i class="fas fa-star text-primary me-1"></i><i
                             class="fas fa-star text-primary me-1"></i><i class="fas fa-star text-primary me-1"></i>
                         </div>
-                        <div class="d-flex align-items-center"><img class="img-fluid" src="assets/img/icons/avatar.png"
+                        <div class="d-flex align-items-center"><img class="img-fluid" src="assets/img/icons/avatar-8.png"
                             alt="" />
                           <div class="flex-1 ms-3">
-                            <h6 class="mb-0 fs--1 text-1000 fw-medium">Kim Young Jou</h6>
-                            <p class="fs--2 fw-normal mb-0">Chief Executive, DLF</p>
+                            <h6 class="mb-0 fs--1 text-1000 fw-medium">Woo Won Jae</h6>
+                            <p class="fs--2 fw-normal mb-0">HighSchool Student</p>
                           </div>
                         </div>
                       </div>
@@ -404,16 +394,16 @@
                 <div class="col-md-4 mb-3 mb-md-0">
                   <div class="card h-100 card-span p-3">
                     <div class="card-body">
-                      <h5 class="mb-0 text-primary">멋져요!</h5>
-                      <p class="card-text pt-3">정말 놀라운 서비스에요. 제가 평소에 비대면 강의를 들으면서 불편 했던 점들이 말끔하게 해결 되는 느낌이에요. 정말 감사드립니다. 박스 CSS를 건들지 않으려면
-                        어느정도 양을 맞춰서 적어 놓는게 필요해요.
+                      <h5 class="mb-0 text-primary">쉽게 이용할 수 있어요</h5>
+                      <p class="card-text pt-3">다른 회의실 참여할때는 이거저거 버튼 누르다보면 신경쓸게 많았는데, 베프는 이용하는 과정이 단순해서 좋아요! 자동으로 수업 내용을 기록해주는 기능은 후에 교수님이 말씀하신 중요한 내용을 상기시키는데 큰 도움이 됩니다! 베프 이용하고 성적이 쭉쭉 오를것 같습니다! 
+
                       </p>
                       <div class="d-xl-flex justify-content-between align-items-center">
                         <div class="d-flex align-items-center mb-3"><i class="fas fa-star text-primary me-1"></i><i
                             class="fas fa-star text-primary me-1"></i><i class="fas fa-star text-primary me-1"></i><i
                             class="fas fa-star text-primary me-1"></i><i class="fas fa-star text-primary me-1"></i>
                         </div>
-                        <div class="d-flex align-items-center"><img class="img-fluid" src="assets/img/icons/avatar.png"
+                        <div class="d-flex align-items-center"><img class="img-fluid" src="assets/img/icons/avatar-9.png"
                             alt="" />
                           <div class="flex-1 ms-3">
                             <h6 class="mb-0 fs--1 text-1000 fw-medium">Yves Tanguy</h6>
@@ -529,6 +519,10 @@
             <!-- <p class="fs--1 my-2 fw-bold text-200"><a href="https://storyset.com/together%22%3ETogether" >illustrations by Storyset</a></p> -->
             <p class="fs--1 my-2 fw-bold text-200"><a href="https://storyset.com/" >illustrations by Storyset</a></p>
           </div>
+          <div class="col-12 col-sm-8 col-md-2 col-lg-auto text-md-none">
+            <!-- <p class="fs--1 my-2 fw-bold text-200"><a href="https://storyset.com/together%22%3ETogether" >illustrations by Storyset</a></p> -->
+            <p class="fs--1 my-2 fw-bold text-200"><a href='https://www.freepik.com/vectors/girl-icon'>Girl icon vector created by upklyak - www.freepik.com</a></p>
+          </div>
           <div class="col-12 col-sm-8 col-md-2">
             <!-- 간격은 md 수정 -->
             <p class="fs--1 my-2 text-center text-md-end text-200"> Made with&nbsp;
@@ -606,11 +600,5 @@ export default {
 <style scoped src="../../../public/assets/css/theme.css">
 /* <style scoped>  */
 /* @import '../../../public/assets/css/theme.css'; */
-
-.partner {
-background-color: rgba(255,255,255,0);
-
-}
-
 
 </style>
