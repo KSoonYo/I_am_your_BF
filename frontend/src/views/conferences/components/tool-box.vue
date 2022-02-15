@@ -1,6 +1,6 @@
 <template>
   <div class='flex q-px-xl'>
-		<q-btn flat rounded @click='() => { $emit("clickOpenScreen")}' ><i class="fas fa-desktop fa-2x"></i></q-btn>
+		<q-btn v-show='host' flat rounded @click='() => { $emit("clickOpenScreen")}' ><i class="fas fa-desktop fa-2x"></i></q-btn>
 	</div>	
 	<div class='flex'>
 		<q-btn flat rounded v-show='!onSpeech' @click='toggleOnSpeech'> <i class="fas fa-microphone fa-2x"></i></q-btn>
@@ -39,7 +39,8 @@ export default {
   props: {
 		session: Object,
 		publisher: Object,
-		subscribers: Array
+		subscribers: Array,
+		host: Boolean
 	},
 
   data(){
@@ -144,7 +145,9 @@ export default {
 		onSpeech : function(){
 			if(this.onSpeech === true){
 				console.log('말하기 시작')
-				this.startSpeechToTxt()
+				if(this.host){
+					this.startSpeechToTxt()
+				}
 			} else {
 				console.log('말하기 중단')
 				this.recognition = null

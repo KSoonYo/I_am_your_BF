@@ -1,7 +1,6 @@
 <template>
     <div v-if="streamManager"
-		:class='[
-		{"main-stream-wrapper": role === "mainStreamer"}, 
+		:class='[ 
 		{"subscriber-wrapper-host" : host === true && role === "subscriber"}, 
 		{"subscriber-wrapper-guest" : host === false && role === "subscriber"}
 		]'>
@@ -40,7 +39,7 @@ export default {
 	computed: {
 		clientData () {
 			const { clientData } = this.getConnectionData()
-			return clientData
+			return clientData[1]
 		},
 	},
 
@@ -49,14 +48,6 @@ export default {
 
 <style>
 
-.main-stream-wrapper{
-	display: flex;
-	width: 100%;
-	height: 100%;
-	flex-direction: column;
-  align-items: center;
-	border-radius: 20px;
-}
 
 .subscriber-wrapper-host{
 	position: relative;
