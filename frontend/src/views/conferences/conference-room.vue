@@ -52,14 +52,14 @@
 				<div id="video-container" class='col-2 column'>
 					<div class='guest-box col'>
 						<!-- 참가자 -->
-						<Flicking 
+						<!-- <Flicking 
 						:options='{ horizontal: false,  moveType: "freeScroll", bound: true}'
 						style="width: 100%; height: 100%;"
 						>
-							<user-video 
-							:host='host'
-							:role='"subscriber"' v-for="sub in subscribers" :key="sub.stream.connection.connectionId" :stream-manager="sub"/>
-						</Flicking>
+						</Flicking> -->
+						<user-video 
+						:host='host'
+						:role='"subscriber"' v-for="sub in subscribers" :key="sub.stream.connection.connectionId" :stream-manager="sub"/>
 					</div>
 
 					<publish-video v-show='!host' id='publisher' :stream-manager='myPublisher'/>	
@@ -113,7 +113,7 @@ export default {
 			showMemo : false,
 			showChat : false,
 
-			host: true,
+			host: false,
 			mySessionId: null,
 			myUserName: '',
 		
@@ -143,6 +143,37 @@ export default {
 					this.subscribers.splice(index, 1);
 				}
 			})
+
+			this.session.on('signal:chat', (event)=>{
+        console.log('메시지 보낸 사람 object: ',  JSON.parse(event.from.data).clientData)
+        
+        const messageBox = document.createElement('div')
+        const p = document.createElement('p')
+        const nameSpan = document.createElement('span')
+        nameSpan.style.display = 'block'
+        nameSpan.textContent = '보낸사람: ' + JSON.parse(event.from.data).clientData
+        messageBox.appendChild(nameSpan)
+
+        p.innerText = event.data
+        messageBox.appendChild(p)
+        document.querySelector('#chatLog').appendChild(messageBox)
+
+      })
+
+
+			this.session.on('signal:memo', (event)=>{        
+        const messageBox = document.createElement('div')
+        const p = document.createElement('p')
+        const nameSpan = document.createElement('span')
+        nameSpan.style.display = 'block'
+        nameSpan.textContent = JSON.parse(event.from.data).clientData 
+        messageBox.appendChild(nameSpan)
+
+        p.innerText = event.data
+        messageBox.appendChild(p)
+        document.querySelector('#memoLog').appendChild(messageBox)
+
+      })
 
 			this.session.on('signal:caption', ({data})=>{
 				const span = document.createElement('span')
@@ -381,13 +412,14 @@ export default {
 	},
 
   created(){
+		console.log(this.$route.params.conferenceId)
 		this.$store.dispatch('getConferenceDetail', this.$route.params.conferenceId)
 		.then((response)=>{
 			this.mySessionId = this.$route.params.conferenceId
 			this.myUserName = response.data.userName
-			if(JSON.parse(localStorage.getItem('userInfo')).userId === response.data.userId){
-				this.host = true
-			} 
+			// if(JSON.parse(localStorage.getItem('userInfo')).userId === response.data.userId){
+			// 	this.host = true
+			// } 
 		})
 		.then(() => {
 			this.joinSession()
@@ -408,6 +440,11 @@ export default {
 
 #session{
 	height: 100%;
+}
+
+#session-header{
+	margin-top: 30px;
+	margin-bottom: 30px;
 }
 
 #main-container{
@@ -460,6 +497,7 @@ export default {
 	border-radius: 5px;
 	padding: 10px 10px;
 	width: 100%;
+	overflow: auto;
 }
 
 .guest{
