@@ -1,4 +1,7 @@
 <template>
+  <div class="home-btn"><a class="navbar-brand" href="/"><img src="assets/img/gallery/logo_bf2.png"
+        height="45" alt="logo" /></a>
+  </div>
     <div class='column items-center flex justify-center' style='min-height:100vh;'>
 		<div class='container'>
 			<div class='row justify-center backimg'>
@@ -300,5 +303,11 @@ label {
     font-weight: 600;
     margin-bottom: 0.5rem;
 		display: inline-block;
+}
+
+.home-btn {
+  position: absolute;
+  margin-left: 14.7rem;
+  margin-top: 19px;
 }
 </style>
