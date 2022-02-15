@@ -79,7 +79,7 @@ export default {
     onMounted(() => {
       const token = localStorage.getItem('accessToken')
       if (!token) {
-        router.push( {name:"Home"} )
+        router.push( {name:"home"} )
       }
       // 회의실 불러오기
       store.dispatch('getConference')
@@ -200,7 +200,7 @@ export default {
     // 회의실 생성 방법2
     const createConference = function () {
       if (state.value.isLogin) {
-        router.push({ name: 'createConference'})
+        router.push({ name: 'CreateConference'})
       } else {
         router.push({ name: 'conferenceList'})
       }
