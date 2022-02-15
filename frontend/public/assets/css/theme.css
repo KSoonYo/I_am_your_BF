@@ -14,7 +14,7 @@
  * Copyright 2011-2020 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
-:root {
+ :root {
   --bs-blue: #0088B4;
   --bs-indigo: #6237FF;
   --bs-purple: #A1B0FC;
@@ -18528,7 +18528,6 @@ ul {
   -webkit-box-shadow: 0 6.25rem 5rem 0 rgba(0, 0, 0, 0.02), 0 4.05063rem 2.92813rem 0 rgba(0, 0, 0, 0.0152), 0 2.4075rem 1.5925rem 0 rgba(0, 0, 0, 0.0121), 0 1.25rem 0.8125rem 0 rgba(0, 0, 0, 0.01), 0 0.50938rem 0.4075rem 0 rgba(0, 0, 0, 0.0079), 0 0.11563rem 0.19687rem 0 rgba(0, 0, 0, 0.0048);
   box-shadow: 0 6.25rem 5rem 0 rgba(0, 0, 0, 0.02), 0 4.05063rem 2.92813rem 0 rgba(0, 0, 0, 0.0152), 0 2.4075rem 1.5925rem 0 rgba(0, 0, 0, 0.0121), 0 1.25rem 0.8125rem 0 rgba(0, 0, 0, 0.01), 0 0.50938rem 0.4075rem 0 rgba(0, 0, 0, 0.0079), 0 0.11563rem 0.19687rem 0 rgba(0, 0, 0, 0.0048);
 }
-/*  */
 
 .px-2{
   padding-left : 1rem !important;
@@ -18538,9 +18537,7 @@ ul {
 color: #212832;
 border-color: #212832;
 }
-#btn-outline-dark a{
-border-radius: 10px;
-}
+
 #btn-outline-dark:hover a {
 cursor :pointer;
 color: #FFFEFE;
@@ -18548,10 +18545,9 @@ background-color: #212832;
 border-color: #212832;
 border-radius: 10px;
 }
-
-.card{
-margin: 0.5rem;
-}
+/* #btn-outline-dark a:hover{
+  color:white
+} */
 
 .content {
 position: relative;
@@ -18572,7 +18568,7 @@ font-weight: 600;
 overflow: hidden;
 height: 70px;
 /* padding: 0 40px; */
-/* margin-bottom: 20px; */
+margin-bottom: 20px;
 }
 
 .content__container__text {
@@ -18608,6 +18604,11 @@ background-color: rgba(255,255,255,0);
 
 }
 
+/* .container {
+  font-family: 'GangwonEdu_OTFBoldA';
+  font-size: 25px !important;
+} */
+
 
 .main-msg {
 font-family: 'GangwonEdu_OTFBoldA';
@@ -18618,6 +18619,13 @@ margin-top: -50px;
 @font-face {
   font-family: 'GangwonEdu_OTFBoldA';
   src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/GangwonEdu_OTFBoldA.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'GangwonEduPowerExtraBoldA';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/GangwonEduPowerExtraBoldA.woff') format('woff');
   font-weight: normal;
   font-style: normal;
 }
@@ -18677,3 +18685,48 @@ margin-top: -50px;
   66.64%,79.3% {transform:translate3d(0,-50%,0);}
   83.3%,95.96% {transform:translate3d(0,-25%,0);}
 }
+/*  */
+
+.navbar-nav {
+  font-family: 'GangwonEduPowerExtraBoldA';
+  font-size: 15px;
+}
+
+.service-title {
+  font-family: 'GangwonEdu_OTFBoldA';
+} 
+
+.card {
+  font-family: 'GangwonEdu_OTFBoldA';
+  font-size: 25px;
+}
+
+.card-head-text {
+  font-family: 'GangwonEduPowerExtraBoldA';
+  font-size: 25px;
+}
+
+.head-text {
+  font-family: 'GangwonEduPowerExtraBoldA';
+  font-size: 30px;
+}
+
+.content-text {
+  font-family: 'GangwonEduPowerExtraBoldA';
+  font-size: 40px;
+}
+
+/* .navbar .nav-item .nav-link {
+	padding-top: 0.625rem;
+	padding-bottom: 0.625rem;
+	color: #272556;
+	text-decoration: none;
+	transition: all 0.2s ease;
+} */
+
+.navbar .nav-item.dropdown.show .nav-link,
+.navbar .nav-item .nav-link:hover,
+.navbar .nav-item .nav-link.active {
+	color: #f25c05;
+}
+
