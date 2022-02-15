@@ -170,7 +170,7 @@ label {
 
 .home-btn {
   position: absolute;
-  margin-left: 14.7rem;
+  margin-left: 14.5rem;
   margin-top: 19px;
 }
 
