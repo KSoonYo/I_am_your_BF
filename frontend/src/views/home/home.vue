@@ -1,56 +1,56 @@
 <template>
+<navbarHome/>
   <!-- ===============================================-->
   <!--    Main Content-->
   <!-- ===============================================-->
   <main class="main" id="top">
-    
-    <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3 d-block"
-      data-navbar-on-scroll="data-navbar-on-scroll" style="background-color:rgba(255,248,232,0.5)">
-      <div class="container"><a class="navbar-brand" href="#home"><img src="assets/img/gallery/logo_bf2.png"
-            height="45" alt="logo" /></a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span
-            class="navbar-toggler-icon"> </span></button>
-        <div class="collapse navbar-collapse border-top border-lg-0 mt-4 mt-lg-0" id="navbarSupportedContent">
-          <ul class="navbar-nav ms-auto pt-2 pt-lg-0 font-base">
-            <li class="nav-item px-2" style="cursor:pointer;"><a class="nav-link" aria-current="page" href="#home">Home</a></li>
-            <li class="nav-item px-2"><a class="nav-link" aria-current="page" href="#service">Service</a></li>
-            <li class="nav-item px-2"><a class="nav-link" aria-current="page" href="#demonstration">Demonstaration</a></li>
-            <li class="nav-item px-2"><a class="nav-link" aria-current="page" href="#testimonial">Testimonial</a></li>
-            <li v-if="!state.isLogin" class="nav-item px-2" id="btn-outline-dark"><a class="nav-link" aria-current="page" @click='clickLogin' href="#">Login</a></li>
-            <li v-if="!state.isLogin" class="nav-item px-2" id="btn-outline-dark"><a class="nav-link" aria-current="page" @click='clickSignUp' href="#">SignUp</a></li>
-            <li v-if="state.isLogin" class="nav-item px-2" id="btn-outline-dark"><a class="nav-link" aria-current="page" @click='editProfile' href="#">Edit</a></li>
-            <li v-if="state.isLogin" class="nav-item px-2" id="btn-outline-dark"><a class="nav-link" aria-current="page" @click='logout' href="#">Logout</a></li>
-            <!-- <li class="nav-item px-2"><a class="nav-link" href="#services">Our Services</a></li>
-            <li class="nav-item px-2"><a class="nav-link" href="#findUs">Find Us</a></li> -->
-          </ul>
-          <!-- <div class="dropdown d-none d-lg-block">
-            <button class="btn bg-soft-warning ms-2" id="dropdownMenuButton1" type="submit" data-bs-toggle="dropdown"
-              aria-expanded="false"><i class="fas fa-search text-warning"></i></button>
-            <div class="dropdown-menu dropdown-menu-lg-end p-0 rounded" aria-labelledby="dropdownMenuButton1"
-              style="top:55px">
-              <form>
-                <input class="form-control border-200" type="search" placeholder="Search" aria-label="Search"
-                  style="background:#FDF1DF;" />
-              </form>
-            </div>
-          </div> -->
-          
-          <!-- <a class="btn btn-primary order-1 order-lg-0 ms-lg-3" href="#!">Contact Us</a>
-          <form class="d-flex my-3 d-block d-lg-none">
-            <input class="form-control me-2 border-200 bg-light" type="search" placeholder="Search"
-              aria-label="Search" />
-            <button class="btn btn-outline-primary" type="submit">Search</button>
-          </form> -->
-        </div>
-      </div>
-    </nav>
+    <div id="mainbig"> 
     <section class="py-xxl-10 pb-0" id="home">
       <div class="bg-holder bg-size"
         style="background-image:url(assets/img/gallery/hero-header-bg.png);background-position:top center;background-size:cover;">
       </div>
       <!--/.bg-holder-->
-
+<nav class="navbar navbar-expand-lg navbar-light fixed-top py-3 d-block"
+  data-navbar-on-scroll="data-navbar-on-scroll" style="background-color:rgba(255,248,232,0.5)">
+  <div class="container"><a class="navbar-brand" href="#home"><img src="assets/img/gallery/logo_bf2.png"
+        height="45" alt="logo" /></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span
+        class="navbar-toggler-icon"> </span></button>
+    <div class="collapse navbar-collapse border-top border-lg-0 mt-4 mt-lg-0" id="navbarSupportedContent">
+      <ul class="navbar-nav ms-auto pt-2 pt-lg-0 font-base">
+        <li class="nav-item px-2" style="cursor:pointer;"><a class="nav-link" aria-current="page" href="#home">Home</a></li>
+        <li class="nav-item px-2"><a class="nav-link" aria-current="page" href="#service">Service</a></li>
+        <li class="nav-item px-2"><a class="nav-link" aria-current="page" href="#demonstration">Demonstaration</a></li>
+        <li class="nav-item px-2"><a class="nav-link" aria-current="page" href="#testimonial">Testimonial</a></li>
+        <li v-if="!state.isLogin" class="nav-item px-2" id="btn-outline-dark"><a class="nav-link" aria-current="page" @click='clickLogin'>Login</a></li>
+        <li v-if="!state.isLogin" class="nav-item px-2" id="btn-outline-dark"><a class="nav-link" aria-current="page" @click='clickSignUp'>SignUp</a></li>
+        <li v-if="state.isLogin" class="nav-item px-2" id="btn-outline-dark"><a class="nav-link" aria-current="page" @click='editProfile'>Profile</a></li>
+        <li v-if="state.isLogin" class="nav-item px-2" id="btn-outline-dark"><a class="nav-link" aria-current="page" @click='logout'>Logout</a></li>
+        <!-- <li class="nav-item px-2"><a class="nav-link" href="#services">Our Services</a></li>
+        <li class="nav-item px-2"><a class="nav-link" href="#findUs">Find Us</a></li> -->
+      </ul>
+      <!-- <div class="dropdown d-none d-lg-block">
+        <button class="btn bg-soft-warning ms-2" id="dropdownMenuButton1" type="submit" data-bs-toggle="dropdown"
+          aria-expanded="false"><i class="fas fa-search text-warning"></i></button>
+        <div class="dropdown-menu dropdown-menu-lg-end p-0 rounded" aria-labelledby="dropdownMenuButton1"
+          style="top:55px">
+          <form>
+            <input class="form-control border-200" type="search" placeholder="Search" aria-label="Search"
+              style="background:#FDF1DF;" />
+          </form>
+        </div>
+      </div> -->
+      
+      <!-- <a class="btn btn-primary order-1 order-lg-0 ms-lg-3" href="#!">Contact Us</a>
+      <form class="d-flex my-3 d-block d-lg-none">
+        <input class="form-control me-2 border-200 bg-light" type="search" placeholder="Search"
+          aria-label="Search" />
+        <button class="btn btn-outline-primary" type="submit">Search</button>
+      </form> -->
+    </div>
+  </div>
+</nav>
       <div class="container">
         <div class="row align-items-center">
           <div class="col-md-5 col-xl-6 col-xxl-7 order-0 order-md-1 text-end"><img class="pt-7 pt-md-0 w-110"
@@ -68,12 +68,12 @@
                 <ul class="content__container__list">
                   <li class="content__container__list__item">BEST FRIEND</li>
                   <li class="content__container__list__item">BARRIER FREE</li>
-                  <li class="content__container__list__item">BREAK FENCE</li>
-                  <li class="content__container__list__item">BLUE FLOWER</li>
+                  <li class="content__container__list__item">BEST FRIEND</li>
+                  <li class="content__container__list__item">BARRIER FREE</li>
                 </ul>
               </div>
             </div>
-            <p class="main-msg fs-1 mb-5">당신의 수업권을<br />지키며 싸우는 BF가 되겠습니다. </p><a
+            <p class="main-msg fs-1 mb-5">당신의 학습권을<br />지키며 싸우는 BF가 되겠습니다. </p><a
               class="btn btn-primary me-2" role="button" @click="moveConferenceList">수업실 입장<i
                 class="fas fa-arrow-right ms-2"></i></a>
           </div>
@@ -88,9 +88,11 @@
 
       <div class="container">
         <div class="row justify-content-center">
-          <div class="col-md-8 col-lg-5 text-center mb-3">
-            <h5 class="text-danger">SERVICES</h5>
-            <h2>Our services for you</h2>
+          <div class="service-title col-md-8 col-lg-5 text-center mb-3">
+            <h5 class="text-danger head-text">SERVICES</h5>
+            <h1 class="content-text">Our services for you</h1>
+            <!-- <h5 class="text-danger">SERVICES</h5>
+            <h2>Our services for you</h2> -->
           </div>
         </div>
         
@@ -99,7 +101,7 @@
           <div class="col-lg-3 col-sm-6 mb-6">
             <div class="card service-card shadow-hover rounded-3 text-center align-items-center">
               <div class="card-body p-xxl-5 p-4"> <img src="assets/img/category/icon1.png" width="75" alt="Service" />
-                <h4 class="mb-3">Enter <br>Classroom</h4>
+                <h4 class="card-head-text mb-3">Enter <br>Classroom</h4>
                 <p class="mb-0 fw-medium">수업실로 <br>입장하세요</p>
               </div>
             </div>
@@ -107,7 +109,7 @@
           <div class="col-lg-3 col-sm-6 mb-6">
             <div class="card service-card shadow-hover rounded-3 text-center align-items-center">
               <div class="card-body p-xxl-5 p-4"> <img src="assets/img/category/icon2.png" width="75" alt="Service" />
-                <h4 class="mb-3">Turn On <br>Subtitle </h4>
+                <h4 class="card-head-text mb-3">Turn On <br>Subtitle </h4>
                 <p class="mb-0 fw-medium">자막을 <br>켜보세요.</p>
               </div>
             </div>
@@ -115,7 +117,7 @@
           <div class="col-lg-3 col-sm-6 mb-6">
             <div class="card service-card shadow-hover rounded-3 text-center align-items-center">
               <div class="card-body p-xxl-5 p-4"> <img src="assets/img/category/icon3.png" width="75" alt="Service" />
-                <h4 class="mb-3">Turn On <br>SL</h4>
+                <h4 class="card-head-text mb-3">Turn On <br>SignLanguage</h4>
                 <p class="mb-0 fw-medium">수어를 <br>켜보세요.</p>
               </div>
             </div>
@@ -123,7 +125,7 @@
           <div class="col-lg-3 col-sm-6 mb-6">
             <div class="card service-card shadow-hover rounded-3 text-center align-items-center">
               <div class="card-body p-xxl-5 p-4"> <img src="assets/img/category/icon4.png" width="75" alt="Service" />
-                <h4 class="mb-3">Enjoy <br>Study</h4>
+                <h4 class="card-head-text mb-3">Enjoy <br>Study</h4>
                 <p class="mb-0 fw-medium">신나게 <br>공부하세요.</p>
               </div>
             </div>
@@ -142,8 +144,8 @@
       <div class="container">
         <div class="row justify-content-center">
           <div class="col-md-8 col-lg-5 text-center mb-3">
-            <h5 class="text-danger">Demonstration</h5>
-            <h2>How to use BF</h2>
+            <h5 class="text-danger head-text">Demonstration</h5>
+            <h1 class="content-text">How to use BF</h1>
           </div>
         </div>
         <div class="row">
@@ -153,7 +155,7 @@
               <div class="card-img-overlay bg-dark-gradient d-flex flex-column flex-center"><img
                   src="assets/img/icons/play.png" width="80" alt="play" />
                 <h5 class="text-primary">BF</h5>
-                <p class="text-center">당신의 수업권을 보장하는 방법, BF<br
+                <p class="text-center">당신의 학습권을 보장하는 방법, BF<br
                     class="d-none d-sm-block" />어떻게 사용하면 좋을까요?<br
                     class="d-none d-sm-block" /></p><a class="stretched-link" href="#"
                   data-bs-toggle="modal" data-bs-target="#exampleModal"></a>
@@ -199,8 +201,8 @@
           <!--/.bg-holder-->
 
           <div class="col-md-8 col-lg-5 text-center">
-            <h5 class="text-danger">TESTIMONIAL</h5>
-            <h2>Our Awesome Clients</h2>
+            <h5 class="text-danger head-text">TESTIMONIAL</h5>
+            <h2 class="content-text">Our Awesome Clients</h2>
           </div>
         </div>
         <div class="carousel slide pt-6" id="carouselExampleDark" data-bs-ride="carousel">
@@ -211,9 +213,9 @@
                   <div class="card h-100 card-span p-3">
                     <div class="card-body">
                       <h5 class="mb-0 text-primary">Fantastic service!</h5>
-                      <p class="card-text pt-3">I purchased a phone from an e-commerce site, and this courier service
-                        provider assisted me in getting it delivered to my home. I received my phone within one day, and
-                        I was really satisfied with their service when I received it. </p>
+                      <p class="card-text pt-3">정말 놀라운 서비스에요. 제가 평소에 비대면 강의를 들으면서 불편 했던 점들이 말끔하게 해결 되는 느낌이에요. 정말 감사드립니다. 박스 CSS를 건들지 않으려면
+                        어느정도 양을 맞춰서 적어 놓는게 필요해요. 제일 긴 박스 크기를 따라서 다 맞춰집니다. 
+                      </p>
                       <div class="d-xl-flex justify-content-between align-items-center">
                         <div class="d-flex align-items-center mb-3"><i class="fas fa-star text-primary me-1"></i><i
                             class="fas fa-star text-primary me-1"></i><i class="fas fa-star text-primary me-1"></i><i
@@ -402,10 +404,10 @@
                 <div class="col-md-4 mb-3 mb-md-0">
                   <div class="card h-100 card-span p-3">
                     <div class="card-body">
-                      <h5 class="mb-0 text-primary">Fantastic service!</h5>
-                      <p class="card-text pt-3">I purchased a phone from an e-commerce site, and this courier service
-                        provider assisted me in getting it delivered to my home. I received my phone within one day, and
-                        I was really satisfied with their service when I received it. .</p>
+                      <h5 class="mb-0 text-primary">멋져요!</h5>
+                      <p class="card-text pt-3">정말 놀라운 서비스에요. 제가 평소에 비대면 강의를 들으면서 불편 했던 점들이 말끔하게 해결 되는 느낌이에요. 정말 감사드립니다. 박스 CSS를 건들지 않으려면
+                        어느정도 양을 맞춰서 적어 놓는게 필요해요.
+                      </p>
                       <div class="d-xl-flex justify-content-between align-items-center">
                         <div class="d-flex align-items-center mb-3"><i class="fas fa-star text-primary me-1"></i><i
                             class="fas fa-star text-primary me-1"></i><i class="fas fa-star text-primary me-1"></i><i
@@ -520,10 +522,15 @@
 
       <div class="container">
         <div class="row justify-content-md-between justify-content-evenly py-4">
-          <div class="col-12 col-sm-8 col-md-6 col-lg-auto text-center text-md-start">
+          <div class="col-12 col-sm-8 col-md-2 col-lg-auto text-center text-md-start">
             <p class="fs--1 my-2 fw-bold text-200">All rights Reserved &copy; BF, 2022</p>
           </div>
-          <div class="col-12 col-sm-8 col-md-6">
+          <div class="col-12 col-sm-8 col-md-2 col-lg-auto text-md-none">
+            <!-- <p class="fs--1 my-2 fw-bold text-200"><a href="https://storyset.com/together%22%3ETogether" >illustrations by Storyset</a></p> -->
+            <p class="fs--1 my-2 fw-bold text-200"><a href="https://storyset.com/" >illustrations by Storyset</a></p>
+          </div>
+          <div class="col-12 col-sm-8 col-md-2">
+            <!-- 간격은 md 수정 -->
             <p class="fs--1 my-2 text-center text-md-end text-200"> Made with&nbsp;
               <svg class="bi bi-suit-heart-fill" xmlns="http://www.w3.org/2000/svg" width="12" height="12"
                 fill="#F95C19" viewBox="0 0 16 16">
@@ -542,6 +549,7 @@
     <!-- <section> close ============================-->
     <!-- ============================================-->
 
+  </div>
   </main>
   <!-- ===============================================-->
   <!--    End of Main Content-->
@@ -594,8 +602,15 @@ export default {
   },
 }
 </script>
-<style scoped src='../../../public/assets/css/theme.css'>
- /* @import '../../../public/assets/css/theme.css' */
+
+<style scoped src="../../../public/assets/css/theme.css">
+/* <style scoped>  */
+/* @import '../../../public/assets/css/theme.css'; */
+
+.partner {
+background-color: rgba(255,255,255,0);
+
+}
 
 
 </style>
