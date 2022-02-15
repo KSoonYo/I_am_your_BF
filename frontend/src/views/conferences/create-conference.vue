@@ -127,7 +127,7 @@ export default {
           password: '',
           isLogin: false,
           filename: '',
-          private: false
+          private: false,
       });
 
       // 강의실 생성
@@ -140,27 +140,48 @@ export default {
           console.log('비밀번호 인식')
         }
         // 사진 업로드
-        store.dispatch('uploadThumbnail', formData)
-          .then((thumbnail) => {
-            // 강의실 생성
-            store.dispatch('createConference', {
-              'title': state.value.title,
-              'description': state.value.content,
-              'userId': JSON.parse(localStorage.getItem('userInfo')).userId,
-              'thumbnail': thumbnail.data.thumbnail,
-              'password' : state.value.password
-            })
-            .then((data) => {
-              // 생성된 강의실로 이동
-              router.push({ name: 'session-test', params: { conferenceId : data.data.conference.id }})
-            })
-            .catch(() => {
-              $q.notify({
-                type: 'negative',
-                message: `회의실 생성 실패`
+        if (state.value.thumbnail) {
+          store.dispatch('uploadThumbnail', formData)
+            .then((thumbnail) => {
+              console.log(thumbnail)
+              // 강의실 생성
+              store.dispatch('createConference', {
+                'title': state.value.title,
+                'description': state.value.content,
+                'userId': JSON.parse(localStorage.getItem('userInfo')).userId,
+                'thumbnail': thumbnail.data.thumbnail,
+                'password' : state.value.password
               })
-            })
-          });
+              .then((res) => {
+                // 생성된 강의실로 이동
+                router.push({ name: 'session-test', params: { conferenceId : res.data.id }})
+              })
+              .catch(() => {
+                $q.notify({
+                  type: 'negative',
+                  message: `회의실 생성 실패`
+                })
+              })
+            });
+        } else {
+          store.dispatch('createConference', {
+                'title': state.value.title,
+                'description': state.value.content,
+                'userId': JSON.parse(localStorage.getItem('userInfo')).userId,
+                'thumbnail': '202201279661680879100young-people-giving-high-five-illustrations-set_23-2148373642.jpg',
+                'password' : state.value.password
+              })
+              .then((res) => {
+                // 생성된 강의실로 이동
+                router.push({ name: 'session-test', params: { conferenceId : res.data.id }})
+              })
+              .catch(() => {
+                $q.notify({
+                  type: 'negative',
+                  message: `회의실 생성 실패`
+                })
+              })
+        }
       };
     
 

@@ -1,4 +1,7 @@
 <template>
+	<div class="home-btn"><a class="navbar-brand" href="/"><img src="assets/img/gallery/logo_bf2.png"
+        height="45" alt="logo" /></a>
+  </div>
 	<div class='column items-center flex justify-center' style='min-height:100vh; background-image:url(../../../public/assets/img/illustrations/big-main.png);'>
 		<div class='container'>
 			<div class='row justify-center backimg'>

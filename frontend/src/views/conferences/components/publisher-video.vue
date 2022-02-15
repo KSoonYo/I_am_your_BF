@@ -1,6 +1,6 @@
 <template>
-    <div v-if="streamManager" class='video-wrapper col-4'>
-        <my-video :stream-manager="streamManager"/>
+    <div v-if="streamManager" class='video-wrapper col-4 flex justify-center items-center'>
+        <my-video :stream-manager="streamManager" class="shadow-3" style="border-radius: 10px;"/>
         <div class='name-box'><p class='user-name'>{{ clientData }}</p></div>
     </div>
 </template>

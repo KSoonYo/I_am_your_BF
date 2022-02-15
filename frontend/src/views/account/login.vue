@@ -1,4 +1,7 @@
 <template>
+  <div class="home-btn"><a class="navbar-brand" href="/"><img src="assets/img/gallery/logo_bf2.png"
+        height="45" alt="logo" /></a>
+  </div>
 	<div class='column items-center flex justify-center' style='min-height:100vh; background-color : '>
 		<div class='container'>
 			<div class='row justify-center'>
@@ -98,7 +101,7 @@ export default {
 						
             rules: {
                 userId: [
-                    val => val.length >= 3 && val.length <= 5 || '3자 이상 5자 이하로 입력해주세요.',
+                    val => val.trim().length >= 7 && val.trim().length <= 12 || '7자 이상 12자 이하로 입력해주세요.',
                     val => !idChecker.test(val) || '특수문자는 입력이 불가능합니다.'                    
                 ],
                 password: [
@@ -163,6 +166,12 @@ label {
     font-weight: 600;
     margin-bottom: 0.5rem;
 		display: inline-block;
+}
+
+.home-btn {
+  position: absolute;
+  margin-left: 14.5rem;
+  margin-top: 19px;
 }
 
 </style>

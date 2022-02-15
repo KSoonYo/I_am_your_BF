@@ -200,7 +200,7 @@ export default {
     // 회의실 생성 방법2
     const createConference = function () {
       if (state.value.isLogin) {
-        router.push({ name: 'createConference'})
+        router.push({ name: 'CreateConference'})
       } else {
         router.push({ name: 'conferenceList'})
       }

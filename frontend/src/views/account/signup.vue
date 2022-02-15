@@ -1,4 +1,7 @@
 <template>
+  <div class="home-btn"><a class="navbar-brand" href="/"><img src="assets/img/gallery/logo_bf2.png"
+        height="45" alt="logo" /></a>
+  </div>
     <div class='column items-center flex justify-center' style='min-height:100vh;'>
 		<div class='container'>
 			<div class='row justify-center backimg'>
@@ -30,7 +33,7 @@
 									<q-input outlined v-model="state.form.userId" label='아이디'
 									:rules='state.rules.userId'
 									ref='idInput' 
-									>
+									>`
 										<template v-slot:prepend>
 											<i class='fas fa-user-circle'></i>
 										</template>
@@ -144,7 +147,7 @@ export default {
                 ],
 
                 userId: [
-                    val => val.length >= 3 && val.length <= 5 || '3자 이상 5자 이하로 입력해주세요.',
+                    val => val.replace(' ','').length >= 7 && val.replace(' ','').length <= 12 || '7자 이상 12자 이하로 입력해주세요.',
                     val => !idChecker.test(val) || '특수문자는 입력이 불가능합니다.',
 
                 ],
@@ -153,7 +156,7 @@ export default {
                 ],
                 password : [
                     val => val.trim() !== '' || '비밀번호를 입력해주세요.' ,
-                    val => val.length >= 9 && val.length <= 16 || '비밀번호는 9자 이상 16자 이하입니다.',
+                    val => val.replace(' ','').length >= 9 && val.replace(' ','').length <= 16 || '비밀번호는 9자 이상 16자 이하입니다.',
                     val => passwordChecker.test(val) || '영어 대소문자, 숫자, 특수문자를 포함해야 합니다.'
                 ],
                 passwordChk : [
@@ -173,9 +176,9 @@ export default {
 
             if(!idInput.value.hasError){
                 // 유효성 통과
-                 store.dispatch('requestGetUser', state.value.form.userId)
+                 store.dispatch('requestGetUser', state.value.form.userId.replace(' ',''))
                     .then(()=>{
-                        checkedId.value = state.value.form.userId
+                        checkedId.value = state.value.form.userId.replace(' ','')
                         console.log('아이디 확인')
                         $q.notify({
                             type: 'positive',
@@ -210,10 +213,10 @@ export default {
 
 
             if(!emailInput.value.hasError){
-                store.dispatch('requestGetUser', state.value.form.userEmail)
+                store.dispatch('requestGetUser', state.value.form.userEmail.replace(' ',''))
                 .then(()=>{
                     console.log('이메일 확인')
-                    checkedEmail.value = state.value.form.userEmail
+                    checkedEmail.value = state.value.form.userEmail.replace(' ','')
                     $q.notify({
                         type: 'positive',
                         message: '가능한 이메일 입니다.'
@@ -236,13 +239,13 @@ export default {
             
             signUpForm.value.validate().then(success => {
                 if ( success ){
-                    if(state.value.form.userId !== checkedId.value){
+                    if(state.value.form.userId.replace(' ','') !== checkedId.value){
                         $q.notify({
                             type: 'info',
                             message: '아이디 중복 검사가 필요합니다.'
                         })
                         return 
-                    } else if(state.value.form.userEmail !== checkedEmail.value){
+                    } else if(state.value.form.userEmail.replace(' ','') !== checkedEmail.value){
                         $q.notify({
                             type: 'info',
                             message: '이메일 중복 검사가 필요합니다.'
@@ -251,9 +254,9 @@ export default {
                     }
 
                     store.dispatch('signUp', {
-                        userId : state.value.form.userId,
-                        userName : state.value.form.userName,
-                        userEmail : state.value.form.userEmail,
+                        userId : state.value.form.userId.replace(' ',''),
+                        userName : state.value.form.userName.replace(' ',''),
+                        userEmail : state.value.form.userEmail.replace(' ',''),
                         password : state.value.form.password,
                     })
                     .then(()=>{
@@ -300,5 +303,11 @@ label {
     font-weight: 600;
     margin-bottom: 0.5rem;
 		display: inline-block;
+}
+
+.home-btn {
+  position: absolute;
+  margin-left: 14.5rem;
+  margin-top: 19px;
 }
 </style>

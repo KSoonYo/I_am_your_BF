@@ -4,8 +4,8 @@
 		{"subscriber-wrapper-host" : host === true && role === "subscriber"}, 
 		{"subscriber-wrapper-guest" : host === false && role === "subscriber"}
 		]'>
-      <ov-video :role='role' :stream-manager="streamManager"/>
-      <div class='name-box'><p class='user-name'>{{ clientData }}</p></div>
+        <ov-video :role='role' :stream-manager="streamManager" class="shadow-3" style="border-radius: 10px;"/>
+        <div class='name-box'><p class='user-name'>{{ clientData }}</p></div>
     </div>
 </template>
 
@@ -56,6 +56,7 @@ export default {
 	height: 30%;
   flex-direction: column;
   align-items: center;
+	border-radius: 20px;
 }
 
 .subscriber-wrapper-guest{
@@ -65,6 +66,7 @@ export default {
 	height: 45%;
   flex-direction: column;
   align-items: center;
+	border-radius: 20px;
 }
 
 .name-box{
