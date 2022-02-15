@@ -2,7 +2,7 @@ import { createStore } from 'vuex'
 import axios from 'axios'
 
 const instance = axios.create({
-  baseURL: process.env.VUE_APP_API_URL
+  baseURL: process.env.VUE_APP_BASE_URL
 })
 
 // axios.defaults.baseURL = 'https://localhost:8080/api'
@@ -20,7 +20,7 @@ export default createStore({
     // 회의실 상세조회
     getConferenceDetail({state}, id) {
       state
-      const url = '/api/conferences/' + id
+      const url = 'api/conferences/' + id
       return instance.get(url)
     },
 
@@ -50,7 +50,7 @@ export default createStore({
     createConference({state}, data) {
       state
       const url = 'api/conferences'
-      return instance.post(url, data,{  headers: {'Content-Type': 'application/json'} })
+      return instance.post(url, data, { headers: {'Content-Type': 'application/json'} })
     },
 
     // 로그인 JWT 토큰 
@@ -84,7 +84,7 @@ export default createStore({
     updateProfile({state}, data){
       state
       const userId = data.userId
-      const url = `/api/users${userId}`
+      const url = `api/users${userId}`
       const userdata = {
         userName : data.userName,
         userEmail : data.userEmail,
@@ -109,21 +109,21 @@ export default createStore({
     findId({state}, data){
       console.log(data)
       state
-      const url = '/api/users/find/userId'
+      const url = 'api/users/find/userId'
       return instance.post(url, data)
     },
 
     // 비밀번호 찾기
     findPassword({state}, data){
       state
-      const url = '/api/users/find/password'
+      const url = 'api/users/find/password'
       return instance.post(url, data)
     },
     
     // 비밀번호 변경
     changePassword({state}, data){
       state
-      const url = '/api/users/password'
+      const url = 'api/users/password'
       return instance.post(url, data)
     }
       

@@ -1,24 +1,24 @@
 <template>
-  <div class='button-wrapper' style="width: fit-content;">
-		<button @click='$emit("leaveSessionClick")'> Leave Session </button>
+  <div class='flex q-px-xl'>
+		<q-btn flat rounded @click='() => { $emit("clickOpenScreen")}' ><i class="fas fa-desktop fa-2x"></i></q-btn>
+	</div>	
+	<div class='flex'>
+		<q-btn flat rounded v-show='!onSpeech' @click='toggleOnSpeech'> <i class="fas fa-microphone fa-2x"></i></q-btn>
+		<q-btn flat rounded v-show='onSpeech' @click='toggleOnSpeech'> <i class="fas fa-microphone-slash fa-2x"></i></q-btn>
 
-    <button v-show='!onSpeech' @click='toggleOnSpeech'> 말하기 </button>
-		<button v-show='onSpeech' @click='toggleOnSpeech'> 말하기 중지 </button>
+		<q-btn flat rounded v-show='!onMute' @click='toggleOnMute' > <i class="fas fa-volume-up fa-2x"></i></q-btn>
+		<q-btn flat rounded v-show='onMute'  @click='toggleOnMute' > <i class="fas fa-volume-mute fa-2x"></i></q-btn>
 
-		<button v-show='!onMute' @click='toggleOnMute' > 음소거 on </button>
-		<button v-show='onMute'  @click='toggleOnMute' > 음소거 off </button>
-
-		<button v-show='!captionEnabled'  @click='() => { captionEnabled = !captionEnabled, $emit("toggleCaption") }'> 자막 on </button>
-		<button v-show='captionEnabled'  @click='() => { captionEnabled = !captionEnabled, $emit("toggleCaption") }'>  자막 off </button>
-  
-		<button v-show='!signVideoEnabled'  @click='() => { signVideoEnabled = !signVideoEnabled, $emit("toggleSignVideo") }'> 수화 on </button>
-		<button v-show='signVideoEnabled'  @click='() => { signVideoEnabled = !signVideoEnabled, $emit("toggleSignVideo") }'>  수화 off </button>
+		<q-btn flat rounded v-show='!captionEnabled'  @click='() => { captionEnabled = !captionEnabled, $emit("toggleCaption") }'> <i class="fas fa-closed-captioning fa-2x"></i></q-btn>
+		<q-btn flat rounded v-show='captionEnabled'  @click='() => { captionEnabled = !captionEnabled, $emit("toggleCaption") }'>  <i class="far fa-closed-captioning fa-2x"></i></q-btn>
 	
-		<button @click='() => { $emit("toggleShowChat")}'> 채팅 </button>
-
-		<button @click='() => { $emit("toggleShowMemo")}' > 기록 </button>
-
-		<button @click='() => { $emit("clickOpenScreen")}' > 화면 공유 </button>
+		<q-btn flat rounded v-show='!signVideoEnabled'  @click='() => { signVideoEnabled = !signVideoEnabled, $emit("toggleSignVideo") }'><i class="fas fa-american-sign-language-interpreting fa-2x"></i></q-btn>
+		<q-btn flat rounded v-show='signVideoEnabled'  @click='() => { signVideoEnabled = !signVideoEnabled, $emit("toggleSignVideo") }'><i class="fas fa-american-sign-language-interpreting fa-2x"></i></q-btn>
+	</div>
+	<div class='flex q-px-xl'>
+		<q-btn flat rounded @click='() => { $emit("toggleShowChat")}'><i class="fas fa-comment fa-2x"></i></q-btn>
+		<q-btn flat rounded @click='() => { $emit("toggleShowMemo")}' ><i class="fas fa-clipboard fa-2x"></i></q-btn>
+		<q-btn flat rounded @click='$emit("leaveSessionClick")'><i class="fas fa-times-circle fa-2x"></i></q-btn>
 	</div>
 </template>
 
@@ -156,5 +156,6 @@ export default {
 </script>
 
 <style>
+
 
 </style>

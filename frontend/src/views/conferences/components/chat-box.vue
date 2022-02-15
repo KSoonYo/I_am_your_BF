@@ -3,13 +3,14 @@
   class='chatBox column'
   :class='{"show-chat" : showChat}'
   >
-    <div id='chatLog' class='col-11'>
+    <div id='chatLog' class='col-11 shadow-3'>
     </div>
     <div id='textBox' class='col'>
-    <input @keyup=' (e) => { e.keyCode === 13 ? sendMessage() : ""} ' type='text' v-model='message'>
-    <button @click='sendMessage'>
-      send
-    </button>
+      <q-input class="shadow-3" @keyup=' (e) => { e.keyCode === 13 ? sendMessage() : ""} ' type='text' v-model='message' style="border: 1px solid;">
+        <q-btn flat rounded color="primary" @click='sendMessage'>
+          <i class="fas fa-paper-plane fa-2x" style="color:black;"></i>
+        </q-btn>
+      </q-input>
     </div>
   </div>
 </template>
@@ -46,16 +47,16 @@ export default {
 
       // })
 
-
-      this.session.signal({
-        data: this.message,
-        to: [],
-
-        type: 'chat'
-      })
-      .then(() => {
-        this.message = ''
-      })
+      if (this.message.trim()) {
+        this.session.signal({
+          data: this.message,
+          to: [],
+          type: 'chat'
+        })
+        .then(() => {
+          this.message = ''
+        })
+      }
     }
   },
 
@@ -70,7 +71,6 @@ export default {
   right: -20%;
   z-index: 3;
   transition: all .35s;
-
 }
 
 .show-chat{
@@ -78,8 +78,9 @@ export default {
 }
 
 #chatLog{
-  background-color: rgb(243, 240, 240);
+  background-color: rgba(49, 49, 49, 0.7);
   overflow: auto;
+  border-radius:10px;
 }
 
 
