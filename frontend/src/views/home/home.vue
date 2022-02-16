@@ -221,7 +221,7 @@
                             class="fas fa-star text-primary me-1"></i><i class="fas fa-star text-primary me-1"></i><i
                             class="fas fa-star text-primary me-1"></i><i class="fas fa-star text-primary me-1"></i>
                         </div>
-                        <div class="d-flex align-items-center"><img class="img-fluid" src="assets/img/icons/avatar-1.png"
+                        <div class="d-flex align-items-center"><img style="min-height:55px; min-width:55px; max-height:55px; max-width:55px;" class="img-fluid" src="assets/img/icons/avatar-1.png"
                             alt="" />
                           <div class="flex-1 ms-3">
                             <h6 class="mb-0 fs--1 text-1000 fw-medium">Park Hyo Jin</h6>
@@ -242,7 +242,7 @@
                             class="fas fa-star text-primary me-1"></i><i class="fas fa-star text-primary me-1"></i><i
                             class="fas fa-star text-primary me-1"></i><i class="fas fa-star text-primary me-1"></i>
                         </div>
-                        <div class="d-flex align-items-center"><img class="img-fluid" src="assets/img/icons/avatar-2.png"
+                        <div class="d-flex align-items-center"><img style="min-height:55px; min-width:55px; max-height:55px; max-width:55px;" class="img-fluid" src="assets/img/icons/avatar-2.png"
                             alt="" />
                           <div class="flex-1 ms-3">
                             <h6 class="mb-0 fs--1 text-1000 fw-medium">Kim Young Jou</h6>
@@ -263,7 +263,7 @@
                             class="fas fa-star text-primary me-1"></i><i class="fas fa-star text-primary me-1"></i><i
                             class="fas fa-star text-primary me-1"></i><i class="fas fa-star text-primary me-1"></i>
                         </div>
-                        <div class="d-flex align-items-center"><img class="img-fluid" src="assets/img/icons/avatar-3.png"
+                        <div class="d-flex align-items-center"><img style="min-height:55px; min-width:55px; max-height:55px; max-width:55px;" class="img-fluid" src="assets/img/icons/avatar-3.png"
                             alt="" />
                           <div class="flex-1 ms-3">
                             <h6 class="mb-0 fs--1 text-1000 fw-medium">Lee Min Jung</h6>
@@ -290,7 +290,7 @@
                             class="fas fa-star text-primary me-1"></i><i class="fas fa-star text-primary me-1"></i><i
                             class="fas fa-star text-primary me-1"></i><i class="fas fa-star text-primary me-1"></i>
                         </div>
-                        <div class="d-flex align-items-center"><img class="img-fluid" src="assets/img/icons/avatar-4.png"
+                        <div class="d-flex align-items-center"><img style="min-height:55px; min-width:55px; max-height:55px; max-width:55px;" class="img-fluid" src="assets/img/icons/avatar-4.png"
                             alt="" />
                           <div class="flex-1 ms-3">
                             <h6 class="mb-0 fs--1 text-1000 fw-medium">Choi Hee</h6>
@@ -312,7 +312,7 @@
                             class="fas fa-star text-primary me-1"></i><i class="fas fa-star text-primary me-1"></i><i
                             class="fas fa-star text-primary me-1"></i><i class="fas fa-star text-primary me-1"></i>
                         </div>
-                        <div class="d-flex align-items-center"><img class="img-fluid" src="assets/img/icons/avatar-5.png"
+                        <div class="d-flex align-items-center"><img style="min-height:55px; min-width:55px; max-height:55px; max-width:55px;" class="img-fluid" src="assets/img/icons/avatar-5.png"
                             alt="" />
                           <div class="flex-1 ms-3">
                             <h6 class="mb-0 fs--1 text-1000 fw-medium">Lee Dae Hoon</h6>
@@ -333,7 +333,7 @@
                             class="fas fa-star text-primary me-1"></i><i class="fas fa-star text-primary me-1"></i><i
                             class="fas fa-star text-primary me-1"></i><i class="fas fa-star text-primary me-1"></i>
                         </div>
-                        <div class="d-flex align-items-center"><img class="img-fluid" src="assets/img/icons/avatar-6.png"
+                        <div class="d-flex align-items-center"><img style="min-height:55px; min-width:55px; max-height:55px; max-width:55px;" class="img-fluid" src="assets/img/icons/avatar-6.png"
                             alt="" />
                           <div class="flex-1 ms-3">
                             <h6 class="mb-0 fs--1 text-1000 fw-medium">Park Tae Hwan</h6>
@@ -358,7 +358,7 @@
                             class="fas fa-star text-primary me-1"></i><i class="fas fa-star text-primary me-1"></i><i
                             class="fas fa-star text-primary me-1"></i><i class="fas fa-star text-primary me-1"></i>
                         </div>
-                        <div class="d-flex align-items-center"><img class="img-fluid" src="assets/img/icons/avatar-7.png"
+                        <div class="d-flex align-items-center"><img style="min-height:55px; min-width:55px; max-height:55px; max-width:55px;" class="img-fluid" src="assets/img/icons/avatar-7.png"
                             alt="" />
                           <div class="flex-1 ms-3">
                             <h6 class="mb-0 fs--1 text-1000 fw-medium">Kim Ah Rang</h6>
@@ -380,7 +380,7 @@
                             class="fas fa-star text-primary me-1"></i><i class="fas fa-star text-primary me-1"></i><i
                             class="fas fa-star text-primary me-1"></i><i class="fas fa-star text-primary me-1"></i>
                         </div>
-                        <div class="d-flex align-items-center"><img class="img-fluid" src="assets/img/icons/avatar-8.png"
+                        <div class="d-flex align-items-center"><img style="min-height:55px; min-width:55px; max-height:55px; max-width:55px;" class="img-fluid" src="assets/img/icons/avatar-8.png"
                             alt="" />
                           <div class="flex-1 ms-3">
                             <h6 class="mb-0 fs--1 text-1000 fw-medium">Woo Won Jae</h6>
@@ -403,7 +403,7 @@
                             class="fas fa-star text-primary me-1"></i><i class="fas fa-star text-primary me-1"></i><i
                             class="fas fa-star text-primary me-1"></i><i class="fas fa-star text-primary me-1"></i>
                         </div>
-                        <div class="d-flex align-items-center"><img class="img-fluid" src="assets/img/icons/avatar-9.png"
+                        <div class="d-flex align-items-center"><img style="min-height:55px; min-width:55px; max-height:55px; max-width:55px;" class="img-fluid" src="assets/img/icons/avatar-9.png"
                             alt="" />
                           <div class="flex-1 ms-3">
                             <h6 class="mb-0 fs--1 text-1000 fw-medium">Yves Tanguy</h6>
