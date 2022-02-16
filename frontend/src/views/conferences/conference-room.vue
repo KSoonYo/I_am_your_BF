@@ -502,61 +502,61 @@ export default {
 		
   },
 
-	mounted(){
-		this.$nextTick(function () {
-			// 전체 화면내용이 렌더링된 후에 아래의 코드 실행
-				const container = document.querySelector('.main-video')
-				const signVideoBox = document.querySelector('.sign-video-container')
-				this.containerWidth = container.getBoundingClientRect().width
-				this.containerHeight = container.getBoundingClientRect().height
+	// mounted(){
+	// 	this.$nextTick(function () {
+	// 		// 전체 화면내용이 렌더링된 후에 아래의 코드 실행
+	// 			const container = document.querySelector('.main-video')
+	// 			const signVideoBox = document.querySelector('.sign-video-container')
+	// 			this.containerWidth = container.getBoundingClientRect().width
+	// 			this.containerHeight = container.getBoundingClientRect().height
 
-				this.signVideoBoxWidth = signVideoBox.getBoundingClientRect().width 
-				this.signVideoBoxHeight = signVideoBox.getBoundingClientRect().height
+	// 			this.signVideoBoxWidth = signVideoBox.getBoundingClientRect().width 
+	// 			this.signVideoBoxHeight = signVideoBox.getBoundingClientRect().height
 
-				window.addEventListener('resize', ()=>{
-				const container = document.querySelector('.main-video')
-				const signVideoBox = document.querySelector('.sign-video-container')
+	// 			window.addEventListener('resize', ()=>{
+	// 			const container = document.querySelector('.main-video')
+	// 			const signVideoBox = document.querySelector('.sign-video-container')
 
-				this.containerWidth = container.getBoundingClientRect().width
-				this.containerHeight = container.getBoundingClientRect().height
+	// 			this.containerWidth = container.getBoundingClientRect().width
+	// 			this.containerHeight = container.getBoundingClientRect().height
 
-				this.signVideoBoxWidth = signVideoBox.getBoundingClientRect().width 
-				this.signVideoBoxHeight = signVideoBox.getBoundingClientRect().height
+	// 			this.signVideoBoxWidth = signVideoBox.getBoundingClientRect().width 
+	// 			this.signVideoBoxHeight = signVideoBox.getBoundingClientRect().height
 				
-				})
+	// 			})
 
-				signVideoBox.addEventListener('mousedown', (e)=>{
-					const signVideoBox = document.querySelector('.sign-video-container')
+	// 			signVideoBox.addEventListener('mousedown', (e)=>{
+	// 				const signVideoBox = document.querySelector('.sign-video-container')
 
-					this.isDragging = true
-					this.originX = e.clientX
-					this.originY = e.clientY
-					this.originLeft = signVideoBox.offsetLeft
-					this.originTop = signVideoBox.offsetTop
-				})
+	// 				this.isDragging = true
+	// 				this.originX = e.clientX
+	// 				this.originY = e.clientY
+	// 				this.originLeft = signVideoBox.offsetLeft
+	// 				this.originTop = signVideoBox.offsetTop
+	// 			})
 
-				document.addEventListener('mousemove', (e)=>{
-					if(this.isDragging){
-						const signVideoBox = document.querySelector('.sign-video-container')
+	// 			document.addEventListener('mousemove', (e)=>{
+	// 				if(this.isDragging){
+	// 					const signVideoBox = document.querySelector('.sign-video-container')
 
-						const diffX = e.clientX - this.originX
-						const diffY = e.clientY - this.originY
+	// 					const diffX = e.clientX - this.originX
+	// 					const diffY = e.clientY - this.originY
 
-						const endOfXPoint = this.containerWidth - this.signVideoBoxWidth
-						const endOfYPoint = this.containerHeight - this.signVideoBoxHeight
+	// 					const endOfXPoint = this.containerWidth - this.signVideoBoxWidth
+	// 					const endOfYPoint = this.containerHeight - this.signVideoBoxHeight
 
-						signVideoBox.style.left = `${Math.min(Math.max(0, this.originLeft + diffX), endOfXPoint)}px`
-						signVideoBox.style.top = `${Math.min(Math.max(0, this.originTop + diffY), endOfYPoint)}px`
-					}
-				})
+	// 					signVideoBox.style.left = `${Math.min(Math.max(0, this.originLeft + diffX), endOfXPoint)}px`
+	// 					signVideoBox.style.top = `${Math.min(Math.max(0, this.originTop + diffY), endOfYPoint)}px`
+	// 				}
+	// 			})
 
-				document.addEventListener('mouseup', ()=>{
-					this.isDragging = false
-				})
+	// 			document.addEventListener('mouseup', ()=>{
+	// 				this.isDragging = false
+	// 			})
 			
-			})
+	// 		})
 
-	}
+	// }
 }
 </script>
 
