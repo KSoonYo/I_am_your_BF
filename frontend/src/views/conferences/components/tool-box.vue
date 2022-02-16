@@ -1,24 +1,26 @@
 <template>
-  <div class='flex q-px-xl'>
-		<q-btn v-show='host' flat rounded @click='() => { $emit("clickOpenScreen")}' ><i class="fas fa-desktop fa-2x"></i></q-btn>
-	</div>	
-	<div class='flex'>
-		<q-btn flat rounded v-show='!onSpeech' @click='toggleOnSpeech'> <i class="fas fa-microphone fa-2x"></i></q-btn>
-		<q-btn flat rounded v-show='onSpeech' @click='toggleOnSpeech'> <i class="fas fa-microphone-slash fa-2x"></i></q-btn>
+	<div id="session-header" class='row flex justify-between'>
+		<div class='flex q-px-xl'>
+			<q-btn v-show='host' flat rounded @click='() => { $emit("clickOpenScreen")}' ><i class="fas fa-desktop fa-2x"></i></q-btn>
+		</div>	
+		<div class='flex'>
+			<q-btn flat rounded v-show='!onSpeech' @click='toggleOnSpeech'> <i class="fas fa-microphone fa-2x"></i></q-btn>
+			<q-btn flat rounded v-show='onSpeech' @click='toggleOnSpeech'> <i class="fas fa-microphone-slash fa-2x"></i></q-btn>
 
-		<q-btn flat rounded v-show='!onMute' @click='toggleOnMute' > <i class="fas fa-volume-up fa-2x"></i></q-btn>
-		<q-btn flat rounded v-show='onMute'  @click='toggleOnMute' > <i class="fas fa-volume-mute fa-2x"></i></q-btn>
+			<q-btn flat rounded v-show='!onMute' @click='toggleOnMute' > <i class="fas fa-volume-up fa-2x"></i></q-btn>
+			<q-btn flat rounded v-show='onMute'  @click='toggleOnMute' > <i class="fas fa-volume-mute fa-2x"></i></q-btn>
 
-		<q-btn flat rounded v-show='!captionEnabled'  @click='() => { captionEnabled = !captionEnabled, $emit("toggleCaption") }'> <i class="fas fa-closed-captioning fa-2x"></i></q-btn>
-		<q-btn flat rounded v-show='captionEnabled'  @click='() => { captionEnabled = !captionEnabled, $emit("toggleCaption") }'>  <i class="far fa-closed-captioning fa-2x"></i></q-btn>
-	
-		<q-btn flat rounded v-show='!signVideoEnabled'  @click='() => { signVideoEnabled = !signVideoEnabled, $emit("toggleSignVideo") }'><i class="fas fa-american-sign-language-interpreting fa-2x"></i></q-btn>
-		<q-btn flat rounded v-show='signVideoEnabled'  @click='() => { signVideoEnabled = !signVideoEnabled, $emit("toggleSignVideo") }'><i class="fas fa-american-sign-language-interpreting fa-2x"></i></q-btn>
-	</div>
-	<div class='flex q-px-xl'>
-		<q-btn flat rounded @click='() => { $emit("toggleShowChat")}'><i class="fas fa-comment fa-2x"></i></q-btn>
-		<q-btn flat rounded @click='() => { $emit("toggleShowMemo")}' ><i class="fas fa-clipboard fa-2x"></i></q-btn>
-		<q-btn flat rounded @click='$emit("leaveSessionClick")'><i class="fas fa-times-circle fa-2x"></i></q-btn>
+			<q-btn flat rounded v-show='!captionEnabled'  @click='() => { captionEnabled = !captionEnabled, $emit("toggleCaption") }'> <i class="fas fa-closed-captioning fa-2x"></i></q-btn>
+			<q-btn flat rounded v-show='captionEnabled'  @click='() => { captionEnabled = !captionEnabled, $emit("toggleCaption") }'>  <i class="far fa-closed-captioning fa-2x"></i></q-btn>
+		
+			<q-btn flat rounded v-show='!signVideoEnabled'  @click='() => { signVideoEnabled = !signVideoEnabled, $emit("toggleSignVideo") }'><i class="fas fa-american-sign-language-interpreting fa-2x"></i></q-btn>
+			<q-btn flat rounded v-show='signVideoEnabled'  @click='() => { signVideoEnabled = !signVideoEnabled, $emit("toggleSignVideo") }'><i class="fas fa-american-sign-language-interpreting fa-2x"></i></q-btn>
+		</div>
+		<div class='flex q-px-xl'>
+			<q-btn flat rounded @click='() => { $emit("toggleShowChat")}'><i class="fas fa-comment fa-2x"></i></q-btn>
+			<q-btn flat rounded @click='() => { $emit("toggleShowMemo")}' ><i class="fas fa-clipboard fa-2x"></i></q-btn>
+			<q-btn flat rounded @click='$emit("leaveSessionClick")'><i class="fas fa-times-circle fa-2x"></i></q-btn>
+		</div>
 	</div>
 </template>
 
@@ -39,6 +41,7 @@ export default {
   props: {
 		session: Object,
 		publisher: Object,
+		hostPublisher: Object,
 		subscribers: Array,
 		host: Boolean
 	},
@@ -136,6 +139,11 @@ export default {
 				this.subscribers.forEach((subscriber) => {
 					subscriber.subscribeToAudio(!this.onMute)
 				})
+
+				// 내가 호스트가 아니라면 hostPublisher를 음소거
+				if(!this.host){
+					this.hostPublisher.subscribeToAudio(!this.onMute)
+				}
 				
 			}
 		
@@ -160,5 +168,10 @@ export default {
 
 <style>
 
+
+#session-header{
+	margin-top: 30px;
+	margin-bottom: 30px;
+}
 
 </style>
