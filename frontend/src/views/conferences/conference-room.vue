@@ -8,6 +8,7 @@
 					:publisher='myPublisher'
 					:subscribers='subscribers'
 					:host='host'
+					:hostPublisher='hostPublisher'
 					@leaveSessionClick='leaveSession'
 					@toggleCaption='() => { captionEnabled = !captionEnabled }'
 					@toggleSignVideo='() => { videoEnabled = !videoEnabled }'
@@ -114,7 +115,7 @@ export default {
 			videoList : [],
 			videoIndex : 0,
 			videoDefaultUrl : VIDEO_DEFAULT_URL,
-
+			eduLog : [],
 			showMemo : false,
 			showChat : false,
 
@@ -124,6 +125,7 @@ export default {
 
 			hostPublisher : undefined,
 			mySessionId: null,
+			mySessionTitle: null,
 			myUserName: '',
 		
 
@@ -177,7 +179,6 @@ export default {
 				const subscriber = this.session.subscribe(stream, undefined)
 				const { connection } = subscriber.stream
 				const { clientData } = JSON.parse(connection.data)
-				console.log('clientData[0]: ', clientData[0], 'hostId: ', this.hostId)
 				
 				
 				if( stream.typeOfVideo === 'CAMERA' &&  clientData[0] === this.hostId ){
@@ -499,7 +500,8 @@ export default {
 			console.log(response.data.userId)
 			this.hostId = response.data.userId
 			this.hostName = response.data.userName
-
+			this.mySessionTitle = response.data.title
+			
 			this.mySessionId = this.$route.params.conferenceId
 
 			this.myUserId = JSON.parse(localStorage.getItem('userInfo')).userId
