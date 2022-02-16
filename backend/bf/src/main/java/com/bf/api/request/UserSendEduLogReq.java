@@ -12,7 +12,11 @@ import lombok.Setter;
 @Setter
 @ApiModel("UserSendEduLogReq")
 public class UserSendEduLogReq {
-	@ApiModelProperty(name="수업 기록", example="안녕하세요")
+	@ApiModelProperty(name="Host EduClass Name", example="우주의 끝을 찾아서")
+	String title;
+	@ApiModelProperty(name="Host Name", example="김우주")
+	String sender;
+	@ApiModelProperty(name="Edu Log", example="안녕하세요 오늘 수업내용은 BF입니다")
 	String text;
 	
 }
