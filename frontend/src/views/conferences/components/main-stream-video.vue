@@ -1,7 +1,7 @@
 <template>
     <div v-if="streamManager && show"
 		class='main-stream-wrapper'>
-      <main-screen-video :stream-manager="streamManager"/>
+      <main-screen-video :stream-manager="streamManager" style="border-radius: 20px;"/>
       <div class='name-box'><p class='user-name'>{{ clientData }}</p></div>
     </div>
 </template>

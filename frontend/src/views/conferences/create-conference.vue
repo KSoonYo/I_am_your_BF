@@ -80,7 +80,7 @@
                     </q-file>
                   </q-form>
                   <!-- 강의실 생성 버튼 -->
-                  <q-btn @click='createConferenceRoom' :loading='state.loading' label='강의실 생성' type='submit' style='background-color:#F17228; color:#fff; margin-top: 20px; border-radius:10px' />
+                  <q-btn @click='createConferenceRoom' label='강의실 생성' type='submit' style='background-color:#F17228; color:#fff; margin-top: 20px; border-radius:10px' />
                 
 								</q-form>
 							</div>

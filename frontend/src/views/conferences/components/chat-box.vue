@@ -3,15 +3,16 @@
   class='chatBox column'
   :class='{"show-chat" : showChat}'
   >
-    <div id='chatLog' class='col-11 shadow-3'>
+    <div id='chatLog' class='col-12 shadow-3' style="margin-right: 10%;">
+      <div id='textBox' style='position:absolute; bottom:0; width:100%'>
+        <q-input class="shadow-3" @keyup=' (e) => { e.keyCode === 13 ? sendMessage() : ""} ' type='text' v-model='message' style="border-top: 1px solid; color:white">
+          <q-btn flat rounded @click='sendMessage'>
+            <i class="fas fa-paper-plane fa-2x" style="color:white;"></i>
+          </q-btn>
+        </q-input>
+      </div>
     </div>
-    <div id='textBox' class='col'>
-      <q-input class="shadow-3" @keyup=' (e) => { e.keyCode === 13 ? sendMessage() : ""} ' type='text' v-model='message' style="border: 1px solid;">
-        <q-btn flat rounded color="primary" @click='sendMessage'>
-          <i class="fas fa-paper-plane fa-2x" style="color:black;"></i>
-        </q-btn>
-      </q-input>
-    </div>
+    
   </div>
 </template>
 
@@ -78,9 +79,11 @@ export default {
 }
 
 #chatLog{
-  background-color: rgba(49, 49, 49, 0.7);
+  position: relative;
+  background-color: rgba(49, 49, 49, 0.8);
   overflow: auto;
-  border-radius:10px;
+  border-radius:20px;
+  
 }
 
 
