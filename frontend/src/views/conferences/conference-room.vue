@@ -277,20 +277,26 @@ export default {
 					const video1 = document.createElement('video')
 					video1.defaultPlaybackRate = 2
 					video1.muted = true
-					video1.width = '200px'
-					video1.height = '150px'
+					video1.setAttribute('width', '100%')
+					video1.setAttribute('height', '100%')
+					video1.style.objectFit = 'cover'
+					// video1.width = '200px'
+					// video1.height = '150px'
 	
 					const video2 = document.createElement('video')
 					video2.defaultPlaybackRate = 2
 					video2.muted = true
-					video2.width = '200px'
-					video2.height = '150px'
+					// video2.width = '200px'
+					// video2.height = '150px'
+					video2.setAttribute('width', '100%')
+					video2.setAttribute('height', '100%')
+					video2.style.objectFit = 'cover'
 
 					this.videoList = event.data.split(',')
 
 					video1.setAttribute('src', this.videoDefaultUrl + this.videoList[0])
 					signVideoContainer.appendChild(video1)
-					video1.id = 'videoPlayer'
+					video1.className = 'video-player'
 				
 
 					video1.addEventListener('play', () => { 
@@ -325,8 +331,8 @@ export default {
 						}
 						
 						const parentNode = video1.parentNode
-						video1.id = ''
-						video2.id = 'videoPlayer'
+						video1.className = ''
+						video2.className = 'video-player'
 						parentNode.replaceChild(video2, video1)
 						video2.play()
 					})
@@ -338,8 +344,8 @@ export default {
 						}
 						
 						const parentNode = video2.parentNode
-						video2.id = ''
-						video1.id = 'videoPlayer'
+						video2.className = ''
+						video1.className = 'video-player'
 						parentNode.replaceChild(video1, video2)
 						video1.play()
 					})
@@ -559,7 +565,7 @@ export default {
 { .displaywidth { display: none; } }
 
 
-#videoPlayer{
+.video-player{
 	object-fit: cover;
 	width: 100%;
 	height: 100%;
