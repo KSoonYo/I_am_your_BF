@@ -66,18 +66,26 @@ public class ConferenceServiceImpl implements ConferenceService{
 
 
 	@Override
-	public List<ConferenceRes> getAllConference() throws NoSuchElementException {
+	public List<ConferenceRes> getAllConference() {
 		// TODO Auto-generated method stub
 		List<ConferenceRes> conferencereses=new ArrayList<ConferenceRes>();
 		List<Conference> result=conferenceRepository.findByIsActive(true).get();
 
 		for (int i = 0; i < result.size(); i++) {
-			Optional<User> user=userRepository.findUserByUserId(result.get(i).getUserId());
+			Optional<User> user;
+		
+			user=userRepository.findUserByUserId(result.get(i).getUserId());
+			
 			
 			ConferenceRes conferenceres=new ConferenceRes();
 			conferenceres.setId(result.get(i).getId());
 			conferenceres.setTitle(result.get(i).getTitle());
-			conferenceres.setUserName(user.get().getUserName());//애를 이 userid로 검색해서 name을 가져오게 해야됨
+			try {
+				conferenceres.setUserName(user.get().getUserName());//애를 이 userid로 검색해서 name을 가져오게 해야됨
+			} catch (Exception e) {
+				continue;
+			}
+			
 			conferenceres.setDescription(result.get(i).getDescription());
 			conferenceres.setThumbnail(result.get(i).getThumbnail());
 					
@@ -88,17 +96,23 @@ public class ConferenceServiceImpl implements ConferenceService{
 	}
 	
 	@Override
-	public List<ConferenceRes> getAllEndConference() throws NoSuchElementException {
+	public List<ConferenceRes> getAllEndConference()  {
 		// TODO Auto-generated method stub
 		List<ConferenceRes> conferencereses=new ArrayList<ConferenceRes>();
 		List<Conference> result=conferenceRepository.findByIsActive(false).get();
 
 		for (int i = 0; i < result.size(); i++) {
-			Optional<User> user=userRepository.findUserByUserId(result.get(i).getUserId());
+			Optional<User> user;
+			user=userRepository.findUserByUserId(result.get(i).getUserId());
+		
 			ConferenceRes conferenceres=new ConferenceRes();
 			conferenceres.setId(result.get(i).getId());
 			conferenceres.setTitle(result.get(i).getTitle());
-			conferenceres.setUserName(user.get().getUserName());
+			try {
+				conferenceres.setUserName(user.get().getUserName());//애를 이 userid로 검색해서 name을 가져오게 해야됨
+			} catch (Exception e) {
+				continue;
+			}
 			conferenceres.setDescription(result.get(i).getDescription());
 			conferenceres.setThumbnail(result.get(i).getThumbnail());
 
@@ -122,7 +136,11 @@ public class ConferenceServiceImpl implements ConferenceService{
 		conferenceDetail.setPassword(conference.getPassword());
 		conferenceDetail.setStartTime(conference.getStartTime());
 		conferenceDetail.setEndTime(conference.getEndTime());
-		conferenceDetail.setUserName(userRepository.findUserByUserId(conference.getUserId()).get().getUserName());
+		try {
+			conferenceDetail.setUserName(userRepository.findUserByUserId(conference.getUserId()).get().getUserName());
+		} catch (Exception e) {
+			conferenceDetail.setUserName("undefined_user");
+		}
 		
 		return conferenceDetail;
 	}
