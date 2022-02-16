@@ -32,7 +32,7 @@
 				/>
 
 					<!-- 메인 화면  -->
-				<div id='main-video' class='col-9'>
+				<div class='main-video col-9'>
 
 					<!-- 자막 -->
 					<div v-show='captionEnabled' class='caption'>
@@ -130,6 +130,21 @@ export default {
 			mySessionId: null,
 			myUserName: '',
 		
+
+			// 드래그 이벤트용
+			isDragging : null,
+			originLeft : null,
+			originTop : null,
+			originX : null,
+			originY : null,
+
+			containerWidth: null,
+			containerHeight: null,
+
+			signVideoBoxWidth: null,
+			signVideoBoxHeight: null
+
+
 		}
 	},
 	methods: {
@@ -262,20 +277,26 @@ export default {
 					const video1 = document.createElement('video')
 					video1.defaultPlaybackRate = 2
 					video1.muted = true
-					video1.width = '200px'
-					video1.height = '150px'
+					video1.setAttribute('width', '100%')
+					video1.setAttribute('height', '100%')
+					video1.style.objectFit = 'cover'
+					// video1.width = '200px'
+					// video1.height = '150px'
 	
 					const video2 = document.createElement('video')
 					video2.defaultPlaybackRate = 2
 					video2.muted = true
-					video2.width = '200px'
-					video2.height = '150px'
+					// video2.width = '200px'
+					// video2.height = '150px'
+					video2.setAttribute('width', '100%')
+					video2.setAttribute('height', '100%')
+					video2.style.objectFit = 'cover'
 
 					this.videoList = event.data.split(',')
 
 					video1.setAttribute('src', this.videoDefaultUrl + this.videoList[0])
 					signVideoContainer.appendChild(video1)
-					video1.id = 'videoPlayer'
+					video1.className = 'video-player'
 				
 
 					video1.addEventListener('play', () => { 
@@ -310,8 +331,8 @@ export default {
 						}
 						
 						const parentNode = video1.parentNode
-						video1.id = ''
-						video2.id = 'videoPlayer'
+						video1.className = ''
+						video2.className = 'video-player'
 						parentNode.replaceChild(video2, video1)
 						video2.play()
 					})
@@ -323,8 +344,8 @@ export default {
 						}
 						
 						const parentNode = video2.parentNode
-						video2.id = ''
-						video1.id = 'videoPlayer'
+						video2.className = ''
+						video1.className = 'video-player'
 						parentNode.replaceChild(video1, video2)
 						video1.play()
 					})
@@ -444,29 +465,6 @@ export default {
 
 		},
 
-		// updateMainVideoStreamManager (stream) {
-		// 	if (this.mainStreamManager === stream) return;
-		// 	this.mainStreamManager = stream;
-		// },
-
-
-		// onVideoEnded(index){
-		// 	const videoPlayer = document.querySelector('#videoPlayer')
-			
-		// 	if(this.videoIndex < this.videoList.length - 1){
-		// 		this.videoIndex++
-		// 	} else{
-		// 		this.videoIndex = 0
-		// 		this.videoList = []
-		// 		return
-		// 	}
-		// 	videoPlayer.defaultPlaybackRate = 2
-
-		// 	videoPlayer.setAttribute('src', this.videoDefaultUrl + this.videoList[this.videoIndex])
-		// 	videoPlayer.load()
-		// 	videoPlayer.play()
-		// },
-
 
 		getToken (mySessionId) {
 			return new Promise((resolve, reject) => {
@@ -502,7 +500,63 @@ export default {
 			this.joinSession()
 		})
 		
-  }
+  },
+
+	// mounted(){
+	// 	this.$nextTick(function () {
+	// 		// 전체 화면내용이 렌더링된 후에 아래의 코드 실행
+	// 			const container = document.querySelector('.main-video')
+	// 			const signVideoBox = document.querySelector('.sign-video-container')
+	// 			this.containerWidth = container.getBoundingClientRect().width
+	// 			this.containerHeight = container.getBoundingClientRect().height
+
+	// 			this.signVideoBoxWidth = signVideoBox.getBoundingClientRect().width 
+	// 			this.signVideoBoxHeight = signVideoBox.getBoundingClientRect().height
+
+	// 			window.addEventListener('resize', ()=>{
+	// 			const container = document.querySelector('.main-video')
+	// 			const signVideoBox = document.querySelector('.sign-video-container')
+
+	// 			this.containerWidth = container.getBoundingClientRect().width
+	// 			this.containerHeight = container.getBoundingClientRect().height
+
+	// 			this.signVideoBoxWidth = signVideoBox.getBoundingClientRect().width 
+	// 			this.signVideoBoxHeight = signVideoBox.getBoundingClientRect().height
+				
+	// 			})
+
+	// 			signVideoBox.addEventListener('mousedown', (e)=>{
+	// 				const signVideoBox = document.querySelector('.sign-video-container')
+
+	// 				this.isDragging = true
+	// 				this.originX = e.clientX
+	// 				this.originY = e.clientY
+	// 				this.originLeft = signVideoBox.offsetLeft
+	// 				this.originTop = signVideoBox.offsetTop
+	// 			})
+
+	// 			document.addEventListener('mousemove', (e)=>{
+	// 				if(this.isDragging){
+	// 					const signVideoBox = document.querySelector('.sign-video-container')
+
+	// 					const diffX = e.clientX - this.originX
+	// 					const diffY = e.clientY - this.originY
+
+	// 					const endOfXPoint = this.containerWidth - this.signVideoBoxWidth
+	// 					const endOfYPoint = this.containerHeight - this.signVideoBoxHeight
+
+	// 					signVideoBox.style.left = `${Math.min(Math.max(0, this.originLeft + diffX), endOfXPoint)}px`
+	// 					signVideoBox.style.top = `${Math.min(Math.max(0, this.originTop + diffY), endOfYPoint)}px`
+	// 				}
+	// 			})
+
+	// 			document.addEventListener('mouseup', ()=>{
+	// 				this.isDragging = false
+	// 			})
+			
+	// 		})
+
+	// }
 }
 </script>
 
@@ -511,7 +565,7 @@ export default {
 { .displaywidth { display: none; } }
 
 
-#videoPlayer{
+.video-player{
 	object-fit: cover;
 	width: 100%;
 	height: 100%;
@@ -532,7 +586,7 @@ export default {
   height: 90vh;
 }
 
-#main-video{
+.main-video{
 	position: relative;
 	height: 100%;
 	/* background-color: rgba(255, 235, 205, 0.719); */
