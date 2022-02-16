@@ -9,13 +9,17 @@
 					:subscribers='subscribers'
 					:host='host'
 					:hostPublisher='hostPublisher'
-					@leaveSessionClick='leaveSession'
 					@toggleCaption='() => { captionEnabled = !captionEnabled }'
 					@toggleSignVideo='() => { videoEnabled = !videoEnabled }'
 					@toggleShowMemo='() => { showMemo = !showMemo }'
 					@toggleShowChat='() => { showChat = !showChat }'
 					@clickOpenScreen='openScreen'
 					/>
+					<div class="col-3 displaywidth flex justify-center" style="padding: 10px 2.75% 0px 6.3%;">
+						<div class='shadow-3 flex justify-center items-center' style="background-color:rgb(255,241,220); width:100%; border-radius:20px;">
+							<span class="font" style="font-size:1.5rem; font-weight:600; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; padding:0 10px 0 10px">호스트 : {{ hostName }}</span>
+						</div>
+					</div>
 				</div>			
 
 				<div style='height: 90%; position: relative; overflow: hidden;' class='row justify-evenly q-col-gutter-md'>
@@ -209,7 +213,8 @@ export default {
         const p = document.createElement('p')
         const nameSpan = document.createElement('span')
         nameSpan.style.display = 'block'
-				nameSpan.style.fontSize = '15px'
+				nameSpan.style.fontSize = '0.75rem'
+				nameSpan.style.color = 'rgba(183,193,203,0.7)'
 				messageBox.style.padding = '0.5rem 0.5rem 0.25rem 0.5rem'
 				messageBox.style.padding = '0.5rem 0.5rem 0.25rem 0.5rem'
 				messageBox.style.margin = '1rem 1rem 1rem 1rem'
@@ -222,7 +227,7 @@ export default {
         p.innerText = event.data
 				p.style.fontSize = '18px'
 				p.style.fontWeight = '600'
-				p.style.color = 'rgb(183,193,203)'
+				p.style.color = 'white'
         messageBox.appendChild(p)
         document.querySelector('#chatLog').appendChild(messageBox)
 
@@ -583,7 +588,6 @@ export default {
 @media screen and (max-width: 1600px) 
 { .displaywidth { display: none; } }
 
-
 .video-player{
 	object-fit: cover;
 	width: 100%;
@@ -671,4 +675,7 @@ export default {
 	width: 100%;
 }
 
+.font{
+	font-family: 'GangwonEdu_OTFBoldA';
+}
 </style>

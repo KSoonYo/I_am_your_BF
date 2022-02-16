@@ -143,7 +143,8 @@ export default {
 
             rules: {
                 userName: [
-                    val => val.trim() !== '' || '필수 입력입니다.'
+                    val => val.trim() !== '' || '필수 입력입니다.',
+                    val => val.replaceAll(' ','').length <= 12 || '12자 이하로 입력해주세요.',
                 ],
 
                 userId: [
