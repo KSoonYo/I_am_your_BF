@@ -46,7 +46,7 @@
 						</video> -->
 					</div>
 
-					<main-stream-video :show='!shareScreenEnabled' id='mainStream' :stream-manager="mainStreamManager"/>
+					<main-stream-video :show='!shareScreenEnabled' id='mainStream' :stream-manager="mainStreamManager" style="border-radius: 20px;"/>
 					<div v-show='shareScreenEnabled' class='share-screen'>
 						<!-- 화면 공유용 비디오 공간 -->
 

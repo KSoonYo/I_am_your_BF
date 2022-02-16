@@ -84,7 +84,7 @@ export default createStore({
     updateProfile({state}, data){
       state
       const userId = data.userId
-      const url = `api/users${userId}`
+      const url = `api/users/${userId}`
       const userdata = {
         userName : data.userName,
         userEmail : data.userEmail,
@@ -123,8 +123,14 @@ export default createStore({
     // 비밀번호 변경
     changePassword({state}, data){
       state
+      const token = localStorage.getItem('accessToken')
       const url = 'api/users/password'
-      return instance.post(url, data)
+      console.log(data)
+      return instance.post(url, data, {
+        headers: {
+          Authorization:  `Bearer ${token}`
+        }
+      })
     }
       
   },

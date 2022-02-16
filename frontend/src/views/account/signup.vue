@@ -147,7 +147,7 @@ export default {
                 ],
 
                 userId: [
-                    val => val.replace(' ','').length >= 7 && val.replace(' ','').length <= 12 || '7자 이상 12자 이하로 입력해주세요.',
+                    val => val.replaceAll(' ','').length >= 7 && val.replaceAll(' ','').length <= 12 || '7자 이상 12자 이하로 입력해주세요.',
                     val => !idChecker.test(val) || '특수문자는 입력이 불가능합니다.',
 
                 ],
@@ -156,7 +156,7 @@ export default {
                 ],
                 password : [
                     val => val.trim() !== '' || '비밀번호를 입력해주세요.' ,
-                    val => val.replace(' ','').length >= 9 && val.replace(' ','').length <= 16 || '비밀번호는 9자 이상 16자 이하입니다.',
+                    val => val.replaceAll(' ','').length >= 9 && val.replaceAll(' ','').length <= 16 || '비밀번호는 9자 이상 16자 이하입니다.',
                     val => passwordChecker.test(val) || '영어 대소문자, 숫자, 특수문자를 포함해야 합니다.'
                 ],
                 passwordChk : [
@@ -176,9 +176,9 @@ export default {
 
             if(!idInput.value.hasError){
                 // 유효성 통과
-                 store.dispatch('requestGetUser', state.value.form.userId.replace(' ',''))
+                 store.dispatch('requestGetUser', state.value.form.userId.replaceAll(' ',''))
                     .then(()=>{
-                        checkedId.value = state.value.form.userId.replace(' ','')
+                        checkedId.value = state.value.form.userId.replaceAll(' ','')
                         console.log('아이디 확인')
                         $q.notify({
                             type: 'positive',
@@ -213,10 +213,10 @@ export default {
 
 
             if(!emailInput.value.hasError){
-                store.dispatch('requestGetUser', state.value.form.userEmail.replace(' ',''))
+                store.dispatch('requestGetUser', state.value.form.userEmail.replaceAll(' ',''))
                 .then(()=>{
                     console.log('이메일 확인')
-                    checkedEmail.value = state.value.form.userEmail.replace(' ','')
+                    checkedEmail.value = state.value.form.userEmail.replaceAll(' ','')
                     $q.notify({
                         type: 'positive',
                         message: '가능한 이메일 입니다.'
@@ -239,13 +239,13 @@ export default {
             
             signUpForm.value.validate().then(success => {
                 if ( success ){
-                    if(state.value.form.userId.replace(' ','') !== checkedId.value){
+                    if(state.value.form.userId.replaceAll(' ','') !== checkedId.value){
                         $q.notify({
                             type: 'info',
                             message: '아이디 중복 검사가 필요합니다.'
                         })
                         return 
-                    } else if(state.value.form.userEmail.replace(' ','') !== checkedEmail.value){
+                    } else if(state.value.form.userEmail.replaceAll(' ','') !== checkedEmail.value){
                         $q.notify({
                             type: 'info',
                             message: '이메일 중복 검사가 필요합니다.'
@@ -254,9 +254,9 @@ export default {
                     }
 
                     store.dispatch('signUp', {
-                        userId : state.value.form.userId.replace(' ',''),
-                        userName : state.value.form.userName.replace(' ',''),
-                        userEmail : state.value.form.userEmail.replace(' ',''),
+                        userId : state.value.form.userId.replaceAll(' ',''),
+                        userName : state.value.form.userName.replaceAll(' ',''),
+                        userEmail : state.value.form.userEmail.replaceAll(' ',''),
                         password : state.value.form.password,
                     })
                     .then(()=>{

@@ -18533,9 +18533,9 @@ ul {
   padding-left : 1rem !important;
   padding-right : 1rem !important;
 }
-#btn-outline-dark {
-color: #212832;
-border-color: #212832;
+#btn-outline-dark a {
+  cursor :pointer;
+  border-radius: 10px;
 }
 
 #btn-outline-dark:hover a {

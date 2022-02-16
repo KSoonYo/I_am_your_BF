@@ -40,6 +40,6 @@ export default {
 #memoLog{
   background-color: rgba(49, 49, 49, 0.7);
   overflow: auto;
-  border-radius:10px;
+  border-radius:20px;
 }
 </style>
