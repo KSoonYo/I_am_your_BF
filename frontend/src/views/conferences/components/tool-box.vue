@@ -140,8 +140,8 @@ export default {
 					subscriber.subscribeToAudio(!this.onMute)
 				})
 
-				// 내가 호스트가 아니라면 hostPublisher를 음소거
-				if(!this.host){
+				// 내가 호스트가 아니고 host가 있는 상태라면 hostPublisher를 음소거
+				if(!this.host && this.hostPublisher){
 					this.hostPublisher.subscribeToAudio(!this.onMute)
 				}
 				
