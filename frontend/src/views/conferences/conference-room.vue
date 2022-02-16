@@ -129,6 +129,7 @@ export default {
 
 			hostPublisher : undefined,
 			mySessionId: null,
+			mySessionTitle: null,
 			myUserName: '',
 		
 
@@ -453,7 +454,7 @@ export default {
 				window.removeEventListener('beforeunload', this.leaveSession)
 
 				this.$store.dispatch('sendEduLog', {
-					title : this.sessionName, 
+					title : this.mySessionTitle,
 					sender : this.hostName, 
 					text : this.eduLog.toString().replaceAll(',', '\n')
 					})
@@ -491,9 +492,9 @@ export default {
 		console.log(this.$route.params.conferenceId)
 		this.$store.dispatch('getConferenceDetail', this.$route.params.conferenceId)
 		.then((response)=>{
-			console.log(response.data.userId)
 			this.hostId = response.data.userId
 			this.hostName = response.data.userName
+			this.mySessionTitle = response.data.title
 
 			this.mySessionId = this.$route.params.conferenceId
 
