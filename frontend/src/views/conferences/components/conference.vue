@@ -76,7 +76,7 @@ export default {
               message: '비밀번호를 입력해주세요. (10자 이내의 숫자)',
               prompt: {
                 model: '',
-                isValid: val => val.trim().length <= 10 && val.trim() == val.replace(/[^0-9]/g,""), // << here is the magic
+                isValid: val => val.trim().length <= 10 && val.trim() == val.replaceAll(/[^0-9]/g,""), // << here is the magic
                 type: 'password' // optional
               },
               cancel: true,

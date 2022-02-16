@@ -193,7 +193,7 @@ export default {
                 ],
                 password : [
                     val => val.trim() !== '' || '비밀번호를 입력해주세요.' ,
-                    val => val.replace(' ','').length >= 9 && val.replace(' ','').length <= 16 || '비밀번호는 9자 이상 16자 이하입니다.',
+                    val => val.replaceAll(' ','').length >= 9 && val.replaceAll(' ','').length <= 16 || '비밀번호는 9자 이상 16자 이하입니다.',
                     val => passwordChecker.test(val) || '영어 대소문자, 숫자, 특수문자를 포함해야 합니다.',
                 ],
                 passwordChk : [
@@ -220,7 +220,7 @@ export default {
       event.preventDefault()
       emailInput.value.validate()
 
-      state.value.userEmailCh = state.value.userEmailCh.replace(' ','')
+      state.value.userEmailCh = state.value.userEmailCh.replaceAll(' ','')
       if(!emailInput.value.hasError){
           store.dispatch('requestGetUser', state.value.userEmailCh)
           .then(()=>{
@@ -265,10 +265,10 @@ export default {
                 alert('변경완료')
               })
             }
-            state.value.form.userName = state.value.form.userName.replace(' ','')
+            state.value.form.userName = state.value.form.userName.replaceAll(' ','')
             // 이메일 변경
             if (state.value.email) {
-              state.value.userEmailCh = state.value.userEmailCh.replace(' ','')
+              state.value.userEmailCh = state.value.userEmailCh.replaceAll(' ','')
               if(state.value.userEmailCh !== checkedEmail.value){
                 $q.notify({
                   type: 'info',
