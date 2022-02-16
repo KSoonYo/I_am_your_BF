@@ -3,14 +3,14 @@
   class='chatBox column'
   :class='{"show-chat" : showChat}'
   >
-    <div id='chatLog' class='col-12 shadow-3' style="margin-right: 10%;">
-      <div id='textBox' style='position:absolute; bottom:0; width:100%'>
-        <q-input class="shadow-3" @keyup=' (e) => { e.keyCode === 13 ? sendMessage() : ""} ' type='text' v-model='message' style="border-top: 1px solid; color:white">
-          <q-btn flat rounded @click='sendMessage'>
-            <i class="fas fa-paper-plane fa-2x" style="color:white;"></i>
-          </q-btn>
-        </q-input>
-      </div>
+    <div id='chatLog' class='col-11 shadow-3' style="margin-right: 12%;">
+    </div>  
+    <div id='textBox' class='col' style='margin-right: 12%;'>
+      <q-input borderless class="shadow-3" @keyup=' (e) => { e.keyCode === 13 ? sendMessage() : ""} ' type='text' v-model='message' style="border-top: 1px solid; color:white; border-radius:0px 0px 20px 20px; background-color: rgba(91,94,109, 0.5);">
+        <q-btn flat rounded @click='sendMessage'>
+          <i class="fas fa-paper-plane fa-2x" style="color:white;"></i>
+        </q-btn>
+      </q-input>
     </div>
     
   </div>
@@ -69,7 +69,7 @@ export default {
   position: absolute;
   width: 20%;
   height: 100%;
-  right: -20%;
+  right: -30%;
   z-index: 3;
   transition: all .35s;
 }
@@ -80,9 +80,9 @@ export default {
 
 #chatLog{
   position: relative;
-  background-color: rgba(49, 49, 49, 0.8);
+  background-color: rgba(47,50,59,0.8);
   overflow: auto;
-  border-radius:20px;
+  border-radius:20px 20px 0px 0px;
   
 }
 
