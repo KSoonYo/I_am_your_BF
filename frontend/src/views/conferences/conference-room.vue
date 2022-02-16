@@ -156,9 +156,12 @@ export default {
 				console.log('세션 연결!')
 			})
 
-			this.session.on('connectionDestroyed', ()=>{
-				console.log('세션 연결 해제!')
+			this.session.on('sessionDisconnected', ()=>{
+				console.log('호스트가 세션 연결을 종료')
+				alert('세션이 종료되었습니다.')
+				this.$router.push({name : 'conferenceList'})
 			})
+		
 
 			// --- Specify the actions when events take place in the session ---
 			// On every new Stream received...
@@ -250,6 +253,8 @@ export default {
         messageBox.appendChild(p)
 				messageBox.appendChild(nameSpan)
         document.querySelector('#memoLog').appendChild(messageBox)
+
+				this.eduLog.push(event.data)
 
       })
 
