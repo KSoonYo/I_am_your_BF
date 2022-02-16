@@ -56,6 +56,7 @@
 import { ref } from 'vue'
 import { useStore } from 'vuex'
 import { useQuasar } from 'quasar'
+import { useRouter } from 'vue-router'
 
 export default {
     name: 'findId',
@@ -63,6 +64,8 @@ export default {
     setup() {
         const store = useStore()
         const $q = useQuasar()
+        const router = useRouter()
+        
         const state = ref({
           form: {
             userName: '',
@@ -77,6 +80,9 @@ export default {
               $q.dialog({
                 message: '아이디 : ' + res.data.userId
               })
+              .onOk(() => {
+								router.push({name:'login'})
+							})
             })
             .catch(() => {
               $q.notify({
