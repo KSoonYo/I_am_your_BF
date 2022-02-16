@@ -38,6 +38,8 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import springfox.documentation.annotations.ApiIgnore;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.NoSuchElementException;
 import java.util.Random;
 import java.util.UUID;
@@ -318,6 +320,49 @@ public class UserController {
 
     }
 
+
+    @PostMapping("/send/edu-log")
+    @ApiOperation(value = "수업 기록", notes = "<strong>수업 기록을 입력받아</strong>기록을 이메일로 전송한다")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "수업 기록 전송 성공"),
+            @ApiResponse(code = 401, message = "수업 기록 전송 실패"),//처리 추가해야됨
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<? extends BaseResponseBody> sendEmail(Authentication authentication,
+                                                                @RequestBody @ApiParam(value = "수업 기록", required = true)UserSendEduLogReq userSendEduLogReq) throws Exception {
+
+        SsafyUserDetails userDetails = (SsafyUserDetails) authentication.getDetails();
+        User user =userDetails.getUser();
+
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Date now = new Date();
+        String now_dt = format.format(now);
+
+
+        String setfrom = "hello__world__@naver.com"; // naver
+        String tomail = user.getUserEmail();// 받는사람
+        System.out.println(tomail);
+        String title = "[BF] "+ now_dt + "수업 기록입니다.";
+        String content = userSendEduLogReq.getText();
+
+        try {
+            SimpleMailMessage simpleMessage = new SimpleMailMessage();
+            simpleMessage.setFrom(setfrom); // NAVER, DAUM, NATE일 경우 넣어줘야 함
+            simpleMessage.setTo(tomail);
+            simpleMessage.setSubject(title);
+            simpleMessage.setText(content);
+            sender.send(simpleMessage);
+
+            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+
+        }
+
+
+        return ResponseEntity.status(401).body(BaseResponseBody.of(401, "수업 기록 전송 실패"));
+    }
 
 
     @PostMapping("/report/")

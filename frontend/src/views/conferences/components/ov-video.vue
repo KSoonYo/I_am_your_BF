@@ -1,7 +1,8 @@
 <template>
 	<video  
 	:class='{"subscribe-video" : role === "subscriber"}' 
-	autoplay/>
+	autoplay
+	/>
 </template>
 
 <script>

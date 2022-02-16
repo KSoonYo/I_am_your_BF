@@ -1,5 +1,5 @@
 <template>
-  <div class="flex column justify-center items-center">
+  <div class="flex column items-center" style="height:100vh; margin-top: 30px">
     <div style="max-width: 1246px; width:100%">
       <h1 class="cont-title">프로필 설정</h1>
       <q-form class="update-profiles" ref='profileForm'>
@@ -63,9 +63,22 @@
           <!-- 비밀번호 -->
           <div style="width:50%">
             <q-checkbox v-model="state.private" label="비밀번호 변경"/>
-            <div v-if="state.private" >
-              <label for='Password'>비밀번호</label>
-              <q-input outlined v-model="state.form.password" label='비밀번호'
+            <div v-if="state.private">
+              <label for='Password'>현재 비밀번호</label>
+              <q-input outlined v-model="state.passw" label='현재 비밀번호'
+              :type="isPwd ? 'password' : 'text'"
+              >
+                <template v-slot:append>
+                  <q-icon
+                    :name="isPwd ? 'visibility_off' : 'visibility'"
+                    class='cursor-pointer'
+                    @click="isPwd = !isPwd"
+                  />
+                </template>
+              </q-input>
+
+              <label for='Password'>새 비밀번호</label>
+              <q-input outlined v-model="state.form.password" label='새 비밀번호'
               :rules='state.rules.password'
               :type="isPwd ? 'password' : 'text'"
               >
@@ -78,8 +91,8 @@
                 </template>
               </q-input>
               <!-- 비밀번호 확인 -->
-              <label for='PasswordChk'>비밀번호 확인</label>
-              <q-input outlined v-model="state.form.passwordChk" label='비밀번호 확인'
+              <label for='PasswordChk'>새 비밀번호 확인</label>
+              <q-input outlined v-model="state.form.passwordChk" label='새 비밀번호 확인'
               :rules='state.rules.password'
               type='password'
               >
@@ -106,7 +119,7 @@ import { onMounted, ref, watch, watchEffect } from 'vue'
 import { useRouter } from 'vue-router'
 import { useQuasar } from 'quasar'
 import { useStore } from 'vuex'
-import profileDefault from '@/assets/profile-default.png' 
+import defaultImage from '@/assets/profile-default.png'
 
 export default {
   name: 'profile',
@@ -131,19 +144,22 @@ export default {
           state.value.form.userName = res.data.userName
           state.value.form.userEmail = res.data.userEmail
           state.value.userEmailCh = res.data.userEmail
-          state.value.passw = res.data.password 
-          state.value.passwchk = res.data.password
           state.value.form.src = res.data.thumbnail
         })
         .then(() => {
           // 유저의 기본 사진의 유무에 따른 이미지 선정
           if (!state.value.form.src) {
-            state.value.form.src = profileDefault
+            state.value.form.src = defaultImage
+            console.log('기본 사진 설정완료')
           } else {
-            store.dispatch('getThumbnail', state.value.form.src)
-            .then((res) => {
-              state.value.form.src = process.env.VUE_APP_BASE_URL + '/' + res.config.url
-            })
+            if (state.value.form.src == 'profile-default.png') {
+              state.value.form.src = defaultImage
+            } else {
+              store.dispatch('getThumbnail', state.value.form.src)
+              .then((res) => {
+                state.value.form.src = process.env.VUE_APP_BASE_URL + '/' + res.config.url
+              })
+            }
           }
         })
         .catch(() => {
@@ -165,6 +181,7 @@ export default {
         userEmail : '',
         password : '',
         passwordChk : '',
+        src: '',
       },
       // 이름, 이메일, 비밀번호, 비밀번호 확인 조건문
       rules: {
@@ -176,24 +193,23 @@ export default {
                 ],
                 password : [
                     val => val.trim() !== '' || '비밀번호를 입력해주세요.' ,
-                    val => val.length >= 9 && val.length <= 16 || '비밀번호는 9자 이상 16자 이하입니다.',
-                    val => passwordChecker.test(val) || '영어 대소문자, 숫자, 특수문자를 포함해야 합니다.'
+                    val => val.replaceAll(' ','').length >= 9 && val.replaceAll(' ','').length <= 16 || '비밀번호는 9자 이상 16자 이하입니다.',
+                    val => passwordChecker.test(val) || '영어 대소문자, 숫자, 특수문자를 포함해야 합니다.',
                 ],
                 passwordChk : [
                     val => val.trim() !== '' || '비밀번호를 입력해주세요.', 
                     val => val === state.value.form.password || '비밀번호가 일치하지 않습니다.'
                 ],
             },
-      thumbnail: profileDefault,
-      showthumbnail: profileDefault,
+      thumbnail: '',
+      showthumbnail: defaultImage,
       userEmailCh: '',
       src: '',
       result: '',
       now: ref('now'),
       private: false,
       passw: '',
-      passwchk: '',
-      basic: profileDefault,
+      basic: defaultImage,
       labelmessage:'이미지 파일 업로드(최대 10MB)',
       email: false,
     });
@@ -204,12 +220,12 @@ export default {
       event.preventDefault()
       emailInput.value.validate()
 
-
+      state.value.userEmailCh = state.value.userEmailCh.replaceAll(' ','')
       if(!emailInput.value.hasError){
-          store.dispatch('requestGetUser', state.value.form.userEmailCh)
+          store.dispatch('requestGetUser', state.value.userEmailCh)
           .then(()=>{
             console.log('이메일 확인')
-            checkedEmail.value = state.value.form.userEmailCh
+            checkedEmail.value = state.value.userEmailCh
             $q.notify({
                 type: 'positive',
                 message: '가능한 이메일 입니다.'
@@ -229,38 +245,30 @@ export default {
       event.preventDefault()
       // 이미지 선택지에 따른 프로필 사진 설정
       if (state.value.now == 'now') {
-        state.value.result = state.value.src
+        state.value.result = state.value.form.src
       } else if (state.value.now == 'def') {
-        state.value.result = profileDefault
+        state.value.result = 'profile-default.png'
       } else if (state.value.now == 'pick') {
         // 파일 첨부시 이미지 파일 업로드
-        const formData = new FormData()
-        formData.append('file', state.value.thumbnail)
-        store.dispatch('uploadThumbnail', formData)
-          .then((thumbnail) => {
-            state.value.result = thumbnail.data.thumbnail
-          })
-          .catch(() => {
-            console.log('사진 업로드 실패')
-          })
-      }
-      // 비밀번호 변경 체크박스 클릭 여부
-      if (!state.value.private) {
-        state.value.form.password = state.value.passw
-        state.value.form.passwordChk = state.value.passw
+        state.value.result = state.value.thumbnail
       }
       // 업데이트 유효성 검사
       profileForm.value.validate().then(success => {
           if ( success ){
-            // 비밀번호 변경
+            // 비밀번호 변경 체크박스 클릭 여부
             if (state.value.private) {
               store.dispatch('changePassword', {
                 currentPassword : state.value.passw,
                 newPassword  : state.value.form.password
               })
+              .then(() => {
+                alert('변경완료')
+              })
             }
+            state.value.form.userName = state.value.form.userName.replaceAll(' ','')
             // 이메일 변경
             if (state.value.email) {
+              state.value.userEmailCh = state.value.userEmailCh.replaceAll(' ','')
               if(state.value.userEmailCh !== checkedEmail.value){
                 $q.notify({
                   type: 'info',
@@ -270,10 +278,11 @@ export default {
               }
               // 프로필 업데이트
               store.dispatch('updateProfile', {
-                  userId : state.value.form.userId,
+                  userId : JSON.parse(localStorage.getItem('userInfo')).userId,
                   userName : state.value.form.userName,
                   userEmail : state.value.form.userEmailCh,
                   thumbnail : state.value.result,
+                  userDescription : '',
               })
               .then(()=>{
                   alert('유저 정보 수정 완료')
@@ -285,10 +294,11 @@ export default {
             } else {
               // 프로필 업데이트
               store.dispatch('updateProfile', {
-                  userId : state.value.form.userId,
+                  userId : JSON.parse(localStorage.getItem('userInfo')).userId,
                   userName : state.value.form.userName,
-                  userEmail : state.value.form.userEmailCh,
+                  userEmail : state.value.form.userEmail,
                   thumbnail : state.value.result,
+                  userDescription : '',
               })
               .then(()=>{
                   alert('유저 정보 수정 완료')
@@ -303,7 +313,7 @@ export default {
     }
     // 취소 버튼클릭 이벤트
     const cancel = function () {
-      router.push({name: 'conferenceList'})
+      router.go(-1)
     }
 
     // 사진 src 변화에 따른 썸네일 변경
@@ -312,8 +322,10 @@ export default {
       if (state.value.thumbnail) {
         const formData = new FormData()
         formData.append('file', state.value.thumbnail)
+        console.log(formData)
         store.dispatch('uploadThumbnail', formData)
           .then((thumbnail) => {
+            console.log(thumbnail)
             state.value.thumbnail = thumbnail.data.thumbnail
             store.dispatch('getThumbnail', state.value.thumbnail)
             .then((res) => {
@@ -329,7 +341,7 @@ export default {
             console.log('노상관')
           })
       } else {
-        state.value.thumbnail = profileDefault
+        state.value.thumbnail = defaultImage
       }
     })
 

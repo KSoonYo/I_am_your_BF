@@ -1,20 +1,22 @@
 <template>
   <div id='main-container'>
     <div id="session" v-if="session">
-				<!-- tool box -->
-				<tool-box 
-				:session='session'
-				:publisher='myPublisher'
-				:subscribers='subscribers'
-				:host='host'
-				:hostPublisher='hostPublisher'
-				@leaveSessionClick='leaveSession'
-				@toggleCaption='() => { captionEnabled = !captionEnabled }'
-				@toggleSignVideo='() => { videoEnabled = !videoEnabled }'
-				@toggleShowMemo='() => { showMemo = !showMemo }'
-				@toggleShowChat='() => { showChat = !showChat }'
-				@clickOpenScreen='openScreen'
-				/>
+				<div id="session-header" class='row flex justify-center'>
+					<!-- tool box -->
+					<tool-box 
+					:session='session'
+					:publisher='myPublisher'
+					:subscribers='subscribers'
+					:host='host'
+					:hostPublisher='hostPublisher'
+					@leaveSessionClick='leaveSession'
+					@toggleCaption='() => { captionEnabled = !captionEnabled }'
+					@toggleSignVideo='() => { videoEnabled = !videoEnabled }'
+					@toggleShowMemo='() => { showMemo = !showMemo }'
+					@toggleShowChat='() => { showChat = !showChat }'
+					@clickOpenScreen='openScreen'
+					/>
+				</div>
 
 
 			<div style='height: 100%; position: relative; overflow: hidden;' class='row justify-evenly q-col-gutter-md'>
@@ -45,7 +47,7 @@
 						</video> -->
 					</div>
 
-					<main-stream-video :show='!shareScreenEnabled' id='mainStream' :stream-manager="mainStreamManager"/>
+					<main-stream-video :show='!shareScreenEnabled' id='mainStream' :stream-manager="mainStreamManager" style="border-radius: 20px;"/>
 					<div v-show='shareScreenEnabled' class='share-screen'>
 						<!-- 화면 공유용 비디오 공간 -->
 

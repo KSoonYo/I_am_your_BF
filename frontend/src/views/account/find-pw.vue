@@ -74,6 +74,7 @@
 import { ref } from 'vue'
 import { useStore } from 'vuex'
 import { useQuasar } from 'quasar'
+import { useRouter } from 'vue-router'
 
 export default {
     name: 'findPw',
@@ -82,6 +83,7 @@ export default {
 		setup() {
 			const $q = useQuasar()
 			const store = useStore()
+			const router = useRouter()
 			const state = ref({
 				form: {
 					userId: '',
@@ -96,7 +98,10 @@ export default {
               $q.dialog({
                 message: '이메일로 임시 비밀번호를 보냈습니다.'
               })
-            })
+							.onOk(() => {
+								router.push({name:'login'})
+							})
+						})
             .catch(() => {
               $q.notify({
                 type: 'negative',

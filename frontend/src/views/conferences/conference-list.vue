@@ -4,7 +4,7 @@
     <div class="q-pt-lg"> 
       <!-- 강의실 생성 방법1 -->
       
-      <div class='justify-end flex q-mt-lg' style="padding: 75px 100px 0px 0px">
+      <div class='justify-end flex q-mt-lg' style="padding: 75px 10% 0px 0px">
         <div class="search q-mr-md" :class="{ active: state.open }" @keyup.enter="searchConference">
           <div class="icon" @click="move"></div>
           <div class="input">
