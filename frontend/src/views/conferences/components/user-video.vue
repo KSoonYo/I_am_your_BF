@@ -4,7 +4,7 @@
 		{"subscriber-wrapper-host" : host === true && role === "subscriber"}, 
 		{"subscriber-wrapper-guest" : host === false && role === "subscriber"}
 		]'>
-        <ov-video :role='role' :stream-manager="streamManager" class="shadow-3" style="border-radius: 20px;"/>
+        <ov-video :role='role' :stream-manager="streamManager" class="shadow-up-5" style="border-radius: 20px; background-color:rgb(255,241,220);"/>
         <div class='name-box'><p class='user-name'>{{ clientData }}</p></div>
     </div>
 </template>

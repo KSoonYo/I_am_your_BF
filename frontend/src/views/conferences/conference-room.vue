@@ -1,5 +1,5 @@
 <template>
-  <div id='main-container'>
+  <div id='main-container'  style="background-color:white; margin-left:1.5%">
     <div id="session" v-if="session">
 				<div id="session-header" class='row flex justify-center'>
 					<!-- tool box -->
@@ -16,63 +16,60 @@
 					@toggleShowChat='() => { showChat = !showChat }'
 					@clickOpenScreen='openScreen'
 					/>
-				</div>
+				</div>			
 
+				<div style='height: 90%; position: relative; overflow: hidden;' class='row justify-evenly q-col-gutter-md'>
+						<!-- chat box -->
+					<chat-box
+					:session='session'
+					:showChat='showChat'
+					/>
+					
+						<!-- memo box -->
+					<memo-box 
+					:session='session'
+					:showMemo='showMemo'
+					/>
 
-			<div style='height: 100%; position: relative; overflow: hidden;' class='row justify-evenly q-col-gutter-md'>
-					<!-- chat box -->
-				<chat-box
-				:session='session'
-				:showChat='showChat'
-				/>
-				
-					<!-- memo box -->
-				<memo-box 
-				:session='session'
-				:showMemo='showMemo'
-				/>
+						<!-- 메인 화면  -->
+					<div class='main-video col-9'>
 
-					<!-- 메인 화면  -->
-				<div class='main-video col-9'>
+						<!-- 자막 -->
+						<div v-show='captionEnabled' class='caption'>
+						</div>
 
-					<!-- 자막 -->
-					<div v-show='captionEnabled' class='caption'>
+						<!-- 수화 video -->
+						<div v-show='videoEnabled' class='sign-video-container'>
+							<!-- <video id='videoPlayer' width='200px' height='150px'  playbackRate=2 @ended='onVideoEnded'>
+								<source type='vidoe/mp4'>
+								<strong>Your browser does not support the video tag.</strong>
+							</video> -->
+						</div>
+
+						<main-stream-video :show='!shareScreenEnabled' id='mainStream' :stream-manager="mainStreamManager" class="shadow-up-5" style="border-radius: 20px; background-color:rgb(255,241,220);"/>
+						<div v-show='shareScreenEnabled' class='share-screen shadow-up-5' style="border-radius: 20px; background-color:rgb(255,241,220);">
+							<!-- 화면 공유용 비디오 공간 -->
+
+						</div>
 					</div>
 
-					<!-- 수화 video -->
-					<div v-show='videoEnabled' class='sign-video-container'>
-						<!-- <video id='videoPlayer' width='200px' height='150px'  playbackRate=2 @ended='onVideoEnded'>
-							<source type='vidoe/mp4'>
-							<strong>Your browser does not support the video tag.</strong>
-						</video> -->
+					<!-- 참가자 화면 -->
+					<div id="video-container" class='col-2 column displaywidth'>
+						<div class='guest-box shadow-up-5 col' style="background-color:rgb(255,241,220);">
+							<!-- 참가자 -->
+							<!-- <Flicking 
+							:options='{ horizontal: false,  moveType: "freeScroll", bound: true}'
+							style="width: 100%; height: 100%;"
+							>
+							</Flicking> -->
+							<user-video 
+							:host='host'
+							:role='"subscriber"' v-for="sub in subscribers" :key="sub.stream.connection.connectionId" :stream-manager="sub"/>
+						</div>
+
+						<publish-video class="displaywidth" v-show='!host' id='publisher' :stream-manager='myPublisher'/>	
 					</div>
-
-					<main-stream-video :show='!shareScreenEnabled' id='mainStream' :stream-manager="mainStreamManager" style="border-radius: 20px;"/>
-					<div v-show='shareScreenEnabled' class='share-screen'>
-						<!-- 화면 공유용 비디오 공간 -->
-
-					</div>
-				</div>
-
-				<!-- 참가자 화면 -->
-				<div id="video-container" class='col-2 column displaywidth'>
-					<div class='guest-box shadow-3 col'>
-						<!-- 참가자 -->
-						<!-- <Flicking 
-						:options='{ horizontal: false,  moveType: "freeScroll", bound: true}'
-						style="width: 100%; height: 100%;"
-						>
-						</Flicking> -->
-						<user-video 
-						:host='host'
-						:role='"subscriber"' v-for="sub in subscribers" :key="sub.stream.connection.connectionId" :stream-manager="sub"/>
-					</div>
-
-					<publish-video class="displaywidth" v-show='!host' id='publisher' :stream-manager='myPublisher'/>	
-				</div>
 			</div>
-
-		
 		</div>
   </div>
 </template>
@@ -115,11 +112,10 @@ export default {
 			videoEnabled : false,
 			captionEnabled : false,
 			shareScreenEnabled : false,
-			eduLog : [],
 			videoList : [],
 			videoIndex : 0,
 			videoDefaultUrl : VIDEO_DEFAULT_URL,
-
+			eduLog : [],
 			showMemo : false,
 			showChat : false,
 
@@ -154,13 +150,14 @@ export default {
 			// --- Get an OpenVidu object ---
 			this.OV = new OpenVidu();
 			// --- Init a session ---
-			this.session = this.OV.initSession()
+			this.session = this.OV.initSession();
 
+			this.session.on('connectionCreated', ()=>{
+				console.log('세션 연결!')
+			})
 
-			this.session.on('sessionDisconnected', ()=>{
-				console.log('호스트가 세션 연결을 종료')
-				alert('세션이 종료되었습니다.')
-				this.$router.push({name : 'conferenceList'})
+			this.session.on('connectionDestroyed', ()=>{
+				console.log('세션 연결 해제!')
 			})
 
 			// --- Specify the actions when events take place in the session ---
@@ -209,16 +206,20 @@ export default {
         const p = document.createElement('p')
         const nameSpan = document.createElement('span')
         nameSpan.style.display = 'block'
-				nameSpan.style.color = 'white'
 				nameSpan.style.fontSize = '15px'
 				messageBox.style.padding = '0.5rem 0.5rem 0.25rem 0.5rem'
+				messageBox.style.padding = '0.5rem 0.5rem 0.25rem 0.5rem'
+				messageBox.style.margin = '1rem 1rem 1rem 1rem'
+				messageBox.style.backgroundColor = 'rgb(91,94,109)'
+				messageBox.className = 'shadow-3'
+				messageBox.style.borderRadius = '20px'
         nameSpan.textContent = '보낸사람: ' + JSON.parse(event.from.data).clientData
         messageBox.appendChild(nameSpan)
 
         p.innerText = event.data
-				p.style.color = 'white'
 				p.style.fontSize = '18px'
 				p.style.fontWeight = '600'
+				p.style.color = 'rgb(183,193,203)'
         messageBox.appendChild(p)
         document.querySelector('#chatLog').appendChild(messageBox)
 
@@ -229,22 +230,26 @@ export default {
         const messageBox = document.createElement('div')
         const p = document.createElement('p')
         const nameSpan = document.createElement('span')
+				p.style.fontSize = '1rem'
         nameSpan.style.display = 'block'
-				nameSpan.style.color = 'white'
-				nameSpan.style.fontSize = '15px'
+				nameSpan.style.fontSize = '0.75rem'
+				nameSpan.style.textAlign = 'end'
+				nameSpan.style.color = 'rgba(183,193,203,0.7)'
 				messageBox.style.padding = '0.5rem 0.5rem 0.25rem 0.5rem'
+				messageBox.style.margin = '1rem 1rem 1rem 1rem'
+				messageBox.className = 'shadow-3'
+				messageBox.style.borderRadius = '20px'
+				messageBox.style.backgroundColor = 'rgb(91,94,109)'
         nameSpan.textContent = JSON.parse(event.from.data).clientData 
-        messageBox.appendChild(nameSpan)
+        
 
         p.innerText = event.data
-				p.style.color = 'white'
 				p.style.fontSize = '18px'
 				p.style.fontWeight = '600'
+				p.style.color = 'white'
         messageBox.appendChild(p)
+				messageBox.appendChild(nameSpan)
         document.querySelector('#memoLog').appendChild(messageBox)
-
-				// 수업 기록 저장
-				this.eduLog.push(event.data)
 
       })
 
@@ -492,10 +497,11 @@ export default {
 		console.log(this.$route.params.conferenceId)
 		this.$store.dispatch('getConferenceDetail', this.$route.params.conferenceId)
 		.then((response)=>{
+			console.log(response.data.userId)
 			this.hostId = response.data.userId
 			this.hostName = response.data.userName
 			this.mySessionTitle = response.data.title
-
+			
 			this.mySessionId = this.$route.params.conferenceId
 
 			this.myUserId = JSON.parse(localStorage.getItem('userInfo')).userId
@@ -577,6 +583,7 @@ export default {
 	object-fit: cover;
 	width: 100%;
 	height: 100%;
+	
 }
 
 
@@ -584,10 +591,14 @@ export default {
 	height: 100%;
 }
 
+#session-header{
+	margin-top: 30px;
+	margin-bottom: 30px;
+}
 
 #main-container{
-	width: 100vw;
-  height: 90vh;
+	width: 97vw;
+  height: 95vh;
 }
 
 .main-video{
@@ -645,8 +656,7 @@ export default {
 
 .guest-box{
 	position: relative;
-	border: 1px solid black;
-	border-radius: 10px;
+	border-radius: 20px;
 	padding: 10px 10px;
 	width: 100%;
 	overflow: auto;
