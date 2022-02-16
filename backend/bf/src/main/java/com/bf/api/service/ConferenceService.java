@@ -20,8 +20,8 @@ import com.bf.db.entity.ConferenceHistory;
 
 public interface ConferenceService {
 	Conference createConference(ConferenceRegisterPostReq conference);
-	List<ConferenceRes> getAllConference() throws NoSuchElementException ;
-	List<ConferenceRes> getAllEndConference() throws NoSuchElementException ;
+	List<ConferenceRes> getAllConference()  ;
+	List<ConferenceRes> getAllEndConference() ;
 	ConferenceDetailRes getConferenceDetail(Long id) throws NoSuchElementException;
 	Conference updateConference(ConferenceFetchReq conferenceFetchReq) throws NoSuchElementException;
 	Conference endConference(Long id);
