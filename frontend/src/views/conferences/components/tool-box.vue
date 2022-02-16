@@ -1,21 +1,22 @@
 <template>
-	
-	<div class='flex' style="border:1px solid; padding: 5px 20px 5px 20px; border-radius:20px">
-		<q-btn v-show='host' flat rounded @click='() => { $emit("clickOpenScreen")}' ><i class="fas fa-desktop fa-2x"></i></q-btn>
-		<q-btn flat rounded v-show='!onSpeech' @click='toggleOnSpeech'><i class="fas fa-microphone-slash fa-2x"></i></q-btn>
-		<q-btn flat rounded v-show='onSpeech' @click='toggleOnSpeech' color='orange-7'> <i class="fas fa-microphone fa-2x"></i></q-btn>
+	<div class='flex col-9 justify-center items-center' style="padding: 10px 20px 0px 5%;border-radius:20px;">
+		<div class='flex row justify-center items-center shadow-3' style="background-color:rgb(255,241,220); width:75%; border-radius:20px;">
+			<q-btn class="btnS shadow-3" v-show='host' flat @click='() => { $emit("clickOpenScreen")}'><i class="fas fa-desktop fa-2x" style="font-size:2rem;"></i></q-btn>
+			<q-btn class="btnS shadow-3" flat v-show='!onSpeech' @click='toggleOnSpeech'><i class="fas fa-microphone-slash fa-2x" style="font-size:2rem;"></i></q-btn>
+			<q-btn class="btnS shadow-3" flat v-show='onSpeech' @click='toggleOnSpeech' color='orange-7'> <i class="fas fa-microphone fa-2x" style="font-size:2rem;"></i></q-btn>
 
-		<q-btn flat rounded v-show='!onMute' @click='toggleOnMute'> <i class="fas fa-volume-up fa-2x"></i></q-btn>
-		<q-btn flat rounded v-show='onMute'  @click='toggleOnMute' color='orange-7'> <i class="fas fa-volume-mute fa-2x"></i></q-btn>
+			<q-btn class="btnS shadow-3" flat v-show='!onMute' @click='toggleOnMute'> <i class="fas fa-volume-up fa-2x" style="font-size:2rem;"></i></q-btn>
+			<q-btn class="btnS shadow-3" flat v-show='onMute'  @click='toggleOnMute' color='orange-7'> <i class="fas fa-volume-mute fa-2x" style="font-size:2rem;"></i></q-btn>
 
-		<q-btn flat rounded v-show='!captionEnabled'  @click='() => { captionEnabled = !captionEnabled, $emit("toggleCaption") }'> <i class="fas fa-closed-captioning fa-2x"></i></q-btn>
-		<q-btn flat rounded v-show='captionEnabled'  @click='() => { captionEnabled = !captionEnabled, $emit("toggleCaption") }' color='orange-7'>  <i class="far fa-closed-captioning fa-2x"></i></q-btn>
-	
-		<q-btn flat rounded v-show='!signVideoEnabled'  @click='() => { signVideoEnabled = !signVideoEnabled, $emit("toggleSignVideo") }'><i class="fas fa-american-sign-language-interpreting fa-2x"></i></q-btn>
-		<q-btn flat rounded v-show='signVideoEnabled'  @click='() => { signVideoEnabled = !signVideoEnabled, $emit("toggleSignVideo") }' color='orange-7'><i class="fas fa-american-sign-language-interpreting fa-2x"></i></q-btn>
-		<q-btn flat rounded @click='() => { $emit("toggleShowChat")}'><i class="fas fa-comment fa-2x"></i></q-btn>
-		<q-btn flat rounded @click='() => { $emit("toggleShowMemo")}' ><i class="fas fa-clipboard fa-2x"></i></q-btn>
-		<q-btn flat rounded @click='$emit("leaveSessionClick")'><i class="fas fa-times-circle fa-2x"></i></q-btn>
+			<q-btn class="btnS shadow-3" flat v-show='!captionEnabled'  @click='() => { captionEnabled = !captionEnabled, $emit("toggleCaption") }'> <i class="fas fa-closed-captioning fa-2x" style="font-size:2rem;"></i></q-btn>
+			<q-btn class="btnS shadow-3" flat v-show='captionEnabled'  @click='() => { captionEnabled = !captionEnabled, $emit("toggleCaption") }' color='orange-7'>  <i class="far fa-closed-captioning fa-2x" style="font-size:2rem;"></i></q-btn>
+		
+			<q-btn class="btnS shadow-3" flat v-show='!signVideoEnabled'  @click='() => { signVideoEnabled = !signVideoEnabled, $emit("toggleSignVideo") }'><i class="fas fa-american-sign-language-interpreting fa-2x" style="font-size:2rem;"></i></q-btn>
+			<q-btn class="btnS shadow-3" flat v-show='signVideoEnabled'  @click='() => { signVideoEnabled = !signVideoEnabled, $emit("toggleSignVideo") }' color='orange-7'><i class="fas fa-american-sign-language-interpreting fa-2x" style="font-size:2rem;"></i></q-btn>
+			<q-btn class="btnS shadow-3" flat @click='() => { $emit("toggleShowChat")}'><i class="fas fa-comment fa-2x" style="font-size:2rem;"></i></q-btn>
+			<q-btn class="btnS shadow-3" flat @click='() => { $emit("toggleShowMemo")}' ><i class="fas fa-clipboard fa-2x" style="font-size:2rem;"></i></q-btn>
+			<q-btn class="btnS shadow-3" flat rounded @click='$emit("leaveSessionClick")'><i class="fas fa-times-circle fa-2x" style="font-size:2rem;"></i></q-btn>
+		</div>
 	</div>
 </template>
 
@@ -162,7 +163,13 @@ export default {
 </script>
 
 <style>
+.btnS {
+	border-radius: 50%;
+	width: 3.5rem;
+	height: 3.5rem;
+	margin: 10px 3% 10px 0px;
 
+}
 
 #session-header{
 	margin-top: 30px;
