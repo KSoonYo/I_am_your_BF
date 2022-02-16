@@ -101,7 +101,7 @@ export default {
 						
             rules: {
                 userId: [
-                    val => val.trim().length >= 7 && val.trim().length <= 12 || '7자 이상 12자 이하로 입력해주세요.',
+                    val => val.trim().length >= 5 && val.trim().length <= 12 || '5자 이상 12자 이하로 입력해주세요.',
                     val => !idChecker.test(val) || '특수문자는 입력이 불가능합니다.'                    
                 ],
                 password: [
