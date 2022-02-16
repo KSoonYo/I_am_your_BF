@@ -31,6 +31,32 @@ export default createStore({
       return instance.get(url)
     },
 
+    // 회의실 종료
+    deleteConference({state}, conferenceId){
+      state
+      const url = `api/openvidu/close-session/${conferenceId}`
+      return instance.delete(url)
+    },
+
+    // 회의실 닫기
+    closeConference({state}, conferenceId){
+      state
+      const url = `api/conferences/end/${conferenceId}`
+      return instance.put(url)
+    },
+
+    // 수업 기록 이메일 발송
+    sendEduLog({state}, content ){
+      state
+      const token = localStorage.getItem('accessToken')
+      const url = `api/users/send/edu-log`
+      return instance.post(url, content, {
+        headers: {
+          Authorization:  `Bearer ${token}`
+        }
+      })
+    },
+
     // 이미지 불러오기
     getThumbnail({state},thumbnail) {
       state

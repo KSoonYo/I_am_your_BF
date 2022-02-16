@@ -1,21 +1,22 @@
 <template>
   <div id='main-container'>
     <div id="session" v-if="session">
-			<div id="session-header" class='row flex justify-between'>
-				<!-- tool box -->
-				<tool-box 
-				:session='session'
-				:publisher='myPublisher'
-				:subscribers='subscribers'
-				:host='host'
-				@leaveSessionClick='leaveSession'
-				@toggleCaption='() => { captionEnabled = !captionEnabled }'
-				@toggleSignVideo='() => { videoEnabled = !videoEnabled }'
-				@toggleShowMemo='() => { showMemo = !showMemo }'
-				@toggleShowChat='() => { showChat = !showChat }'
-				@clickOpenScreen='openScreen'
-				/>
-			</div>			
+				<div id="session-header" class='row flex justify-center'>
+					<!-- tool box -->
+					<tool-box 
+					:session='session'
+					:publisher='myPublisher'
+					:subscribers='subscribers'
+					:host='host'
+					:hostPublisher='hostPublisher'
+					@leaveSessionClick='leaveSession'
+					@toggleCaption='() => { captionEnabled = !captionEnabled }'
+					@toggleSignVideo='() => { videoEnabled = !videoEnabled }'
+					@toggleShowMemo='() => { showMemo = !showMemo }'
+					@toggleShowChat='() => { showChat = !showChat }'
+					@clickOpenScreen='openScreen'
+					/>
+				</div>
 
 
 			<div style='height: 100%; position: relative; overflow: hidden;' class='row justify-evenly q-col-gutter-md'>
@@ -114,7 +115,7 @@ export default {
 			videoEnabled : false,
 			captionEnabled : false,
 			shareScreenEnabled : false,
-			captionText : [],
+			eduLog : [],
 			videoList : [],
 			videoIndex : 0,
 			videoDefaultUrl : VIDEO_DEFAULT_URL,
@@ -128,6 +129,7 @@ export default {
 
 			hostPublisher : undefined,
 			mySessionId: null,
+			mySessionTitle: null,
 			myUserName: '',
 		
 
@@ -152,14 +154,13 @@ export default {
 			// --- Get an OpenVidu object ---
 			this.OV = new OpenVidu();
 			// --- Init a session ---
-			this.session = this.OV.initSession();
+			this.session = this.OV.initSession()
 
-			this.session.on('connectionCreated', ()=>{
-				console.log('세션 연결!')
-			})
 
-			this.session.on('connectionDestroyed', ()=>{
-				console.log('세션 연결 해제!')
+			this.session.on('sessionDisconnected', ()=>{
+				console.log('호스트가 세션 연결을 종료')
+				alert('세션이 종료되었습니다.')
+				this.$router.push({name : 'conferenceList'})
 			})
 
 			// --- Specify the actions when events take place in the session ---
@@ -181,7 +182,6 @@ export default {
 				const subscriber = this.session.subscribe(stream, undefined)
 				const { connection } = subscriber.stream
 				const { clientData } = JSON.parse(connection.data)
-				console.log('clientData[0]: ', clientData[0], 'hostId: ', this.hostId)
 				
 				
 				if( stream.typeOfVideo === 'CAMERA' &&  clientData[0] === this.hostId ){
@@ -242,6 +242,9 @@ export default {
 				p.style.fontWeight = '600'
         messageBox.appendChild(p)
         document.querySelector('#memoLog').appendChild(messageBox)
+
+				// 수업 기록 저장
+				this.eduLog.push(event.data)
 
       })
 
@@ -444,25 +447,30 @@ export default {
 
 		leaveSession () {
 			// --- Leave the session by calling 'disconnect' method over the Session object ---
-			if (this.session){
-				this.session.disconnect()
-			}
-			this.session = undefined
-			this.mainStreamManager = undefined
-			this.myPublisher = undefined
-			this.subscribers = []
-			this.OV = undefined
-			window.removeEventListener('beforeunload', this.leaveSession)
-			
-			if (this.host){
-				this.$store.dispatch('deleteConference', this.mySessionId)
-				.then(()=>{
-					this.$router.push({name: 'conferenceList'})
-				})
-			} else{
-				this.$router.push({name: 'conferenceList'})
-			}
+				this.mainStreamManager = undefined
+				this.myPublisher = undefined
+				this.subscribers = []
+				this.OV = undefined
+				window.removeEventListener('beforeunload', this.leaveSession)
 
+				this.$store.dispatch('sendEduLog', {
+					title : this.mySessionTitle,
+					sender : this.hostName, 
+					text : this.eduLog.toString().replaceAll(',', '\n')
+					})
+					.then(() => {
+						if (this.host){
+							this.$store.dispatch('closeConference', this.mySessionId)
+							.then(() => {
+								this.$store.dispatch('deleteConference', this.mySessionId)
+							})
+						} else if(this.session){
+								this.session.disconnect()
+						}
+					})
+					.catch(e => {
+						console.log(e)
+					})
 		},
 
 
@@ -484,9 +492,9 @@ export default {
 		console.log(this.$route.params.conferenceId)
 		this.$store.dispatch('getConferenceDetail', this.$route.params.conferenceId)
 		.then((response)=>{
-			console.log(response.data.userId)
 			this.hostId = response.data.userId
 			this.hostName = response.data.userName
+			this.mySessionTitle = response.data.title
 
 			this.mySessionId = this.$route.params.conferenceId
 
@@ -576,10 +584,6 @@ export default {
 	height: 100%;
 }
 
-#session-header{
-	margin-top: 30px;
-	margin-bottom: 30px;
-}
 
 #main-container{
 	width: 100vw;

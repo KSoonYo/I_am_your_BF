@@ -1,4 +1,5 @@
 <template>
+	
 	<div class='flex' style="border:1px solid; padding: 5px 20px 5px 20px; border-radius:20px">
 		<q-btn v-show='host' flat rounded @click='() => { $emit("clickOpenScreen")}' ><i class="fas fa-desktop fa-2x"></i></q-btn>
 		<q-btn flat rounded v-show='!onSpeech' @click='toggleOnSpeech'><i class="fas fa-microphone-slash fa-2x"></i></q-btn>
@@ -35,6 +36,7 @@ export default {
   props: {
 		session: Object,
 		publisher: Object,
+		hostPublisher: Object,
 		subscribers: Array,
 		host: Boolean
 	},
@@ -132,6 +134,11 @@ export default {
 				this.subscribers.forEach((subscriber) => {
 					subscriber.subscribeToAudio(!this.onMute)
 				})
+
+				// 내가 호스트가 아니고 host가 있는 상태라면 hostPublisher를 음소거
+				if(!this.host && this.hostPublisher){
+					this.hostPublisher.subscribeToAudio(!this.onMute)
+				}
 				
 			}
 		
@@ -156,5 +163,10 @@ export default {
 
 <style>
 
+
+#session-header{
+	margin-top: 30px;
+	margin-bottom: 30px;
+}
 
 </style>
