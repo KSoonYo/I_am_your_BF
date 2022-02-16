@@ -41,7 +41,8 @@ public class PhotoController {
 			  produces = MediaType.IMAGE_JPEG_VALUE
 			)
 	public byte[] getImageWithMediaType(@PathVariable String thumbnail) throws IOException {
-		String absolutePath = new File("").getAbsolutePath() + "\\images\\";
+		String absolutePath = new File("").getAbsolutePath() + "/images/";
+  System.out.println("getImageWithMediaType absolutePath :" + absolutePath);
 		InputStream in = new FileInputStream(absolutePath+thumbnail);
 		byte[] imageByteArray = IOUtils.toByteArray(in);
 		return imageByteArray;
@@ -60,7 +61,8 @@ public class PhotoController {
 	}
 
 	private String saveUploadedFiles(final MultipartFile thumbnail) throws IOException {
-		String absolutePath = new File("").getAbsolutePath() + "\\images\\";
+		    String absolutePath = new File("").getAbsolutePath() + "/images/";
+      System.out.println("saveUploadedFiles absolutePath :" + absolutePath);
         File file = new File("images");
         // 저장할 위치의 디렉토리가 존지하지 않을 경우
         if(!file.exists()){

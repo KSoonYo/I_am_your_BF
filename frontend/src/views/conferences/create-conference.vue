@@ -71,7 +71,7 @@
                       use-chips
                       style='border: dashed 2px black; border-radius: 10px; width:100%'
                       label='이미지 파일 업로드(최대 10MB)'
-                      url="http://localhost:8080/api/image/upload"
+                      url="http://i6b107.p.ssafy.io/api/image/upload"
                     >
                     <template v-slot:prepend>
                         <i class="fas fa-cloud-upload-alt"></i>

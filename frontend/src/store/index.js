@@ -2,12 +2,8 @@ import { createStore } from 'vuex'
 import axios from 'axios'
 
 const instance = axios.create({
-  baseURL: process.env.VUE_APP_BASE_URL
+  baseURL: 'https://i6b107.p.ssafy.io/'
 })
-
-// axios.defaults.baseURL = 'https://localhost:8080/api'
-// axios.defaults.headers['Content-Type'] = DEFAULT_ACCEPT_TYPE
-
 
 export default createStore({
   state: {

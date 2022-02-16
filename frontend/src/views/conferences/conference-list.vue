@@ -84,6 +84,7 @@ export default {
       // 회의실 불러오기
       store.dispatch('getConference')
         .then(res => {
+          console.log("res.data : " + res.data);
           state.value.conferenceList = res.data
           state.value.maxpage = Math.ceil(state.value.conferenceList.length/30)
           state.value.perPageList = state.value.conferenceList.slice(30)
