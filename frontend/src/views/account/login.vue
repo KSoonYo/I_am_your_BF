@@ -118,9 +118,11 @@ export default {
                     // 유효성 통과
                     store.dispatch('getToken', {...state.value.form})
                     .then((response)=>{
+                        console.log('토큰')
                         localStorage.setItem('accessToken', response.data.accessToken)
                     })
                     .then(()=>{
+                        console.log('유저정보')
                         store.dispatch('getUserInfo')
                         .then((response)=>{
                             localStorage.setItem('userInfo', JSON.stringify(response.data))
