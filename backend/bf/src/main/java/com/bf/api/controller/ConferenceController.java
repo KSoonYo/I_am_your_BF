@@ -1,14 +1,12 @@
 package com.bf.api.controller;
 
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
+import java.util.*;
 
 import com.bf.common.auth.SsafyUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -70,10 +68,12 @@ public class ConferenceController {
 			return ResponseEntity.status(401).body(conference);
 		}
 //		System.out.println(conference.getId());
-		
-		
+
+
 		return ResponseEntity.status(201).body(conference);
 	}
+
+
 	
 	
 	@GetMapping()
