@@ -191,6 +191,8 @@ export default {
                 state.value.conferenceList.push(data)
               }
             }
+            state.value.maxpage = Math.ceil(state.value.conferenceList.length/30)
+            state.value.perPageList = state.value.conferenceList.slice(30)
           })
           .catch(err => {
             console.log(err)
