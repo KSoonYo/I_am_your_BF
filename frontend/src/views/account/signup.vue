@@ -147,7 +147,7 @@ export default {
                 ],
 
                 userId: [
-                    val => val.replaceAll(' ','').length >= 7 && val.replaceAll(' ','').length <= 12 || '7자 이상 12자 이하로 입력해주세요.',
+                    val => val.replaceAll(' ','').length >= 5 && val.replaceAll(' ','').length <= 12 || '5자 이상 12자 이하로 입력해주세요.',
                     val => !idChecker.test(val) || '특수문자는 입력이 불가능합니다.',
 
                 ],
