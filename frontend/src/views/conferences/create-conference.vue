@@ -43,7 +43,7 @@
                     :type="isPwd ? 'password' : 'text'"
                     :rules='[ 
                       val => val.trim().length <= 10 || "10자 이내로 작성 가능합니다.",
-                      val => val.trim() == val.replace(/[^0-9]/g,"") || "숫자만 입력 가능합니다."
+                      val => val.trim() == val.replaceAll(/[^0-9]/g,"") || "숫자만 입력 가능합니다."
                     ]'
                     outlined
                   >
