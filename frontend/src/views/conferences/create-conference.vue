@@ -69,7 +69,7 @@
                       max-total-size='10485760'
                       @rejected='onRejected'
                       use-chips
-                      style='border: dashed 2px black; border-radius: 10px'
+                      style='border: dashed 2px black; border-radius: 10px; width:100%'
                       label='이미지 파일 업로드(최대 10MB)'
                       url="http://localhost:8080/api/image/upload"
                     >
