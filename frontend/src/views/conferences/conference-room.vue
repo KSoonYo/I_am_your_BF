@@ -115,7 +115,7 @@ export default {
 			videoEnabled : false,
 			captionEnabled : false,
 			shareScreenEnabled : false,
-			captionText : [],
+			eduLog : [],
 			videoList : [],
 			videoIndex : 0,
 			videoDefaultUrl : VIDEO_DEFAULT_URL,
@@ -241,6 +241,9 @@ export default {
 				p.style.fontWeight = '600'
         messageBox.appendChild(p)
         document.querySelector('#memoLog').appendChild(messageBox)
+
+				// 수업 기록 저장
+				this.eduLog.push(event.data)
 
       })
 
@@ -447,17 +450,26 @@ export default {
 				this.myPublisher = undefined
 				this.subscribers = []
 				this.OV = undefined
-				window.removeEventListener('beforeunload', this.leaveSession)			
-				
-				if (this.host){
-					this.$store.dispatch('closeConference', this.mySessionId)
-					.then(() => {
-						this.$store.dispatch('deleteConference', this.mySessionId)
+				window.removeEventListener('beforeunload', this.leaveSession)
+
+				this.$store.dispatch('sendEduLog', {
+					title : this.sessionName, 
+					sender : this.hostName, 
+					text : this.eduLog.toString().replaceAll(',', '\n')
 					})
-								
-				} else if(this.session){
-						this.session.disconnect()
-				}
+					.then(() => {
+						if (this.host){
+							this.$store.dispatch('closeConference', this.mySessionId)
+							.then(() => {
+								this.$store.dispatch('deleteConference', this.mySessionId)
+							})
+						} else if(this.session){
+								this.session.disconnect()
+						}
+					})
+					.catch(e => {
+						console.log(e)
+					})
 		},
 
 
