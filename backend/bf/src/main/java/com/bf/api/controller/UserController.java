@@ -338,12 +338,26 @@ public class UserController {
         Date now = new Date();
         String now_dt = format.format(now);
 
-
+        String userName = user.getUserName();
         String setfrom = "hello__world__@naver.com"; // naver
         String tomail = user.getUserEmail();// 받는사람
-        System.out.println(tomail);
-        String title = "[BF] "+ now_dt + "수업 기록입니다.";
-        String content = userSendEduLogReq.getText();
+        String title = "[BF] "+ now_dt + " 수업 기록입니다.";
+
+        String content =
+                System.getProperty("line.separator")
+                        + "I'm Your Best Friend, I'm Your Barrier Free "
+                        + System.getProperty("line.separator")+"안녕하세요 "+userName+"님, BF가 보내드리는 수업기록 입니다."
+                        + System.getProperty("line.separator")
+                        + System.getProperty("line.separator")+"================================================="
+                        + System.getProperty("line.separator")+"================================================="
+                        + System.getProperty("line.separator") + "DATE : " + now_dt
+                        + System.getProperty("line.separator") + "TITLE : " + userSendEduLogReq.getTitle()
+                        + System.getProperty("line.separator") + "HOST : " + userSendEduLogReq.getSender()
+                        + System.getProperty("line.separator")+"================================================="
+                        + System.getProperty("line.separator")+"================================================="
+                        + System.getProperty("line.separator")+ System.getProperty("line.separator")
+                +userSendEduLogReq.getText();
+                ;
 
         try {
             SimpleMailMessage simpleMessage = new SimpleMailMessage();
