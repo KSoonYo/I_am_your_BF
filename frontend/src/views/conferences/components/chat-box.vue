@@ -6,7 +6,7 @@
     <div id='chatLog' class='box col-11 shadow-3' style="margin-right: 12%;">
     </div>  
     <div id='textBox' class='col' style='margin-right: 12%;'>
-      <q-input borderless class="shadow-3" @keyup=' (e) => { e.keyCode === 13 ? sendMessage() : ""} ' type='text' v-model='message' style="border-top: 1px solid; color:white; border-radius:0px 0px 20px 20px; background-color: rgba(91,94,109, 0.5);">
+      <q-input borderless :input-style='{backgroundColor : "rgba(91,94,109, 1)", color : "white" , fontWeight : "bold", fontSize : "1.5rem"}' class="shadow-3" @keyup=' (e) => { e.keyCode === 13 ? sendMessage() : ""} ' type='text' v-model='message'>
         <q-btn flat rounded @click='sendMessage'>
           <i class="fas fa-paper-plane fa-2x" style="color:white;"></i>
         </q-btn>
@@ -56,6 +56,10 @@ export default {
         })
         .then(() => {
           this.message = ''
+
+          // 스크롤 하단 고정
+          const chatDiv = document.querySelector('#chatLog')
+          chatDiv.scrollTop = chatDiv.scrollHeight
         })
       }
     }
@@ -81,7 +85,7 @@ export default {
 #chatLog{
   position: relative;
   background-color: rgba(47,50,59,0.8);
-  overflow: auto;
+  overflow: auto;  
   border-radius:20px 20px 0px 0px;
   
 }
