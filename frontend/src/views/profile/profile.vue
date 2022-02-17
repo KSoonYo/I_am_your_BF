@@ -1,5 +1,5 @@
 <template>
-  <div class="flex column items-center" style="height:100vh; margin-top: 30px">
+  <div class="flex column items-center" style="height:100vh; margin-top: 30px " >
     <div style="max-width: 1246px; width:100%">
       <h1 class="cont-title">프로필 설정</h1>
       <q-form class="update-profiles" ref='profileForm'>

@@ -1,6 +1,6 @@
 <template>
   <navbarConference/>
-  <div>
+  <div style="background-image:url(assets/img/gallery/bg.png);">
     <div class="q-pt-lg"> 
       <!-- 강의실 생성 방법1 -->
       
