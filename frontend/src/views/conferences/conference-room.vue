@@ -192,9 +192,9 @@ export default {
 				}	else if(!this.host && stream.typeOfVideo === 'CAMERA' && clientData[0] === this.myUserId){
 					this.session.unsubscribe(stream)
 				} else{
+					
 					const guestDiv = document.querySelector('.guest-box')
 					guestDiv.scrollTop = guestDiv.scrollHeight
-
 					this.subscribers.push(subscriber)
 				}
 				
@@ -643,6 +643,12 @@ export default {
 	padding: 10px 10px;
 	width: 100%;
 	overflow: auto;
+	-ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.guest-box::-webkit-scrollbar{
+	display: none;
 }
 
 .guest{
