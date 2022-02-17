@@ -48,7 +48,7 @@ export default {
     const howtouse = function () {
       $q.dialog({
         title: '베프 사이트 이용가이드',
-        message: '<p style="font-family: GangwonEdu_OTFBoldA; font-size:1.5rem;">BF는 학생들의 온라인 수업권을 보장하기 위해 만들어진 화상 플랫폼 입니다.</p> <p style="font-family: GangwonEdu_OTFBoldA; font-size:1.5rem;">현재는 한정된 개발시간에 의해 수어 모델링 데이터가 부족합니다.</p> <p style="font-family: GangwonEdu_OTFBoldA; font-size:1.5rem;">데이터는 추후 계속 추가될 예정입니다.</p> <p style="font-family: GangwonEdu_OTFBoldA; font-size:1.5rem;">다음 제시된 예시로 저희 플랫폼을 즐겨보세요</p>',
+        message: '<p style="font-family: GangwonEdu_OTFBoldA; font-size:1.5rem;">BF는 학생들의 온라인 수업권을 보장하기 위해 만들어진 화상 플랫폼 입니다.</p> <p style="font-family: GangwonEdu_OTFBoldA; font-size:1.5rem;">현재는 한정된 개발시간에 의해 수어 모델링 데이터가 부족합니다.</p> <p style="font-family: GangwonEdu_OTFBoldA; font-size:1.5rem;">데이터는 추후 계속 추가될 예정입니다.</p> <p style="font-family: GangwonEdu_OTFBoldA; font-size:1.5rem;">다음 제시된 예시로 저희 플랫폼을 즐겨보세요</p> <p style="font-family: GangwonEdu_OTFBoldA; font-size:1.5rem;">(크롬환경에서 이용하시는걸 권장합니다.)</p>',
         html: true,
         style: 'max-width:800px; width:100%; font-family: GangwonEdu_OTFBoldA; font-size:1.5rem;',
         ok: '다음',
