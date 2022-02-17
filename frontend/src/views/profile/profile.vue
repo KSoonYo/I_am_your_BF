@@ -186,7 +186,8 @@ export default {
       // 이름, 이메일, 비밀번호, 비밀번호 확인 조건문
       rules: {
                 userName: [
-                    val => val.trim() !== '' || '필수 입력입니다.'
+                    val => val.trim() !== '' || '필수 입력입니다.',
+                    val => val.replaceAll(' ','').length <= 12 || '12자 이하로 입력해주세요.',
                 ],
                 userEmail : [
                     val => emailChecker.test(val) || '이메일 형식을 지켜주세요.',

@@ -3,7 +3,7 @@
   class='chatBox column'
   :class='{"show-chat" : showChat}'
   >
-    <div id='chatLog' class='col-11 shadow-3' style="margin-right: 12%;">
+    <div id='chatLog' class='box col-11 shadow-3' style="margin-right: 12%;">
     </div>  
     <div id='textBox' class='col' style='margin-right: 12%;'>
       <q-input borderless class="shadow-3" @keyup=' (e) => { e.keyCode === 13 ? sendMessage() : ""} ' type='text' v-model='message' style="border-top: 1px solid; color:white; border-radius:0px 0px 20px 20px; background-color: rgba(91,94,109, 0.5);">
@@ -85,6 +85,12 @@ export default {
   border-radius:20px 20px 0px 0px;
   
 }
-
+.box {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+}
+.box::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
+}
 
 </style>
