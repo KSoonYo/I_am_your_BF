@@ -9,6 +9,7 @@
 					:subscribers='subscribers'
 					:host='host'
 					:hostPublisher='hostPublisher'
+					@leaveSessionClick='leaveSession'
 					@toggleCaption='() => { captionEnabled = !captionEnabled }'
 					@toggleSignVideo='() => { videoEnabled = !videoEnabled }'
 					@toggleShowMemo='() => { showMemo = !showMemo }'
@@ -50,8 +51,13 @@
 							</video> -->
 						</div>
 
+						<div v-if='!!!mainStreamManager' class='share-screen shadow-up-5' style="border-radius: 20px; background-color:rgb(255,241,220);">
+							<i class="fas fa-chalkboard-teacher fa-5x" style="font-size: 10rem;"></i>
+							<h3>아직 호스트가 입장하지 않았습니다.</h3>
+						</div>
+
 						<main-stream-video :show='!shareScreenEnabled' id='mainStream' :stream-manager="mainStreamManager" class="shadow-up-5" style="border-radius: 20px; background-color:rgb(255,241,220);"/>
-						<div v-show='shareScreenEnabled' class='share-screen shadow-up-5' style="border-radius: 20px; background-color:rgb(255,241,220);">
+						<div v-if='shareScreenEnabled' class='share-screen shadow-up-5' style="border-radius: 20px; background-color:rgb(255,241,220);">
 							<!-- 화면 공유용 비디오 공간 -->
 
 						</div>
@@ -132,21 +138,6 @@ export default {
 			mySessionTitle: null,
 			myUserName: '',
 		
-
-			// 드래그 이벤트용
-			isDragging : null,
-			originLeft : null,
-			originTop : null,
-			originX : null,
-			originY : null,
-
-			containerWidth: null,
-			containerHeight: null,
-
-			signVideoBoxWidth: null,
-			signVideoBoxHeight: null
-
-
 		}
 	},
 	methods: {
@@ -200,6 +191,9 @@ export default {
 				}	else if(!this.host && stream.typeOfVideo === 'CAMERA' && clientData[0] === this.myUserId){
 					this.session.unsubscribe(stream)
 				} else{
+					const guestDiv = document.querySelector('.guest-box')
+					guestDiv.scrollTop = guestDiv.scrollHeight
+
 					this.subscribers.push(subscriber)
 				}
 				
@@ -234,6 +228,8 @@ export default {
 				p.style.fontSize = '18px'
 				p.style.fontWeight = '600'
 				p.style.color = 'white'
+				p.style.wordBreak = 'break-all'
+				p.style.whiteSpace = 'normal'
         messageBox.appendChild(p)
         document.querySelector('#chatLog').appendChild(messageBox)
 
@@ -261,9 +257,14 @@ export default {
 				p.style.fontSize = '18px'
 				p.style.fontWeight = '600'
 				p.style.color = 'white'
+				p.style.wordBreak = 'break-all'
+				p.style.whiteSpace = 'normal'
         messageBox.appendChild(p)
 				messageBox.appendChild(nameSpan)
-        document.querySelector('#memoLog').appendChild(messageBox)
+
+				const memoDiv = document.querySelector('#memoLog')
+        memoDiv.appendChild(messageBox)
+				memoDiv.scrollTop = memoDiv.scrollHeight
 
 				this.eduLog.push(event.data)
 
@@ -577,6 +578,7 @@ export default {
 	height: 100%;
 	flex-direction: column;
   align-items: center;
+	justify-content: center;
 }
 
 .share-screen > video:nth-child(1){
