@@ -64,7 +64,7 @@
 					</div>
 
 					<!-- 참가자 화면 -->
-					<div id="video-container" class='col-2 column displaywidth'>
+					<div id="video-container" class='col-2 column displaywidth listbox'>
 						<div class='guest-box shadow-up-5 col' style="background-color:rgb(255,241,220);">
 							<!-- 참가자 -->
 							<!-- <Flicking 
@@ -629,5 +629,13 @@ export default {
 
 .font{
 	font-family: 'GangwonEdu_OTFBoldA';
+}
+
+.listbox {
+	-ms-overflow-style: none; /* IE and Edge */
+	scrollbar-width: none; /* Firefox */
+}
+.listbox::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
 }
 </style>

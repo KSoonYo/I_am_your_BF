@@ -7,7 +7,7 @@
     </div>  
     <div id='textBox' class='col' style='margin-right: 12%;'>
       <q-input borderless :input-style='{backgroundColor : "rgba(91,94,109, 1)", color : "white" , fontWeight : "bold", fontSize : "1.5rem"}' class="shadow-3" @keyup=' (e) => { e.keyCode === 13 ? sendMessage() : ""} ' type='text' v-model='message'>
-        <q-btn flat rounded @click='sendMessage'>
+        <q-btn flat @click='sendMessage' style="backgroundColor : rgba(91,94,109, 1)">
           <i class="fas fa-paper-plane fa-2x" style="color:white;"></i>
         </q-btn>
       </q-input>
