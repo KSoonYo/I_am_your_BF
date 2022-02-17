@@ -32,7 +32,7 @@
               use-chips
               style='border: solid 1px rgba(0, 0, 0, .2); border-radius: 10px; width:50%; '
               :label='state.labelmessage'
-              url="http://localhost:8080/api/image/upload">
+              url="http://i6b107.p.ssafy.io/api/image/upload">
             </q-file>
         </div>
         <div class="flex justify-center">
@@ -281,7 +281,7 @@ export default {
               store.dispatch('updateProfile', {
                   userId : JSON.parse(localStorage.getItem('userInfo')).userId,
                   userName : state.value.form.userName,
-                  userEmail : state.value.form.userEmailCh,
+                  userEmail : state.value.userEmailCh,
                   thumbnail : state.value.result,
                   userDescription : '',
               })
@@ -294,6 +294,8 @@ export default {
               })
             } else {
               // 프로필 업데이트
+
+              console.log(state.value.form.userEmailCh)
               store.dispatch('updateProfile', {
                   userId : JSON.parse(localStorage.getItem('userInfo')).userId,
                   userName : state.value.form.userName,
