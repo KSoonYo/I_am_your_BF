@@ -131,11 +131,29 @@ export default {
         .then(res => {
           // 제목 오름,내림차순 정렬
           if (state.value.titleasc) {
+            console.log(res.data)
             state.value.titleasc = false
-            state.value.conferenceList = res.data.sort(title => title)
+            state.value.conferenceList = res.data.sort(function(a,b){
+              if(a.title > b.title){
+                return 1;
+              }else if (a.title < b.title){
+                return -1;
+              }else{
+                return 0;
+              }
+            })
           } else {
+            console.log(res.data)
             state.value.titleasc = true
-            state.value.conferenceList = res.data.reverse(title => title)
+            state.value.conferenceList = res.data.sort(function(a,b){
+              if(a.title > b.title){
+                return -1;
+              }else if (a.title < b.title){
+                return 1;
+              }else{
+                return 0;
+              }
+            })
           }
           // console.log(state.value.conferenceList)
         })
@@ -150,10 +168,26 @@ export default {
           // 방번호 오름,내림차순 정렬
           if (state.value.numasc) {
             state.value.numasc = false
-            state.value.conferenceList = res.data.sort(id => id)
+            state.value.conferenceList = res.data.sort(function(a,b){
+              if(a.id > b.id){
+                return 1;
+              }else if (a.id < b.id){
+                return -1;
+              }else{
+                return 0;
+              }
+            })
           } else {
             state.value.numasc = true
-            state.value.conferenceList = res.data.reverse(id => id)
+            state.value.conferenceList = res.data.sort(function(a,b){
+              if(a.id > b.id){
+                return -1;
+              }else if (a.id < b.id){
+                return 1;
+              }else{
+                return 0;
+              }
+            })
           }
           // console.log(state.value.conferenceList)
         })
@@ -167,10 +201,26 @@ export default {
           // 이름 오름,내림차순 정렬
           if (state.value.nameasc) {
             state.value.nameasc = false
-            state.value.conferenceList = res.data.sort(userName => userName)
+            state.value.conferenceList = res.data.sort(function(a,b){
+              if(a.userName > b.userName){
+                return 1;
+              }else if (a.userName < b.userName){
+                return -1;
+              }else{
+                return 0;
+              }
+            })
           } else {
             state.value.nameasc = true
-            state.value.conferenceList = res.data.reverse(userName => userName)
+            state.value.conferenceList = res.data.sort(function(a,b){
+              if(a.userName > b.userName){
+                return -1;
+              }else if (a.userName < b.userName){
+                return 1;
+              }else{
+                return 0;
+              }
+            })
           }
           // console.log(state.value.conferenceList)
         })
