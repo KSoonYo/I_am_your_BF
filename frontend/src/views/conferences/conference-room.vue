@@ -165,7 +165,7 @@ export default {
 				if(stream.typeOfVideo === 'SCREEN'){
 					const shareScreen = document.querySelector('.share-screen')
 					const subscriber = this.session.subscribe(stream, shareScreen, {insertMode: 'APPEND'})
-					subscriber.createVideoElement(shareScreen, 'APPEND')
+					// subscriber.createVideoElement(shareScreen, 'APPEND')
 
 					subscriber.on('videoElementCreated', event => {
 						this.initMainVideo(event.element)
@@ -458,7 +458,7 @@ export default {
 								})
 
 							this.session.unpublish(this.myPublisher)
-							newPublisher.createVideoElement(shareScreen, 'APPEND')
+							// newPublisher.createVideoElement(shareScreen, 'APPEND')
 							this.shareScreenEnabled = true
 							this.session.publish(newPublisher)
 						
@@ -488,26 +488,27 @@ export default {
 					sender : this.hostName, 
 					text : this.eduLog.toString().replaceAll(',', '\n')
 					})
+
+
+				this.siteOut = true;
+
+					
+				if (this.host){
+					this.$store.dispatch('closeConference', this.mySessionId)
 					.then(() => {
-						this.siteOut = true
-						if (this.host){
-							this.$store.dispatch('closeConference', this.mySessionId)
-							.then(() => {
-								this.$store.dispatch('deleteConference', this.mySessionId)
-							})
-						} else if(this.session){
-								this.session.disconnect()
-						}
+						this.$store.dispatch('deleteConference', this.mySessionId)
 					})
-					.catch(e => {
-						console.log(e)
-					})
+				} else if(this.session){
+					this.session.disconnect()
+				}
+			
+					
 		},
 
 
 		getToken (mySessionId) {
 			return new Promise((resolve, reject) => {
-					axios.post(`http://localhost:8080/api/openvidu/get-token`, JSON.stringify({
+					axios.post(`http://i6b107.p.ssafy.io/api/openvidu/get-token`, JSON.stringify({
 									sessionName: mySessionId,
 							}))
 							.then(response => response.data)
@@ -518,17 +519,17 @@ export default {
 
 	},
 
-	beforeRouteLeave(to, from, next) {
-    if (this.siteOut){
-			// 제대로 종료 버튼을 눌렀을 때
-			next()
-		}
-    else if (confirm('이 사이트에서 나가시겠습니까?\n변경사항이 저장되지 않을 수 있습니다.')) {
-			// 뒤로가기 등 다른 수단으로 사이트를 이동할 때
-			this.siteOut = true
-			this.leaveSession()
-		}
-  },
+// 	beforeRouteLeave(to, from, next) {
+//     if (this.siteOut){
+// 			// 제대로 종료 버튼을 눌렀을 때
+// 			next()
+// 		}
+//     else if (confirm('이 사이트에서 나가시겠습니까?\n변경사항이 저장되지 않을 수 있습니다.')) {
+// 			// 뒤로가기 등 다른 수단으로 사이트를 이동할 때
+// 			this.siteOut = true
+// 			this.leaveSession()
+// 		}
+//   },
 
   created(){
 		console.log('현재 session', this.session)
