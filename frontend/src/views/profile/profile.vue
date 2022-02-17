@@ -1,5 +1,5 @@
 <template>
-  <div class="flex column items-center" style="height:100vh; margin-top: 30px">
+  <div class="flex column items-center" style="height:100vh; margin-top: 30px " >
     <div style="max-width: 1246px; width:100%">
       <h1 class="cont-title">프로필 설정</h1>
       <q-form class="update-profiles" ref='profileForm'>
@@ -186,7 +186,8 @@ export default {
       // 이름, 이메일, 비밀번호, 비밀번호 확인 조건문
       rules: {
                 userName: [
-                    val => val.trim() !== '' || '필수 입력입니다.'
+                    val => val.trim() !== '' || '필수 입력입니다.',
+                    val => val.replaceAll(' ','').length <= 12 || '12자 이하로 입력해주세요.',
                 ],
                 userEmail : [
                     val => emailChecker.test(val) || '이메일 형식을 지켜주세요.',

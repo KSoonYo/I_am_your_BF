@@ -3,7 +3,7 @@
   class='memoBox column'
   :class='{"show-memo" : showMemo}'
   >
-    <div id='memoLog' class='col shadow-3' style="margin-left: 13%; margin-bottom: 10%">
+    <div id='memoLog' class='box col shadow-3' style="margin-left: 13%; margin-bottom: 10%">
       <h5 class="text-center" style="color:white"> 수업 기록 </h5>
       <div id='memoContent'>
 
@@ -41,5 +41,12 @@ export default {
   background-color: rgba(47,50,59,0.8);
   overflow: auto;
   border-radius:20px;
+}
+.box {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+}
+.box::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
 }
 </style>

@@ -2,7 +2,7 @@
   <div class="home-btn"><a class="navbar-brand" href="/"><img src="assets/img/gallery/logo_bf2.png"
         height="45" alt="logo" /></a>
   </div>
-    <div class='column items-center flex justify-center' style='min-height:100vh;'>
+    <div class='column items-center flex justify-center' style='min-height:100vh; background-image:url(assets/img/gallery/hero-header-bg.png);'>
 		<div class='container'>
 			<div class='row justify-center backimg'>
 				<div class='col-12 flex items-center justify-center'>
@@ -143,7 +143,8 @@ export default {
 
             rules: {
                 userName: [
-                    val => val.trim() !== '' || '필수 입력입니다.'
+                    val => val.trim() !== '' || '필수 입력입니다.',
+                    val => val.replaceAll(' ','').length <= 12 || '12자 이하로 입력해주세요.',
                 ],
 
                 userId: [
