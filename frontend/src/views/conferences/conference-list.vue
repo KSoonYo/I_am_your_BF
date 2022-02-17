@@ -65,6 +65,9 @@ import Conference from './components/conference'
 import navbarConference from './components/navbar-conference'
 import { useStore } from 'vuex'
 
+
+
+
 export default {
   name: 'conferenceList',
   
@@ -76,7 +79,10 @@ export default {
   setup () {
     const store = useStore()
 
-    onMounted(() => {
+      // router 불러오기
+    const router = useRouter();
+
+    onMounted(() => { 
       const token = localStorage.getItem('accessToken')
       if (!token) {
         router.push( {name:"home"} )
@@ -92,8 +98,7 @@ export default {
           console.log('에러')
         })
     })
-    // router 불러오기
-    const router = useRouter();
+  
     // 반응형 버튼
     const dense = ref(false);
 
