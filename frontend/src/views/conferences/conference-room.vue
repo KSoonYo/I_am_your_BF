@@ -128,6 +128,7 @@ export default {
 			eduLog : [],
 			showMemo : false,
 			showChat : false,
+			siteOut : false,
 
 			host: false,
 			hostId : '',
@@ -142,6 +143,7 @@ export default {
 	},
 	methods: {
 		joinSession () {
+
 			// --- Get an OpenVidu object ---
 			this.OV = new OpenVidu();
 			// --- Init a session ---
@@ -152,9 +154,8 @@ export default {
 			})
 
 			this.session.on('sessionDisconnected', ()=>{
-				console.log('호스트가 세션 연결을 종료')
-				alert('세션이 종료되었습니다.')
 				this.$router.push({name : 'conferenceList'})
+				alert('세션이 종료되었습니다.')
 			})
 		
 
@@ -468,12 +469,19 @@ export default {
 		},
 
 		leaveSession () {
-			// --- Leave the session by calling 'disconnect' method over the Session object ---
+
+				const memoBoxDiv = document.querySelector('#memoContent')
+				if ( memoBoxDiv.hasChildNodes()){
+					memoBoxDiv.removeChild(memoBoxDiv.firstChild)
+				}
+
+				// --- Leave the session by calling 'disconnect' method over the Session object ---
 				this.mainStreamManager = undefined
 				this.myPublisher = undefined
 				this.subscribers = []
 				this.OV = undefined
 				window.removeEventListener('beforeunload', this.leaveSession)
+
 
 				this.$store.dispatch('sendEduLog', {
 					title : this.mySessionTitle,
@@ -481,6 +489,7 @@ export default {
 					text : this.eduLog.toString().replaceAll(',', '\n')
 					})
 					.then(() => {
+						this.siteOut = true
 						if (this.host){
 							this.$store.dispatch('closeConference', this.mySessionId)
 							.then(() => {
@@ -509,6 +518,18 @@ export default {
 
 	},
 
+	beforeRouteLeave(to, from, next) {
+    if (this.siteOut){
+			// 제대로 종료 버튼을 눌렀을 때
+			next()
+		}
+    else if (confirm('이 사이트에서 나가시겠습니까?\n변경사항이 저장되지 않을 수 있습니다.')) {
+			// 뒤로가기 등 다른 수단으로 사이트를 이동할 때
+			this.siteOut = true
+			this.leaveSession()
+		}
+  },
+
   created(){
 		console.log('현재 session', this.session)
 		console.log(this.$route.params.conferenceId)
@@ -529,6 +550,7 @@ export default {
 		})
 		.then(() => {
 			this.joinSession()
+			
 		})
 		
   },
