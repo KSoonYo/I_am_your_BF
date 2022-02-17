@@ -9,6 +9,7 @@
 					:subscribers='subscribers'
 					:host='host'
 					:hostPublisher='hostPublisher'
+					@leaveSessionClick='leaveSession'
 					@toggleCaption='() => { captionEnabled = !captionEnabled }'
 					@toggleSignVideo='() => { videoEnabled = !videoEnabled }'
 					@toggleShowMemo='() => { showMemo = !showMemo }'
@@ -468,6 +469,7 @@ export default {
 				this.OV = undefined
 				window.removeEventListener('beforeunload', this.leaveSession)
 
+				console.log("leaveSession");
 				this.$store.dispatch('sendEduLog', {
 					title : this.mySessionTitle,
 					sender : this.hostName, 
