@@ -17,7 +17,7 @@ export default {
 	},
 	props: {
 		streamManager: Object,
-    show: Boolean
+    show: Boolean,
 	},
 	data(){
 		return {
