@@ -381,7 +381,7 @@ Web RTC 기술 기반으로 쉽고 간편하게 화상 회의 서비스를 커�
   - 웹사이트 디자인 컨셉
     - 로고 초안 제작
     
-      ![로고 제작 이미지](BF_Barrier_Free_Project.assets/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fc03e8926-7481-4333-93ae-023406f58e88%2FUntitled.png)
+      ![로고 제작 이미지](README.assets/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fc03e8926-7481-4333-93ae-023406f58e88%2FUntitled.png)
     
   - User Flow 
 
