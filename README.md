@@ -16,7 +16,7 @@
 
 :black_large_square: 사이트 주소
 
-https://iamyourbf.site/
+~~https://iamyourbf.site/~~ (현재 지원하지 않는 주소입니다.)
 
 
 
